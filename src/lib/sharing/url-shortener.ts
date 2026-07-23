@@ -1,4 +1,5 @@
 const SPOO_ME_SHORTEN_URL = 'https://spoo.me/api/v1/shorten';
+const SPOO_ME_MAX_LONG_URL_LENGTH = 8_192;
 const SHORTEN_TIMEOUT_MS = 10_000;
 
 type SpooMeShortenResponse = {
@@ -19,6 +20,10 @@ const isSpooMeUrl = (value: unknown): value is string => {
 };
 
 export async function shortenShareUrl(longUrl: string, fetcher: typeof fetch = fetch) {
+	if (longUrl.length > SPOO_ME_MAX_LONG_URL_LENGTH) {
+		throw new Error('The share URL exceeds the Spoo.me length limit.');
+	}
+
 	const controller = new AbortController();
 	const timeout = setTimeout(() => controller.abort(), SHORTEN_TIMEOUT_MS);
 

@@ -366,7 +366,9 @@
 				await copyShareUrl('Short share link copied to your clipboard.');
 			} catch {
 				shareUrl = fullShareUrl;
-				await copyShareUrl('Spoo.me was unavailable, so the full share link was copied instead.');
+				await copyShareUrl(
+					'Spoo.me could not shorten this build, so the full share link was copied instead.'
+				);
 			}
 		} catch {
 			libraryMessage = 'Could not generate a share link for this build.';

@@ -11,6 +11,7 @@
 		CheckOutline,
 		CloseOutline,
 		EditOutline,
+		GithubSolid,
 		LinkOutline,
 		RefreshOutline
 	} from 'flowbite-svelte-icons';
@@ -561,6 +562,16 @@
 			</div>
 			<div class="flex items-center gap-2">
 				<Badge color="cyan" rounded>3.29 plan</Badge>
+				<a
+					href="https://github.com/CollinHerber/poe-build-tool"
+					target="_blank"
+					rel="noreferrer"
+					aria-label="View Atlas Step on GitHub"
+					class="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/50 hover:text-cyan-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+				>
+					<GithubSolid class="size-4" />
+					<span class="hidden sm:inline">GitHub</span>
+				</a>
 				<a
 					href="https://www.pathofexile.com/"
 					target="_blank"

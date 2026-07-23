@@ -1,4 +1,4 @@
-import type { GuideEquipmentItem } from '$lib/types/guide';
+import type { GuideEquipmentImplicit, GuideEquipmentItem } from '$lib/types/guide';
 
 export type EquipmentChange = {
 	slot: string;
@@ -11,6 +11,10 @@ export type EquipmentModifierComparison = {
 	text: string;
 	previousText?: string;
 	tone: 'same' | 'higher' | 'lower' | 'added' | 'removed' | 'changed';
+};
+
+export type EquipmentImplicitComparison = EquipmentModifierComparison & {
+	source: GuideEquipmentImplicit['source'];
 };
 
 const rareSlotPriorities: Record<string, string[]> = {
@@ -170,12 +174,16 @@ const itemSignature = (item: GuideEquipmentItem) =>
 		baseType: item.baseType,
 		rarity: item.rarity,
 		levelRequirement: item.levelRequirement,
+		corrupted: item.corrupted,
 		implicits: item.implicits,
 		stats: item.stats
 	});
 
 export const equipmentModifierLines = (item: GuideEquipmentItem | undefined) =>
-	item ? [...(item.implicits ?? []).map((implicit) => implicit.text), ...item.stats] : [];
+	item?.stats.filter((line) => line !== 'Corrupted') ?? [];
+
+export const isCorruptedEquipment = (item: GuideEquipmentItem | undefined) =>
+	Boolean(item?.corrupted || item?.stats.includes('Corrupted'));
 
 const modifierNumbers = (line: string) =>
 	[...line.matchAll(/[+-]?\d+(?:\.\d+)?/gu)].map((match) => Number(match[0]));
@@ -213,12 +221,10 @@ const compareModifierValues = (
 	return 'changed';
 };
 
-export function compareEquipmentModifiers(
-	before: GuideEquipmentItem | undefined,
-	after: GuideEquipmentItem | undefined
-): EquipmentModifierComparison[] {
-	const beforeLines = equipmentModifierLines(before);
-	const afterLines = equipmentModifierLines(after);
+const compareModifierLines = (
+	beforeLines: string[],
+	afterLines: string[]
+): EquipmentModifierComparison[] => {
 	const beforeBySignature = new Map<string, Array<{ index: number; text: string }>>();
 
 	for (const [index, text] of beforeLines.entries()) {
@@ -253,6 +259,31 @@ export function compareEquipmentModifiers(
 	}
 
 	return comparisons;
+};
+
+export function compareEquipmentModifiers(
+	before: GuideEquipmentItem | undefined,
+	after: GuideEquipmentItem | undefined
+): EquipmentModifierComparison[] {
+	return compareModifierLines(equipmentModifierLines(before), equipmentModifierLines(after));
+}
+
+export function compareEquipmentImplicits(
+	before: GuideEquipmentItem | undefined,
+	after: GuideEquipmentItem | undefined
+): EquipmentImplicitComparison[] {
+	const beforeImplicits = before?.implicits ?? [];
+	const afterImplicits = after?.implicits ?? [];
+	return compareModifierLines(
+		beforeImplicits.map((implicit) => implicit.text),
+		afterImplicits.map((implicit) => implicit.text)
+	).map((comparison) => {
+		const source =
+			afterImplicits.find((implicit) => implicit.text === comparison.text)?.source ??
+			beforeImplicits.find((implicit) => implicit.text === comparison.previousText)?.source ??
+			'base';
+		return { ...comparison, source };
+	});
 }
 
 export function diffEquipment(

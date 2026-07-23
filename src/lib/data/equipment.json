@@ -784,14 +784,14 @@
 				"baseType": "Golden Mask",
 				"rarity": "UNIQUE",
 				"levelRequirement": 35,
-				"implicits": [{ "text": "+1 to Maximum Power Charges", "source": "base" }],
+				"corrupted": true,
+				"implicits": [{ "text": "+1 to Maximum Power Charges", "source": "corruption" }],
 				"stats": [
 					"(350-400)% increased Evasion and Energy Shield",
 					"+5% Chance to Block Spell Damage per Power Charge",
 					"(3-5)% increased Elemental Damage per Power charge",
 					"Gain a Power Charge every Second if you haven't lost Power Charges Recently",
-					"Lose all Power Charges when you Block",
-					"Corrupted"
+					"Lose all Power Charges when you Block"
 				]
 			},
 			{
@@ -1016,14 +1016,14 @@
 				"baseType": "Golden Mask",
 				"rarity": "UNIQUE",
 				"levelRequirement": 35,
-				"implicits": [{ "text": "+1 to Maximum Power Charges", "source": "base" }],
+				"corrupted": true,
+				"implicits": [{ "text": "+1 to Maximum Power Charges", "source": "corruption" }],
 				"stats": [
 					"(350-400)% increased Evasion and Energy Shield",
 					"+5% Chance to Block Spell Damage per Power Charge",
 					"(3-5)% increased Elemental Damage per Power charge",
 					"Gain a Power Charge every Second if you haven't lost Power Charges Recently",
-					"Lose all Power Charges when you Block",
-					"Corrupted"
+					"Lose all Power Charges when you Block"
 				]
 			},
 			{
@@ -1105,9 +1105,9 @@
 				"slot": "Ring 1",
 				"name": "Romira's Banquet",
 				"baseType": "Diamond Ring",
-				"rarity": "RARE",
+				"rarity": "UNIQUE",
 				"levelRequirement": 60,
-				"implicits": [{ "text": "+1 to maximum power charges", "source": "base" }],
+				"implicits": [{ "text": "+1 to maximum power charges", "source": "corruption" }],
 				"stats": [
 					"+1 to maximum power charges",
 					"+(15-25)% to Global Critical Strike Multiplier",
@@ -1115,15 +1115,16 @@
 					"0.4% of Physical Attack Damage Leeched as Mana",
 					"Gain a Power Charge on Non-Critical Strike",
 					"Lose all Power Charges on Critical Strike"
-				]
+				],
+				"corrupted": true
 			},
 			{
 				"slot": "Ring 2",
 				"name": "Romira's Banquet",
 				"baseType": "Diamond Ring",
-				"rarity": "RARE",
+				"rarity": "UNIQUE",
 				"levelRequirement": 60,
-				"implicits": [{ "text": "+1 to maximum power charges", "source": "base" }],
+				"implicits": [{ "text": "+1 to maximum power charges", "source": "corruption" }],
 				"stats": [
 					"+1 to maximum power charges",
 					"+(15-25)% to Global Critical Strike Multiplier",
@@ -1131,7 +1132,8 @@
 					"0.4% of Physical Attack Damage Leeched as Mana",
 					"Gain a Power Charge on Non-Critical Strike",
 					"Lose all Power Charges on Critical Strike"
-				]
+				],
+				"corrupted": true
 			},
 			{
 				"slot": "Belt",

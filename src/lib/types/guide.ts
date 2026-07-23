@@ -57,7 +57,7 @@ export type GuideGemGroup = {
 
 export type GuideEquipmentImplicit = {
 	text: string;
-	source: 'eater' | 'exarch' | 'anointment' | 'enchant' | 'base';
+	source: 'eater' | 'exarch' | 'anointment' | 'enchant' | 'corruption' | 'base';
 };
 
 export type GuideEquipmentItem = {
@@ -66,6 +66,7 @@ export type GuideEquipmentItem = {
 	baseType: string;
 	rarity: 'NORMAL' | 'MAGIC' | 'RARE' | 'UNIQUE';
 	levelRequirement?: number;
+	corrupted?: boolean;
 	implicits?: GuideEquipmentImplicit[];
 	stats: string[];
 };

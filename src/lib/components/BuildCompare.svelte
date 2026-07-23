@@ -13,15 +13,24 @@
 		formatConfigurationValue
 	} from '$lib/poe/compare';
 	import {
+		compareEquipmentImplicits,
 		compareEquipmentModifiers,
 		diffEquipment,
 		equipmentModifierLines,
+		isCorruptedEquipment,
+		type EquipmentImplicitComparison,
 		type EquipmentModifierComparison
 	} from '$lib/poe/equipment';
 	import { displayGemColor, type GemDisplayColor } from '$lib/poe/gem-colors';
 	import { diffGemGroups } from '$lib/poe/gems';
 	import { importPobbBuild, parsePobbUrl } from '$lib/poe/pobb-import';
-	import type { BuildGuide, GuideEquipmentItem, GuideGem, GuideStep } from '$lib/types/guide';
+	import type {
+		BuildGuide,
+		GuideEquipmentImplicit,
+		GuideEquipmentItem,
+		GuideGem,
+		GuideStep
+	} from '$lib/types/guide';
 
 	let {
 		guide,
@@ -210,6 +219,31 @@
 		removed: 'Removed',
 		changed: 'Changed'
 	};
+
+	const implicitSourceLabels: Record<GuideEquipmentImplicit['source'], string> = {
+		eater: 'Eater',
+		exarch: 'Exarch',
+		anointment: 'Anointment',
+		enchant: 'Enchant',
+		corruption: 'Corrupted implicit',
+		base: 'Implicit'
+	};
+
+	const implicitSourceBadgeClasses: Record<GuideEquipmentImplicit['source'], string> = {
+		eater: 'bg-cyan-400/10 text-cyan-300',
+		exarch: 'bg-orange-400/10 text-orange-300',
+		anointment: 'bg-violet-400/10 text-violet-300',
+		enchant: 'bg-emerald-400/10 text-emerald-300',
+		corruption: 'bg-rose-400/10 text-rose-300',
+		base: 'bg-slate-800 text-slate-500'
+	};
+
+	function implicitComparisonLines(
+		before: GuideEquipmentItem | undefined,
+		after: GuideEquipmentItem | undefined
+	): EquipmentImplicitComparison[] {
+		return compareEquipmentImplicits(before, after).slice(0, 12);
+	}
 </script>
 
 <div class="space-y-6">
@@ -381,13 +415,53 @@
 										Website
 									</p>
 									{#if change.before}
-										<p class="mt-2 text-sm font-semibold text-slate-100">{change.before.name}</p>
+										<div class="mt-2 flex flex-wrap items-center gap-2">
+											<p class="text-sm font-semibold text-slate-100">{change.before.name}</p>
+											{#if isCorruptedEquipment(change.before)}
+												<span
+													class="rounded-full border border-rose-400/20 bg-rose-400/10 px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-rose-300 uppercase"
+												>
+													Corrupted
+												</span>
+											{/if}
+										</div>
 										<p class="text-xs text-slate-500">{change.before.baseType}</p>
-										<ul class="mt-3 space-y-1.5">
-											{#each itemLines(change.before) as line, index (`${line}-${index}`)}
-												<li class="text-xs leading-5 text-slate-400">{line}</li>
-											{/each}
-										</ul>
+										{#if change.before.implicits?.length}
+											<div class="mt-3">
+												<p class="text-[0.6rem] font-bold tracking-wider text-slate-600 uppercase">
+													Implicits
+												</p>
+												<ul class="mt-1.5 space-y-1.5">
+													{#each change.before.implicits as implicit, index (`${implicit.source}-${implicit.text}-${index}`)}
+														<li
+															class="flex items-start justify-between gap-2 text-xs leading-5 text-slate-400"
+														>
+															<span>{implicit.text}</span>
+															<span
+																class={[
+																	'shrink-0 rounded-full px-2 py-0.5 text-[0.55rem] font-bold tracking-wide uppercase',
+																	implicitSourceBadgeClasses[implicit.source]
+																]}
+															>
+																{implicitSourceLabels[implicit.source]}
+															</span>
+														</li>
+													{/each}
+												</ul>
+											</div>
+										{/if}
+										{#if itemLines(change.before).length}
+											<div class="mt-3">
+												<p class="text-[0.6rem] font-bold tracking-wider text-slate-600 uppercase">
+													Modifiers
+												</p>
+												<ul class="mt-1.5 space-y-1.5">
+													{#each itemLines(change.before) as line, index (`${line}-${index}`)}
+														<li class="text-xs leading-5 text-slate-400">{line}</li>
+													{/each}
+												</ul>
+											</div>
+										{/if}
 									{:else}
 										<p class="mt-2 text-sm text-slate-600">Empty slot</p>
 									{/if}
@@ -400,28 +474,83 @@
 										Imported
 									</p>
 									{#if change.after}
-										<p class="mt-2 text-sm font-semibold text-slate-100">{change.after.name}</p>
-										<p class="text-xs text-slate-500">{change.after.baseType}</p>
-										<ul class="mt-3 space-y-1.5">
-											{#each compareEquipmentModifiers(change.before, change.after).slice(0, 12) as modifier, index (`${modifier.text}-${index}`)}
-												<li
-													class={[
-														'flex items-start justify-between gap-2 rounded-md px-2 py-1 text-xs leading-5',
-														modifierToneClasses[modifier.tone]
-													]}
-													title={modifier.previousText && modifier.tone !== 'same'
-														? `Website: ${modifier.previousText}`
-														: undefined}
+										<div class="mt-2 flex flex-wrap items-center gap-2">
+											<p class="text-sm font-semibold text-slate-100">{change.after.name}</p>
+											{#if isCorruptedEquipment(change.after)}
+												<span
+													class="rounded-full border border-rose-400/20 bg-rose-400/10 px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-rose-300 uppercase"
 												>
-													<span>{modifier.text}</span>
-													{#if modifierToneLabels[modifier.tone]}
-														<span class="shrink-0 text-[0.6rem] font-bold tracking-wide uppercase">
-															{modifierToneLabels[modifier.tone]}
-														</span>
-													{/if}
-												</li>
-											{/each}
-										</ul>
+													Corrupted
+												</span>
+											{/if}
+										</div>
+										<p class="text-xs text-slate-500">{change.after.baseType}</p>
+										{#if implicitComparisonLines(change.before, change.after).length}
+											<div class="mt-3">
+												<p class="text-[0.6rem] font-bold tracking-wider text-slate-600 uppercase">
+													Implicits
+												</p>
+												<ul class="mt-1.5 space-y-1.5">
+													{#each implicitComparisonLines(change.before, change.after) as implicit, index (`${implicit.source}-${implicit.text}-${index}`)}
+														<li
+															class={[
+																'flex items-start justify-between gap-2 rounded-md px-2 py-1 text-xs leading-5',
+																modifierToneClasses[implicit.tone]
+															]}
+															title={implicit.previousText && implicit.tone !== 'same'
+																? `Website: ${implicit.previousText}`
+																: undefined}
+														>
+															<span>{implicit.text}</span>
+															<span class="flex shrink-0 flex-wrap justify-end gap-1">
+																<span
+																	class={[
+																		'rounded-full px-2 py-0.5 text-[0.55rem] font-bold tracking-wide uppercase',
+																		implicitSourceBadgeClasses[implicit.source]
+																	]}
+																>
+																	{implicitSourceLabels[implicit.source]}
+																</span>
+																{#if modifierToneLabels[implicit.tone]}
+																	<span class="text-[0.6rem] font-bold tracking-wide uppercase">
+																		{modifierToneLabels[implicit.tone]}
+																	</span>
+																{/if}
+															</span>
+														</li>
+													{/each}
+												</ul>
+											</div>
+										{/if}
+										{#if compareEquipmentModifiers(change.before, change.after).length}
+											<div class="mt-3">
+												<p class="text-[0.6rem] font-bold tracking-wider text-slate-600 uppercase">
+													Modifiers
+												</p>
+												<ul class="mt-1.5 space-y-1.5">
+													{#each compareEquipmentModifiers(change.before, change.after).slice(0, 12) as modifier, index (`${modifier.text}-${index}`)}
+														<li
+															class={[
+																'flex items-start justify-between gap-2 rounded-md px-2 py-1 text-xs leading-5',
+																modifierToneClasses[modifier.tone]
+															]}
+															title={modifier.previousText && modifier.tone !== 'same'
+																? `Website: ${modifier.previousText}`
+																: undefined}
+														>
+															<span>{modifier.text}</span>
+															{#if modifierToneLabels[modifier.tone]}
+																<span
+																	class="shrink-0 text-[0.6rem] font-bold tracking-wide uppercase"
+																>
+																	{modifierToneLabels[modifier.tone]}
+																</span>
+															{/if}
+														</li>
+													{/each}
+												</ul>
+											</div>
+										{/if}
 									{:else}
 										<p class="mt-2 text-sm text-slate-600">Empty slot</p>
 									{/if}

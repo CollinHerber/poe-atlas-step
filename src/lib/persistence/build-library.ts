@@ -115,7 +115,14 @@ const isGemGroup = (value: unknown): value is GuideGemGroup =>
 	value.gems.every(isGem);
 
 const equipmentRarities = new Set(['NORMAL', 'MAGIC', 'RARE', 'UNIQUE']);
-const equipmentImplicitSources = new Set(['eater', 'exarch', 'anointment', 'enchant', 'base']);
+const equipmentImplicitSources = new Set([
+	'eater',
+	'exarch',
+	'anointment',
+	'enchant',
+	'corruption',
+	'base'
+]);
 
 const isEquipmentImplicit = (value: unknown): value is GuideEquipmentImplicit =>
 	isObject(value) &&
@@ -130,6 +137,7 @@ const isEquipmentItem = (value: unknown): value is GuideEquipmentItem =>
 	isString(value.baseType, 300) &&
 	typeof value.rarity === 'string' &&
 	equipmentRarities.has(value.rarity) &&
+	(value.corrupted === undefined || typeof value.corrupted === 'boolean') &&
 	(value.levelRequirement === undefined ||
 		(typeof value.levelRequirement === 'number' &&
 			Number.isFinite(value.levelRequirement) &&

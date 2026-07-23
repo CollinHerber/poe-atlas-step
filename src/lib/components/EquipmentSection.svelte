@@ -69,6 +69,11 @@
 			container: 'border-emerald-400/25 bg-emerald-400/8 text-emerald-100',
 			labelText: 'text-emerald-400'
 		},
+		corruption: {
+			label: 'Corrupted implicit',
+			container: 'border-rose-400/25 bg-rose-400/8 text-rose-100',
+			labelText: 'text-rose-400'
+		},
 		base: {
 			label: 'Item implicit',
 			container: 'border-slate-500/25 bg-slate-500/8 text-slate-300',

@@ -121,6 +121,7 @@ const parseItems = (xml) => {
 		const implicitIndex = lines.findIndex((line) => line.startsWith('Implicits:'));
 		const implicitCount =
 			implicitIndex < 0 ? 0 : Number(lines[implicitIndex].slice('Implicits:'.length));
+		const corrupted = lines.includes('Corrupted');
 		const modifierLines =
 			implicitIndex < 0
 				? []
@@ -129,16 +130,37 @@ const parseItems = (xml) => {
 			const text = cleanStat(line);
 			return text ? [{ text, source: implicitSource(line, text) }] : [];
 		});
-		const stats = modifierLines.slice(implicitCount).map(cleanStat).filter(Boolean);
+		const stats = modifierLines
+			.slice(implicitCount)
+			.map(cleanStat)
+			.filter((line) => line && line !== 'Corrupted');
 
 		items.set(match[1], {
 			name,
 			baseType,
 			rarity,
 			...(Number.isFinite(levelRequirement) && levelRequirement > 0 ? { levelRequirement } : {}),
+			...(corrupted ? { corrupted: true } : {}),
 			...(implicits.length ? { implicits } : {}),
 			stats
 		});
+	}
+
+	const itemIdentity = (item) => `${item.name.toLowerCase()}\u0000${item.baseType}`;
+	const uniqueIdentities = new Set(
+		[...items.values()].filter((item) => item.rarity === 'UNIQUE').map((item) => itemIdentity(item))
+	);
+	for (const item of items.values()) {
+		const inferredCorruption = item.rarity === 'RARE' && uniqueIdentities.has(itemIdentity(item));
+		if (inferredCorruption) {
+			item.rarity = 'UNIQUE';
+			item.corrupted = true;
+		}
+		if (item.corrupted && item.implicits?.length) {
+			item.implicits = item.implicits.map((implicit) =>
+				implicit.source === 'base' ? { ...implicit, source: 'corruption' } : implicit
+			);
+		}
 	}
 
 	return items;

@@ -512,8 +512,9 @@
 			<footer
 				class="border-t border-slate-800 bg-slate-950/25 px-5 py-3 text-[0.65rem] text-slate-600 sm:px-6"
 			>
-				Derived enemy placeholders are excluded so this section stays focused on settings the build
-				author intentionally configured.
+				PoB omits default inputs from its export, so missing booleans and numbers are shown as
+				Disabled or 0. Bandit and Pantheon choices are inherited from the build. Derived enemy
+				placeholders remain excluded.
 			</footer>
 		</section>
 

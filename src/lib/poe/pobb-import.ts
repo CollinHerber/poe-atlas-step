@@ -474,6 +474,21 @@ const parseConfiguration = (configSet: TitledBlock | undefined): GuideConfigurat
 	return [...values.values()].slice(0, 250);
 };
 
+const parseBuildConfiguration = (buildTag: string): GuideConfigurationValue[] =>
+	['bandit', 'pantheonMajorGod', 'pantheonMinorGod'].flatMap((name) => {
+		const value = readAttribute(buildTag, name).slice(0, 4_000);
+		return value ? [{ name, value }] : [];
+	});
+
+const mergeConfiguration = (
+	base: GuideConfigurationValue[],
+	overrides: GuideConfigurationValue[]
+) => {
+	const values = new Map(base.map((value) => [value.name, value]));
+	for (const value of overrides) values.set(value.name, value);
+	return [...values.values()].slice(0, 250);
+};
+
 const activeLoadoutIndex = (
 	xml: string,
 	allTreeSpecs: TitledBlock[],
@@ -586,6 +601,8 @@ const createStep = (
 	itemSets: TitledBlock[],
 	skillSets: TitledBlock[],
 	configSets: TitledBlock[],
+	fallbackConfigSet: TitledBlock | undefined,
+	buildConfiguration: GuideConfigurationValue[],
 	items: Map<string, ParsedItem>,
 	characterStats: GuideCharacterStat[],
 	sourceUrl: string,
@@ -595,10 +612,10 @@ const createStep = (
 	const title = (stripPobFormatting(loadout.title) || `Loadout ${index + 1}`).slice(0, 300);
 	const itemSet = findMatchingSet(loadout, itemSets, 'items');
 	const skillSet = findMatchingSet(loadout, skillSets, 'skills');
-	const configSet = findMatchingSet(loadout, configSets, 'config');
+	const configSet = findMatchingSet(loadout, configSets, 'config') ?? fallbackConfigSet;
 	const equipment = parseEquipment(itemSet, items);
 	const gems = parseGemGroups(skillSet);
-	const configuration = parseConfiguration(configSet);
+	const configuration = mergeConfiguration(buildConfiguration, parseConfiguration(configSet));
 	const uniques = parseUniques(equipment, loadout.block ? loadout : undefined, items);
 	const progress = parseTreeProgress(loadout, buildLevel, bandit);
 	const todos: GuideTodo[] = [
@@ -748,7 +765,7 @@ export async function buildGuideFromPobCode(
 	const treeSpecs = allTreeSpecs.filter((block) => !isSeparatorTitle(block.title));
 	let itemSets = titledBlocks(xml, 'ItemSet');
 	let skillSets = titledBlocks(xml, 'SkillSet');
-	const configSets = titledBlocks(xml, 'ConfigSet');
+	let configSets = titledBlocks(xml, 'ConfigSet');
 
 	if (!itemSets.length) {
 		const itemsBlock = extractBlocks(xml, 'Items')[0];
@@ -757,6 +774,10 @@ export async function buildGuideFromPobCode(
 	if (!skillSets.length) {
 		const skillsBlock = extractBlocks(xml, 'Skills')[0];
 		if (skillsBlock) skillSets = [{ id: 'default-skills', title: 'Default', block: skillsBlock }];
+	}
+	const configBlock = extractBlocks(xml, 'Config')[0];
+	if (!configSets.length && configBlock) {
+		configSets = [{ id: 'default-config', title: 'Default', block: configBlock }];
 	}
 
 	const availableLoadouts = (
@@ -769,6 +790,11 @@ export async function buildGuideFromPobCode(
 	const items = parseItems(xml);
 	const stats = parseCharacterStats(buildBlock);
 	const statsLoadoutIndex = activeLoadoutIndex(xml, allTreeSpecs, availableLoadouts);
+	const activeConfigId = readAttribute(openingTag(configBlock ?? '', 'Config'), 'activeConfigSet');
+	const fallbackConfigSet =
+		configSets.find((configSet) => configSet.id === activeConfigId) ??
+		(configSets.length === 1 ? configSets[0] : undefined);
+	const buildConfiguration = parseBuildConfiguration(buildTag);
 	const steps = availableLoadouts.map((loadout, index) =>
 		createStep(
 			loadout,
@@ -776,6 +802,8 @@ export async function buildGuideFromPobCode(
 			itemSets,
 			skillSets,
 			configSets,
+			fallbackConfigSet,
+			buildConfiguration,
 			items,
 			index === statsLoadoutIndex ? stats : [],
 			source.url,

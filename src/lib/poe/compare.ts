@@ -191,15 +191,26 @@ export function compareConfiguration(
 	);
 
 	return names.flatMap((name) => {
-		const currentValue = currentByName.get(name);
-		const comparisonValue = comparisonByName.get(name);
+		const currentStoredValue = currentByName.get(name);
+		const comparisonStoredValue = comparisonByName.get(name);
+		const defaultValue = (reference: GuideConfigurationValue['value'] | undefined) => {
+			if (typeof reference === 'boolean') return false;
+			if (typeof reference === 'number') return 0;
+			return '';
+		};
+		const currentValue = currentByName.has(name)
+			? currentStoredValue
+			: defaultValue(comparisonStoredValue);
+		const comparisonValue = comparisonByName.has(name)
+			? comparisonStoredValue
+			: defaultValue(currentStoredValue);
 		if (currentValue === comparisonValue) return [];
 		return [
 			{
 				name,
 				label: configurationLabels[name] ?? humanizePobIdentifier(name),
-				...(currentByName.has(name) ? { current: currentValue } : {}),
-				...(comparisonByName.has(name) ? { comparison: comparisonValue } : {})
+				current: currentValue,
+				comparison: comparisonValue
 			}
 		];
 	});
@@ -239,5 +250,5 @@ export function formatConfigurationValue(value: GuideConfigurationValue['value']
 	if (value === undefined) return 'Not set';
 	if (typeof value === 'boolean') return value ? 'Enabled' : 'Disabled';
 	if (typeof value === 'number') return regularNumber.format(value);
-	return value || 'Empty';
+	return value || 'Default';
 }

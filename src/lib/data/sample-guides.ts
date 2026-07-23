@@ -1,17 +1,18 @@
 import equipmentItems from '$lib/data/equipment.json';
 import gemGroups from '$lib/data/gems.json';
 import uniqueItems from '$lib/data/unique-items.json';
-import { primaryBuildNotes, transitionBuildNotes } from '$lib/data/build-notes';
+import { transitionBuildNotes } from '$lib/data/build-notes';
 import type {
 	BuildGuide,
 	GuideEquipmentItem,
 	GuideGemGroup,
+	GuideInsight,
 	GuideStep,
 	GuideUnique,
 	TodoPhase
 } from '$lib/types/guide';
 
-const todo = (id: string, text: string, phase: TodoPhase): GuideStep['todos'][number] => ({
+const checklistItem = (id: string, text: string, phase: TodoPhase): GuideStep['todos'][number] => ({
 	id,
 	text,
 	phase,
@@ -31,374 +32,27 @@ const equipment = (guideId: string, stepId: string): GuideEquipmentItem[] =>
 const gems = (guideId: string, stepId: string): GuideGemGroup[] =>
 	structuredClone(gemGroupsByStep[guideId]?.[stepId] ?? []);
 
-export const PRIMARY_POB_URL = 'https://pobb.in/221_ZcVSEO7G';
 export const TRANSITION_POB_URL = 'https://pobb.in/cd6A9tg8QjrJ';
 export const FUBGUN_GUIDE_URL = 'https://www.youtube.com/watch?v=--XDhqSlwPA';
 export const ZIZARAN_GUIDE_URL = 'https://www.youtube.com/watch?v=OZypCJ-5Bog';
 export const MAXROLL_URL =
 	'https://maxroll.gg/poe/build-guides/winter-orb-elementalist-league-starter';
 
-const atTime = (url: string, seconds: number) => `${url}&t=${seconds}s`;
+const pobInsight = (title: string, body: string, loadout: string): GuideInsight => ({
+	title,
+	body,
+	sourceLabel: `Source PoB â€” ${loadout}`,
+	sourceUrl: TRANSITION_POB_URL
+});
+
+const guideId = 'hybrid-crit-winter-orb';
 
 export const sampleGuides: BuildGuide[] = [
 	{
-		id: 'mom-crit-winter-orb',
-		name: 'MoM Crit Winter Orb',
+		id: guideId,
+		name: 'Winter Orb Transition',
 		buildVersion: '3.28',
-		className: 'Elementalist',
-		level: 98,
-		sourceUrl: PRIMARY_POB_URL,
-		notes: primaryBuildNotes,
-		steps: [
-			{
-				id: 'level-80-uber-lab',
-				title: 'Level 80 – Uber Lab',
-				eyebrow: 'Foundation',
-				description:
-					'Use this checkpoint to stabilize the character, finish the campaign-to-map handoff, and make the fourth ascendancy feel earned instead of rushed.',
-				uniques: uniques('mom-crit-winter-orb', 'level-80-uber-lab'),
-				equipment: equipment('mom-crit-winter-orb', 'level-80-uber-lab'),
-				gems: gems('mom-crit-winter-orb', 'level-80-uber-lab'),
-				noteHighlights: [
-					'Finish the core golem trio, then choose the fourth golem to solve defense, critical chance, or chaos resistance.',
-					'Use Bastion of Elements as the safe fourth ascendancy; take Shaper of Storms early only if you accept the defensive tradeoff.',
-					'Keep Faster Casting until Lightning Golem and gear make Winter Orb ramp quickly enough, and test multiple-projectile supports in real maps.',
-					'Check whether Bitter Frost is available in the 3.29 tree and remove Bonechill if the two effects are redundant.'
-				],
-				insights: [
-					{
-						title: 'Channel differently for clearing and bosses',
-						body: 'Build stages, then move while Winter Orb clears around you. Re-channel before the buff expires. For single target, keep channeling: the skill gains 80% more projectile frequency while you hold it.',
-						sourceLabel: 'Zizaran — mechanics, 1:32',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 92)
-					},
-					{
-						title: 'Cast speed is what makes the build feel good',
-						body: 'Cast speed shortens the time spent standing still and ramps Winter Orb faster. Start with a Profane Wand and at least one Moonstone Ring; Faster Casting can bridge the gap until Lightning Golem feels sufficient.',
-						sourceLabel: 'Zizaran — notes and FAQ, 4:11',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
-					},
-					{
-						title: 'Energy Shield is part of your mana and defense',
-						body: 'Eldritch Battery plus Mind Over Matter turns Energy Shield into a reliable casting buffer and another effective-health layer. Life, Energy Shield, capped resistances, and sustainable Winter Orb cost all matter together.',
-						sourceLabel: 'Zizaran — solving mana, 7:42',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 462)
-					},
-					{
-						title: 'Choose the fourth ascendancy for your situation',
-						body: 'Bastion of Elements is the safer default while gear is weak. Softcore players can take Shaper of Storms earlier for damage; the guide later wants it to activate Stormrider in the cluster setup.',
-						sourceLabel: 'Zizaran — ascendancy, 3:42',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 222)
-					},
-					{
-						title: 'Projectiles are real damage, not just clear',
-						body: 'Winter Orb projectiles can overlap. Until Mystic Refractor, Dying Sun, or another projectile breakpoint is online, test Multiple Projectiles or Greater Multiple Projectiles instead of trusting the tooltip.',
-						sourceLabel: 'Fubgun — entering maps, 4:20',
-						sourceUrl: atTime(FUBGUN_GUIDE_URL, 260)
-					}
-				],
-				todos: [
-					todo(
-						'80-open-loadout',
-						'Match the Level 80 passive tree and record every respec you still need',
-						'during'
-					),
-					todo(
-						'80-uber-lab',
-						'Complete Uber Lab; choose Bastion of Elements or Shaper of Storms intentionally',
-						'during'
-					),
-					todo(
-						'80-cast-speed',
-						'Equip a cast-speed foundation: Profane Wand plus at least one Moonstone Ring',
-						'during'
-					),
-					todo(
-						'80-defences',
-						'Cap elemental resistances and fill life, Energy Shield, and attribute gaps',
-						'during'
-					),
-					todo(
-						'80-golems',
-						'Run Flame, Lightning, and Stone Golems; choose the fourth for crit or defense',
-						'during'
-					),
-					todo(
-						'80-quality',
-						'Prioritize Winter Orb socket quality and confirm your maximum stage count',
-						'before-next'
-					),
-					todo(
-						'80-play-test',
-						'Clear ten maps while maintaining stages, then practice sustained boss channeling',
-						'before-next'
-					),
-					todo(
-						'80-projectiles',
-						'Test the available projectile supports and keep the setup that feels best in maps',
-						'before-next'
-					),
-					todo('80-map-plan', 'Write down the next ten Atlas objectives', 'before-next')
-				]
-			},
-			{
-				id: 'midgame',
-				title: 'Midgame',
-				eyebrow: 'Atlas momentum',
-				description:
-					'Turn Atlas completion into a repeatable routine. Keep upgrades concrete and small enough that every session can move at least one checkbox.',
-				uniques: uniques('mom-crit-winter-orb', 'midgame'),
-				equipment: equipment('mom-crit-winter-orb', 'midgame'),
-				gems: gems('mom-crit-winter-orb', 'midgame'),
-				noteHighlights: [
-					'Prioritize cast speed before decorative damage: Profane Wand and a Moonstone Ring are the feel-good baseline.',
-					'Keep Greater Multiple Projectiles until Mystic Refractor, Dying Sun, or gem levels supply enough projectiles, then re-test the socket.',
-					'Treat four watchstones and a repeatable mapping strategy as success; this build is not intended to become an Uber farmer.'
-				],
-				insights: [
-					{
-						title: 'Mystic Refractor is powerful, not mandatory',
-						body: 'Its three additional projectiles and projectile speed are excellent for Winter Orb overlap and clear. Keep using a rare cast-speed wand until the price is sensible; the build does not need the unique to enter maps.',
-						sourceLabel: 'Fubgun — midgame setup, 14:24',
-						sourceUrl: atTime(FUBGUN_GUIDE_URL, 864)
-					},
-					{
-						title: 'The tooltip undervalues AoE and projectiles',
-						body: 'More projectiles and Area of Effect create more overlaps, so real damage can improve without the tooltip showing it. Compare GMP, Multiple Projectiles, and a damage support in actual maps and bosses.',
-						sourceLabel: 'Zizaran — notes and FAQ, 4:11',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
-					},
-					{
-						title: 'Cold Exposure is the first glove implicit',
-						body: 'Get “Inflict Cold Exposure on Hit” from Eater of Worlds currency as soon as practical. Freeze proliferation is the next quality-of-life implicit because it improves Herald of Ice clearing.',
-						sourceLabel: 'Fubgun — gear modifiers, 11:11',
-						sourceUrl: atTime(FUBGUN_GUIDE_URL, 671)
-					},
-					{
-						title: 'Frostbite and exposure work together',
-						body: 'Mastermind of Discord strengthens your exposure, then Frostbite pushes cold resistance down further. This is the intended curse package; do not replace it only because another mark looks better in a tooltip.',
-						sourceLabel: 'Fubgun — Frostbite, 7:58',
-						sourceUrl: atTime(FUBGUN_GUIDE_URL, 478)
-					},
-					{
-						title: 'Judge the build as a mapper',
-						body: 'This version is designed to earn currency and reach four watchstones. Pinnacle bosses may take time and Ubers are not the target; upgrade the farming loop before chasing boss-only damage.',
-						sourceLabel: 'Zizaran — build expectations, 4:11',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
-					}
-				],
-				todos: [
-					todo(
-						'mid-tree',
-						'Complete the Midgame crit-tree respec and compare every mastery',
-						'during'
-					),
-					todo(
-						'mid-refractor',
-						'Price Mystic Refractor; buy it only after core defenses and cast speed are stable',
-						'during'
-					),
-					todo(
-						'mid-gloves',
-						'Add Cold Exposure on Hit to gloves, then target freeze proliferation',
-						'during'
-					),
-					todo(
-						'mid-gear',
-						'Use a Moonstone cast-speed ring and repair life, ES, resist, and Dexterity gaps',
-						'during'
-					),
-					todo('mid-atlas', 'Choose a first Atlas strategy and save the tree link', 'during'),
-					todo(
-						'mid-support-test',
-						'Compare projectile-support setups in maps and on one pinnacle boss',
-						'before-next'
-					),
-					todo(
-						'mid-complete',
-						'Finish four watchstones or write down the exact encounter blocking you',
-						'before-next'
-					),
-					todo(
-						'mid-purchase',
-						'Fund one endgame rare instead of making several small sideways upgrades',
-						'before-next'
-					)
-				]
-			},
-			{
-				id: 'endgame-no-cluster',
-				title: 'Endgame – No Cluster',
-				eyebrow: 'Baseline endgame',
-				description:
-					'Build a dependable endgame baseline before paying for cluster jewels. This is the spot to prove the farming loop and eliminate unclear upgrade goals.',
-				uniques: uniques('mom-crit-winter-orb', 'endgame-no-cluster'),
-				equipment: equipment('mom-crit-winter-orb', 'endgame-no-cluster'),
-				gems: gems('mom-crit-winter-orb', 'endgame-no-cluster'),
-				noteHighlights: [
-					'Re-test the projectile support after Dying Sun is equipped; actual overlap and clearing matter more than the tooltip.',
-					'Do not overspend trying to force boss damage into the mapper. Save toward clusters, power charges, or a Creeping Frost package.',
-					'Keep cast speed on the endgame wand and ring so the upgraded character still feels responsive.'
-				],
-				insights: [
-					{
-						title: 'Dying Sun changes the support-gem decision',
-						body: 'Dying Sun supplies projectiles and Area of Effect, so this is the point to retest GMP or Multiple Projectiles against a pure damage support. Keep the projectile support if real clearing and overlap are still better.',
-						sourceLabel: 'Zizaran — notes and FAQ, 4:11',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
-					},
-					{
-						title: 'The endgame rare package is specific',
-						body: 'The PoB targets a +2 Profane Wand with cast speed, a +1 cold shield with life and block, Cold Exposure plus Unnerve gloves, and high Armour/ES bases. Treat those as separate projects, not one giant shopping list.',
-						sourceLabel: 'Open the Endgame PoB gear',
-						sourceUrl: PRIMARY_POB_URL
-					},
-					{
-						title: 'Layer defenses instead of reading only Life',
-						body: 'Mind Over Matter, Eldritch Battery, Energy Shield, armour, and block all contribute. The build is sturdier than its Life number suggests, but it is not meant to face-tank major pinnacle slams.',
-						sourceLabel: 'Zizaran — solving mana, 7:42',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 462)
-					},
-					{
-						title: 'Cast speed still outranks decorative damage',
-						body: 'The endgame PoB keeps a Profane Wand, cast speed on the wand and ring, and a cast-speed helmet implicit. If the character feels clumsy, fix ramp speed before buying more critical multiplier.',
-						sourceLabel: 'Zizaran — gear priorities, 2:27',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 147)
-					},
-					{
-						title: 'Know the ceiling before spending',
-						body: 'This setup should comfortably map and obtain watchstones, but it is not an Uber farmer. If single target is the frustration, save toward the cluster or power-charge transition instead of endlessly polishing this version.',
-						sourceLabel: 'Fubgun — optional endgame, 16:14',
-						sourceUrl: atTime(FUBGUN_GUIDE_URL, 974)
-					}
-				],
-				todos: [
-					todo(
-						'end-no-tree',
-						'Match the no-cluster passive tree, masteries, and gem setup',
-						'during'
-					),
-					todo(
-						'end-no-dying-sun',
-						'Equip Dying Sun and retest whether a projectile support still earns its socket',
-						'during'
-					),
-					todo(
-						'end-no-wand',
-						'Plan or acquire the +2 Profane Wand with cast speed shown in the PoB',
-						'during'
-					),
-					todo(
-						'end-no-defences',
-						'Build the +1 cold life/block shield and high Armour/ES defensive bases',
-						'during'
-					),
-					todo('end-no-gloves', 'Finish Cold Exposure and Unnerve on the endgame gloves', 'during'),
-					todo(
-						'end-no-pob',
-						'Import your character and compare effective hit pool and DPS',
-						'during'
-					),
-					todo('end-no-farm', 'Run the farming strategy for a complete tracked set', 'during'),
-					todo(
-						'end-no-list',
-						'Price the Stormrider large cluster and Enduring Composure small cluster',
-						'before-next'
-					),
-					todo('end-no-budget', 'Reach the cluster transition budget', 'before-next')
-				]
-			},
-			{
-				id: 'endgame-cluster',
-				title: 'Endgame – Cluster',
-				eyebrow: 'Primary destination',
-				description:
-					'Complete the first build’s intended destination, then decide whether the power-charge transition is exciting enough to become the next project.',
-				uniques: uniques('mom-crit-winter-orb', 'endgame-cluster'),
-				equipment: equipment('mom-crit-winter-orb', 'endgame-cluster'),
-				gems: gems('mom-crit-winter-orb', 'endgame-cluster'),
-				noteHighlights: [
-					'Swap to Shaper of Storms when Stormrider is installed so the cluster notable has reliable shock support.',
-					'Use low-level Forbidden Rite with Enduring Composure to begin generating endurance charges before boss contact.',
-					'Finish Winter Orb socket quality first. Focused Channeling remains optional behavior to test, not a dependency.'
-				],
-				insights: [
-					{
-						title: 'Shaper of Storms enables Stormrider',
-						body: 'The cluster destination is where the ascendancy swap matters: reliable shocks from Shaper of Storms enable Stormrider. Confirm both pieces together instead of copying only the passive points.',
-						sourceLabel: 'Read the PoB ascendancy notes',
-						sourceUrl: PRIMARY_POB_URL
-					},
-					{
-						title: 'Forbidden Rite is an endurance-charge trigger',
-						body: 'With Enduring Composure equipped, a level 1 Forbidden Rite self-hit starts endurance-charge generation before a boss hits you. Its job is utility, so do not level it for damage.',
-						sourceLabel: 'Zizaran — Forbidden Rite tech, 6:09',
-						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 369)
-					},
-					{
-						title: 'Focused Channeling is optional tech',
-						body: 'The support may preserve its damage ramp while any Winter Orb stages remain, but the behavior could change. The selected PoB intentionally does not depend on it; test it rather than planning the build around a snapshot.',
-						sourceLabel: 'Fubgun — snapshot explanation, 6:34',
-						sourceUrl: atTime(FUBGUN_GUIDE_URL, 394)
-					},
-					{
-						title: 'Spend socket quality in priority order',
-						body: 'Winter Orb comes first, followed by Increased Critical Damage, golems, movement skills, Immortal Call, Frostblink, and Herald of Ice. Winter Orb quality directly supports stages and uptime.',
-						sourceLabel: 'Read the PoB socket-quality notes',
-						sourceUrl: PRIMARY_POB_URL
-					},
-					{
-						title: 'Elementalist is the affordable destination',
-						body: 'Occultist and power-charge stacking can scale much higher, but the expensive version has different gear and mana demands. Finish and test this mapper before treating that transition as mandatory.',
-						sourceLabel: 'Fubgun — power-charge setup, 17:44',
-						sourceUrl: atTime(FUBGUN_GUIDE_URL, 1064)
-					}
-				],
-				todos: [
-					todo(
-						'end-cluster-swap',
-						'Install the Stormrider cluster setup and finish the required respec',
-						'during'
-					),
-					todo(
-						'end-cluster-ascendancy',
-						'Confirm Shaper of Storms is active and actually enabling Stormrider',
-						'during'
-					),
-					todo(
-						'end-cluster-composure',
-						'Add Enduring Composure and verify level 1 Forbidden Rite starts charge generation',
-						'during'
-					),
-					todo(
-						'end-cluster-gems',
-						'Finish the socket-quality priorities and retest the final support setup',
-						'during'
-					),
-					todo(
-						'end-cluster-test',
-						'Run a complete farming set and one pinnacle boss with the finished setup',
-						'during'
-					),
-					todo(
-						'end-cluster-review',
-						'Record clear speed, boss time, deaths, and currency per hour',
-						'before-next'
-					),
-					todo(
-						'end-cluster-next',
-						'Choose: keep farming, add Creeping Frost, or price the power-charge transition',
-						'before-next'
-					)
-				]
-			}
-		]
-	},
-	{
-		id: 'hybrid-crit-winter-orb',
-		name: 'Hybrid Crit Winter Orb',
-		buildVersion: '3.28',
-		className: 'Elementalist',
+		className: 'Elementalist â†’ Occultist',
 		level: 95,
 		sourceUrl: TRANSITION_POB_URL,
 		notes: transitionBuildNotes,
@@ -406,118 +60,615 @@ export const sampleGuides: BuildGuide[] = [
 			{
 				id: 'entering-maps',
 				title: 'Entering maps',
-				eyebrow: 'Entry point',
+				eyebrow: 'Life-based baseline',
 				description:
-					'Capture the mapping baseline represented by this build before changing its core pieces.',
-				uniques: uniques('hybrid-crit-winter-orb', 'entering-maps'),
-				equipment: equipment('hybrid-crit-winter-orb', 'entering-maps'),
-				gems: gems('hybrid-crit-winter-orb', 'entering-maps'),
+					'Assemble the life-based Elementalist exactly enough to enter maps with working defenses, recovery, charges, and movement.',
+				uniques: uniques(guideId, 'entering-maps'),
+				equipment: equipment(guideId, 'entering-maps'),
+				gems: gems(guideId, 'entering-maps'),
 				noteHighlights: [
-					'Use Brine King, Steelskin, and a bleed-removal life flask while the character is still life-based.',
-					'Start with Alira if resistance is tight, and generate early frenzy charges with Herald of Ice plus Ice Bite.'
+					'Stay Elementalist and use Brine King while the character still relies on Life, golems, and a bleed-removal flask.',
+					'This checkpoint intentionally keeps an Enduring Mana Flask. Do not remove it until the Early game setup sustains Winter Orb without it.',
+					'Focused Channelling and Inspiration are PoB options here; test them instead of assuming every displayed gem should be enabled.'
+				],
+				insights: [
+					pobInsight(
+						'Build the safety net before damage',
+						'The entering-maps set is mostly rare Life and Energy Shield gear with resistances, four golems, Steelskin, and recovery flasks. Fix those systems before buying damage.',
+						'Entering maps'
+					),
+					pobInsight(
+						'Use the first map as a systems check',
+						'One clean white map should prove that Winter Orb sustains, movement links work, golems remain active, the guard setup triggers, and flask answers are on the correct keys.',
+						'Entering maps'
+					)
 				],
 				todos: [
-					todo(
-						'maps-compare',
-						'Compare tree, skills, and gear with the Entering maps loadout',
+					checklistItem(
+						'maps-tree',
+						'Open the Entering maps passive tree and apply every required allocation and respec',
 						'during'
 					),
-					todo('maps-gaps', 'Turn every important mismatch into a checkbox', 'during'),
-					todo('maps-ready', 'Clear the gaps that block comfortable mapping', 'before-next')
+					checklistItem(
+						'maps-elementalist',
+						'Confirm Elementalist is selected and set Soul of the Brine King as the major Pantheon',
+						'during'
+					),
+					checklistItem(
+						'maps-defences',
+						'Cap all elemental resistances and fill missing Life, Energy Shield, Strength, and Dexterity',
+						'during'
+					),
+					checklistItem(
+						'maps-main-link',
+						'Socket Winter Orb with Cold Penetration, Infused Channelling, Multiple Projectiles, and Focused Channelling; keep Inspiration as the optional swap shown in PoB',
+						'during'
+					),
+					checklistItem(
+						'maps-golems',
+						'Socket and summon the Ice, Lightning, Flame, and Stone Golems',
+						'during'
+					),
+					checklistItem(
+						'maps-utility',
+						'Set up Steelskin, Automation, Arcane Surge, and Frostbite in the boots',
+						'during'
+					),
+					checklistItem(
+						'maps-clear-links',
+						'Set up Frostblink plus Herald of Ice and Ice Bite for clear and early frenzy-charge generation',
+						'during'
+					),
+					checklistItem(
+						'maps-movement',
+						'Set up Shield Charge, Faster Attacks, and Momentum and confirm both movement skills are bound',
+						'during'
+					),
+					checklistItem(
+						'maps-flasks',
+						'Equip an instant Life Flask with bleed and Corrupted Blood removal, plus Quicksilver, Silver, and Enduring Mana flasks',
+						'during'
+					),
+					checklistItem(
+						'maps-test',
+						'Run one white map and verify casting sustain, guard automation, curse application, movement, and flask keys',
+						'during'
+					),
+					checklistItem(
+						'maps-match',
+						'Compare the passive tree, equipment, gems, and flask bar against the Entering maps loadout one final time',
+						'before-next'
+					),
+					checklistItem(
+						'maps-resists-ready',
+						'Confirm elemental resistances remain capped without temporary campaign buffs',
+						'before-next'
+					),
+					checklistItem(
+						'maps-recovery-ready',
+						'Trigger the Life Flask while bleeding and verify the recovery and removal behavior',
+						'before-next'
+					),
+					checklistItem(
+						'maps-sustain-ready',
+						'Complete a map without running out of mana or losing all four golems',
+						'before-next'
+					)
 				]
 			},
 			{
 				id: 'early-game',
 				title: 'Early game',
-				eyebrow: 'Stabilize',
-				description: 'Consolidate the early upgrades and keep the next purchase visible.',
-				uniques: uniques('hybrid-crit-winter-orb', 'early-game'),
-				equipment: equipment('hybrid-crit-winter-orb', 'early-game'),
-				gems: gems('hybrid-crit-winter-orb', 'early-game'),
+				eyebrow: 'Critical foundation',
+				description:
+					'Upgrade the rare defensive shell, move Winter Orb into its early critical setup, and remove the Mana Flask only after sustain is solved.',
+				uniques: uniques(guideId, 'early-game'),
+				equipment: equipment(guideId, 'early-game'),
+				gems: gems(guideId, 'early-game'),
 				noteHighlights: [
-					'Stay Elementalist while golems are carrying damage, defense, and mana regeneration.',
-					'Use the affordable weapon tier that keeps mapping comfortable; a rare wand does not win until it reaches double +1 gem levels.'
+					'Stay Elementalist; the golems are still supplying damage, defense, and mana regeneration.',
+					'The main link changes to Increased Critical Damage, Increased Critical Strikes, Power Charge on Critical, Multiple Projectiles, and Focused Channelling.',
+					'The flask bar adds Diamond and Jade flasks. Removing the Enduring Mana Flask is a sustain check, not a mandatory early shortcut.'
+				],
+				insights: [
+					pobInsight(
+						'This is the first critical-strike checkpoint',
+						'Power Charge on Critical and the two critical supports replace the entering-maps damage package. Verify charges in real combat rather than reading only the hideout tooltip.',
+						'Early game'
+					),
+					pobInsight(
+						'Removing the Mana Flask is a pass/fail test',
+						'The Early game flask set assumes Winter Orb can run without an Enduring Mana Flask. Keep the old flask until regeneration, cost, and cast speed make that true.',
+						'Early game'
+					)
 				],
 				todos: [
-					todo('early-compare', 'Compare against the Early game loadout', 'during'),
-					todo('early-target', 'Pick the weakest current slot', 'during'),
-					todo('early-finish', 'Complete the selected slot upgrade', 'before-next')
+					checklistItem(
+						'early-tree',
+						'Apply the Early game passive tree changes while remaining Elementalist',
+						'during'
+					),
+					checklistItem(
+						'early-bases',
+						'Replace the entry armour pieces with the higher Energy Shield bases shown in the Early game equipment set',
+						'during'
+					),
+					checklistItem(
+						'early-defences',
+						'Re-cap elemental resistances and repair Life, Energy Shield, and attribute gaps after changing bases',
+						'during'
+					),
+					checklistItem(
+						'early-main-link',
+						'Change the Winter Orb links to Increased Critical Damage, Increased Critical Strikes, Multiple Projectiles, Power Charge on Critical, and Focused Channelling',
+						'during'
+					),
+					checklistItem(
+						'early-flasks',
+						'Add Diamond and Jade flasks and keep the instant bleed-removal Life Flask',
+						'during'
+					),
+					checklistItem(
+						'early-mana-test',
+						'Remove the Mana Flask only after a full map confirms Winter Orb sustains without it',
+						'during'
+					),
+					checklistItem(
+						'early-charge-test',
+						'Verify Power Charge on Critical generates power charges and Herald of Ice plus Ice Bite generates frenzy charges while clearing',
+						'during'
+					),
+					checklistItem(
+						'early-links-check',
+						'Confirm the golem, guard, curse, Herald, and movement groups still match the PoB after recolouring gear',
+						'during'
+					),
+					checklistItem(
+						'early-match',
+						'Match the complete Early game tree, equipment, flask, and gem loadouts',
+						'before-next'
+					),
+					checklistItem(
+						'early-no-mana-flask',
+						'Complete one map without a Mana Flask and without interrupting Winter Orb for lack of mana',
+						'before-next'
+					),
+					checklistItem(
+						'early-charge-ready',
+						'Confirm power charges are reliable on bosses and frenzy charges are reliable during clear',
+						'before-next'
+					),
+					checklistItem(
+						'early-price-mid',
+						'Price Mystic Refractor, Pandemonius, Death Rush, and Rumiâ€™s Concoction before buying the Mid game package',
+						'before-next'
+					)
 				]
 			},
 			{
 				id: 'transition-mid-game',
 				title: 'Mid game',
-				eyebrow: 'Build depth',
+				eyebrow: 'Bridge uniques',
 				description:
-					'Use a repeatable farm to fund the larger mechanical upgrades in the transition build.',
-				uniques: uniques('hybrid-crit-winter-orb', 'transition-mid-game'),
-				equipment: equipment('hybrid-crit-winter-orb', 'transition-mid-game'),
-				gems: gems('hybrid-crit-winter-orb', 'transition-mid-game'),
+					'Install the projectile, amulet, mapping, and block upgrades while preparing the Chaos Inoculation swap entirely off-character.',
+				uniques: uniques(guideId, 'transition-mid-game'),
+				equipment: equipment(guideId, 'transition-mid-game'),
+				gems: gems(guideId, 'transition-mid-game'),
 				noteHighlights: [
-					'Progress the amulet from a rare +1 cold option toward Pandemonius or a +3 Winter Orb Replica Dragonfang when prices allow.',
-					'Secure corrupted-blood immunity on a jewel before replacing the bleed-removal life flask.'
+					'Mystic Refractor, Pandemonius, Death Rush, and Rumiâ€™s Concoction are bridge items, not the final charge-stacking shell.',
+					'The Winter Orb link replaces Multiple Projectiles with Infused Channelling at this checkpoint.',
+					'Stay Elementalist and life-based while collecting the complete Energy Shield, passive-tree, aura, and jewel package for the next step.'
+				],
+				insights: [
+					pobInsight(
+						'Buy the bridge as a package',
+						'Mystic Refractor adds projectile coverage, Pandemonius improves cold damage, Death Rush rewards mapping, and Rumiâ€™s supports block. Check that the combined swap preserves defenses.',
+						'Mid game'
+					),
+					pobInsight(
+						'Prepare Chaos Inoculation without weakening the live character',
+						'Keep mapping on the working Elementalist while the Occultist tree, Energy Shield rares, aura sockets, and replacement flasks are assembled in the stash.',
+						'Mid game'
+					)
 				],
 				todos: [
-					todo('trans-mid-compare', 'Compare against the Mid game loadout', 'during'),
-					todo('trans-mid-farm', 'Track one complete farming set', 'during'),
-					todo('trans-mid-buy', 'Finish the next planned purchase', 'before-next')
+					checklistItem(
+						'mid-tree',
+						'Apply the Mid game passive tree changes while remaining Elementalist',
+						'during'
+					),
+					checklistItem(
+						'mid-weapon',
+						'Equip Mystic Refractor and confirm the additional projectiles improve real clear and overlap',
+						'during'
+					),
+					checklistItem(
+						'mid-amulet',
+						'Equip Pandemonius and re-check attributes and resistances',
+						'during'
+					),
+					checklistItem(
+						'mid-ring',
+						'Equip Death Rush and verify Adrenaline uptime during mapping',
+						'during'
+					),
+					checklistItem(
+						'mid-rumi',
+						'Equip Rumiâ€™s Concoction and verify block values while the flask is active',
+						'during'
+					),
+					checklistItem(
+						'mid-main-link',
+						'Replace Multiple Projectiles with Infused Channelling in the Winter Orb link',
+						'during'
+					),
+					checklistItem(
+						'mid-exposure',
+						'Confirm Cold Exposure is applied by the intended glove implicit or another reliable source',
+						'during'
+					),
+					checklistItem(
+						'mid-corrupted-blood',
+						'Acquire Corrupted Blood immunity on an affordable jewel before planning to remove the Life Flask',
+						'during'
+					),
+					checklistItem(
+						'mid-farm-batch',
+						'Configure one repeatable Atlas map-and-scarab setup and run one complete batch without changing strategies',
+						'during'
+					),
+					checklistItem(
+						'mid-ci-stash',
+						'Collect the Endgame Optional Energy Shield gear, aura sockets, jewels, and respec currency in the stash',
+						'during'
+					),
+					checklistItem(
+						'mid-match',
+						'Match the complete Mid game tree, equipment, flask, and gem loadouts',
+						'before-next'
+					),
+					checklistItem(
+						'mid-bridge-ready',
+						'Complete a map with Mystic Refractor, Pandemonius, Death Rush, and Rumiâ€™s all functioning',
+						'before-next'
+					),
+					checklistItem(
+						'mid-cb-ready',
+						'Verify Corrupted Blood immunity without relying on the Life Flask suffix',
+						'before-next'
+					),
+					checklistItem(
+						'mid-ci-ready',
+						'Place every required Occultist, Chaos Inoculation, aura, and Energy Shield swap item together in the stash',
+						'before-next'
+					),
+					checklistItem(
+						'mid-respec-ready',
+						'Count the required passive and ascendancy respecs and acquire enough refund points or Orbs of Regret',
+						'before-next'
+					)
 				]
 			},
 			{
 				id: 'endgame-optional',
 				title: 'Endgame Optional',
-				eyebrow: 'Optional power',
+				eyebrow: 'Occultist and CI',
 				description:
-					'Evaluate optional endgame pieces by impact, cost, and how much you enjoy the content that funds them.',
-				uniques: uniques('hybrid-crit-winter-orb', 'endgame-optional'),
-				equipment: equipment('hybrid-crit-winter-orb', 'endgame-optional'),
-				gems: gems('hybrid-crit-winter-orb', 'endgame-optional'),
+					'Perform the first major transition: move to Occultist and Chaos Inoculation, replace Life recovery with Energy Shield systems, and install the premium non-charge gear.',
+				uniques: uniques(guideId, 'endgame-optional'),
+				equipment: equipment(guideId, 'endgame-optional'),
+				gems: gems(guideId, 'endgame-optional'),
 				noteHighlights: [
-					'Prioritize rare jewels with two useful critical-multiplier modifiers before adding Energy Shield.',
-					'Verify Focused Channeling behavior in the current league before valuing it as permanent snapshot damage.'
+					'This is the first Occultist and Chaos Inoculation checkpoint; do the ascendancy, passive tree, gear, aura, and flask changes together.',
+					'Replica Dragonfangâ€™s Flight, Light of Lunaris, Dying Sun, Watcherâ€™s Eye, and The Light of Meaning form the premium pre-charge setup.',
+					'Focused Channelling is still experimental snapshot tech. Test its current behavior before valuing it as guaranteed damage.'
+				],
+				insights: [
+					pobInsight(
+						'This is the real defensive transition',
+						'The loadout drops the Life Flask, adds Discipline, changes to Occultist, and uses Chaos Inoculation. Partial swaps can leave the character with neither Life recovery nor a complete Energy Shield defense.',
+						'Endgame Optional'
+					),
+					pobInsight(
+						'Optional is a complete stopping point',
+						'This loadout already has the rare wand, premium amulet, shield, jewels, and projectile flask needed for a strong mapper. Charge stacking is a later rebuild, not a required repair.',
+						'Endgame Optional'
+					)
 				],
 				todos: [
-					todo('optional-list', 'Rank the optional upgrades by impact', 'during'),
-					todo('optional-one', 'Complete the highest-value optional upgrade', 'during'),
-					todo('optional-decision', 'Decide whether to start power-charge stacking', 'before-next')
+					checklistItem(
+						'optional-stash-check',
+						'Lay out every Occultist, Chaos Inoculation, gear, flask, gem, and jewel replacement before starting the swap',
+						'during'
+					),
+					checklistItem(
+						'optional-ascendancy',
+						'Respec from Elementalist to the Endgame Optional Occultist ascendancy and passive tree',
+						'during'
+					),
+					checklistItem(
+						'optional-ci',
+						'Allocate Chaos Inoculation and equip the complete Energy Shield rare shell in the same session',
+						'during'
+					),
+					checklistItem(
+						'optional-core-gear',
+						'Equip the Profane Wand, Light of Lunaris, Replica Dragonfangâ€™s Flight, Moonstone Ring, and Stygian Vise shown in PoB',
+						'during'
+					),
+					checklistItem(
+						'optional-flasks',
+						'Replace the Life Flask with Rumiâ€™s Concoction and equip Dying Sun in the final flask slot',
+						'during'
+					),
+					checklistItem(
+						'optional-jewels',
+						'Equip the Watcherâ€™s Eye and The Light of Meaning shown in the Endgame Optional passive tree',
+						'during'
+					),
+					checklistItem(
+						'optional-main-link',
+						'Change Winter Orb to Infused Channelling, Cold Penetration, Inspiration, Power Charge on Critical, and Focused Channelling',
+						'during'
+					),
+					checklistItem(
+						'optional-auras',
+						'Socket Zealotry, Discipline, Enlighten, and Tempest Shield and verify every intended reservation fits',
+						'during'
+					),
+					checklistItem(
+						'optional-utility',
+						'Move Frostblink to the shield group and keep Steelskin, Automation, Arcane Surge, and Frostbite in the boots',
+						'during'
+					),
+					checklistItem(
+						'optional-pantheon',
+						'Switch the major Pantheon from Brine King to Lunaris or Solaris and select the minor Pantheon for current content',
+						'during'
+					),
+					checklistItem(
+						'optional-defences',
+						'Re-cap elemental resistances, meet attributes, compare total Energy Shield to PoB, and explicitly solve shock',
+						'during'
+					),
+					checklistItem(
+						'optional-focused-test',
+						'Test Focused Channelling in the current league and keep it only if its behavior is confirmed',
+						'during'
+					),
+					checklistItem(
+						'optional-match',
+						'Match the complete Endgame Optional ascendancy, tree, equipment, flask, jewel, and gem loadouts',
+						'before-next'
+					),
+					checklistItem(
+						'optional-ci-ready',
+						'Complete a map with no Life Flask and verify Energy Shield recovery, chaos immunity, and guard behavior',
+						'before-next'
+					),
+					checklistItem(
+						'optional-ailment-ready',
+						'Verify stun, freeze, chill, ignite, shock, bleed, and Corrupted Blood answers after leaving Brine King',
+						'before-next'
+					),
+					checklistItem(
+						'optional-jewel-ready',
+						'Replace weak rare jewels with two applicable critical-multiplier modifiers before adding Energy Shield',
+						'before-next'
+					),
+					checklistItem(
+						'optional-charge-stash',
+						'Acquire and place the complete Pcharge Stack equipment package in the stash before equipping any part of it',
+						'before-next'
+					)
 				]
 			},
 			{
 				id: 'pcharge-stack',
 				title: 'Pcharge Stack',
-				eyebrow: 'Major transition',
+				eyebrow: 'Charge package',
 				description:
-					'Treat the power-charge setup as a project: price it, stage it, and avoid a half-finished swap.',
-				uniques: uniques('hybrid-crit-winter-orb', 'pcharge-stack'),
-				equipment: equipment('hybrid-crit-winter-orb', 'pcharge-stack'),
-				gems: gems('hybrid-crit-winter-orb', 'pcharge-stack'),
+					'Install the power- and frenzy-charge package as one coordinated rebuild, then verify every charge, ailment, gem, and defensive interaction.',
+				uniques: uniques(guideId, 'pcharge-stack'),
+				equipment: equipment(guideId, 'pcharge-stack'),
+				gems: gems(guideId, 'pcharge-stack'),
 				noteHighlights: [
-					'Do not switch to Occultist until the full Energy Shield and power-charge package is ready.',
-					'Badge of the Brotherhood, Power Charge on Critical, and a reliable frenzy-charge source need to come online together.'
+					'Equip Tulfall, Malachaiâ€™s Loop, Willclash, Ralakeshâ€™s Impatience, Badge of the Brotherhood, two Romiraâ€™s Banquets, and Gravenâ€™s Secret together.',
+					'Badge, Power Charge on Critical, Herald of Ice plus Ice Bite, and the selected Elegant Hubris must provide a coherent charge cycle.',
+					'Malachaiâ€™s Loop can shock the character. Verify the shock solution before treating the transition as complete.'
+				],
+				insights: [
+					pobInsight(
+						'Do not wear half of this setup',
+						'Most rare slots become charge uniques at once. A partial swap commonly loses resistances, attributes, Energy Shield, and the interactions that make those uniques worthwhile.',
+						'Pcharge Stack'
+					),
+					pobInsight(
+						'Verify the charge loop in combat',
+						'Maximum-charge counts, generation, loss, frenzy conversion, and boss reliability matter more than the hideout tooltip. Test the full cycle against a map boss.',
+						'Pcharge Stack'
+					)
 				],
 				todos: [
-					todo('pc-price', 'Price the complete power-charge transition', 'during'),
-					todo('pc-parts', 'Acquire every mandatory transition piece', 'during'),
-					todo('pc-swap', 'Complete and test the full swap', 'before-next')
+					checklistItem(
+						'pc-package',
+						'Acquire Tulfall, Malachaiâ€™s Loop, Willclash, Ralakeshâ€™s Impatience, Badge of the Brotherhood, two Romiraâ€™s Banquets, and Gravenâ€™s Secret',
+						'during'
+					),
+					checklistItem(
+						'pc-rare-support',
+						'Prepare the Body Armour and Gloves that preserve Energy Shield, resistances, attributes, and required sockets around the unique package',
+						'during'
+					),
+					checklistItem(
+						'pc-tree',
+						'Apply the Pcharge Stack Occultist passive tree and mastery changes',
+						'during'
+					),
+					checklistItem(
+						'pc-equip-all',
+						'Equip the complete charge package in one session and immediately repair resistance and attribute failures',
+						'during'
+					),
+					checklistItem(
+						'pc-hubris',
+						'Socket an Elegant Hubris with useful damage per power charge, critical multiplier, spell damage, or Energy Shield notables',
+						'during'
+					),
+					checklistItem(
+						'pc-main-link',
+						'Match the Pcharge Stack Winter Orb links and retain Multiple Projectiles only as the disabled swap shown in PoB',
+						'during'
+					),
+					checklistItem(
+						'pc-boots',
+						'Set up Sniperâ€™s Mark, Cast when Damage Taken, and Immortal Call in the boots',
+						'during'
+					),
+					checklistItem(
+						'pc-gloves',
+						'Set up Herald of Ice, Scornful Herald, Ice Bite, and Power Charge on Critical in the gloves',
+						'during'
+					),
+					checklistItem(
+						'pc-weapons',
+						'Set up Frostblink, Frost Shield, and Arcane Surge in the weapon and Shield Charge, Faster Attacks, and Momentum in the shield',
+						'during'
+					),
+					checklistItem(
+						'pc-charge-test',
+						'Record maximum power and frenzy charges, then verify generation and cycling while clearing and on a map boss',
+						'during'
+					),
+					checklistItem(
+						'pc-shock',
+						'Trigger the Malachaiâ€™s Loop interaction and verify the intended shock mitigation or immunity works',
+						'during'
+					),
+					checklistItem(
+						'pc-defences',
+						'Compare Energy Shield, resistances, block, attributes, and ailment defenses against the Pcharge Stack PoB',
+						'during'
+					),
+					checklistItem(
+						'pc-projectiles',
+						'Test Dying Sun with and without the disabled Multiple Projectiles swap and keep the better real mapping setup',
+						'during'
+					),
+					checklistItem(
+						'pc-match',
+						'Match the complete Pcharge Stack tree, equipment, jewels, flasks, and gem groups',
+						'before-next'
+					),
+					checklistItem(
+						'pc-charge-ready',
+						'Complete a map boss with stable power and frenzy charges and no unexplained charge collapse',
+						'before-next'
+					),
+					checklistItem(
+						'pc-guard-ready',
+						'Take controlled damage and verify Cast when Damage Taken triggers Immortal Call at the intended levels',
+						'before-next'
+					),
+					checklistItem(
+						'pc-defence-ready',
+						'Confirm resistances, attributes, shock defense, and Energy Shield remain functional with every charge unique equipped',
+						'before-next'
+					),
+					checklistItem(
+						'pc-uber-list',
+						'List the exact Uber Pcharge corruptions, unique jewels, and roll upgrades still missing',
+						'before-next'
+					)
 				]
 			},
 			{
 				id: 'uber-pcharge',
 				title: 'Uber Pcharge',
-				eyebrow: 'Aspirational',
+				eyebrow: 'Final refinement',
 				description:
-					'The aspirational endpoint. Pick a challenge worth testing and stop upgrading only when the goal—not the checklist—is finished.',
-				uniques: uniques('hybrid-crit-winter-orb', 'uber-pcharge'),
-				equipment: equipment('hybrid-crit-winter-orb', 'uber-pcharge'),
-				gems: gems('hybrid-crit-winter-orb', 'uber-pcharge'),
+					'Keep the working charge shell and finish its corruptions, jewel package, rolls, passive tree, and streamlined reservation setup.',
+				uniques: uniques(guideId, 'uber-pcharge'),
+				equipment: equipment(guideId, 'uber-pcharge'),
+				gems: gems(guideId, 'uber-pcharge'),
 				noteHighlights: [
-					'Switch from Brine King to Lunaris or Solaris after Occultist supplies its own stun, freeze, and chill protection.',
-					'Use Immortal Call with the larger Energy Shield pool and finish the Elegant Hubris and ailment-immunity projects.'
+					'The core equipment does not change; the meaningful upgrades are rolls, corruptions, unique jewels, and the final passive tree.',
+					'Both Romiraâ€™s Banquets gain +1 maximum power charge corruptions in the Uber loadout.',
+					'The final gem setup removes Flesh and Stone plus Enlighten and replaces the boot Arcane Surge with More Duration.'
+				],
+				insights: [
+					pobInsight(
+						'This step refines instead of rebuilding',
+						'The Pcharge and Uber Pcharge equipment names are the same. Use the equipment comparison to target the Tulfall, Malachaiâ€™s Loop, and double-Romira roll or corruption changes.',
+						'Uber Pcharge'
+					),
+					pobInsight(
+						'The jewel package is the largest structural change',
+						'Unnatural Instinct, Impossible Escape, Elegant Hubris, The Light of Meaning, and Sublime Vision accompany the final passive tree. Treat their sockets and affected nodes as one checklist.',
+						'Uber Pcharge'
+					)
 				],
 				todos: [
-					todo('uber-compare', 'Compare against the Uber Pcharge loadout', 'during'),
-					todo('uber-goal', 'Choose the aspirational content target', 'during'),
-					todo('uber-finish', 'Complete the league goal and record the result', 'before-next')
+					checklistItem(
+						'uber-tree',
+						'Apply the Uber Pcharge passive tree and mastery changes before evaluating the final numbers',
+						'during'
+					),
+					checklistItem(
+						'uber-romiras',
+						'Acquire +1 maximum power charge corruptions on both Romiraâ€™s Banquets',
+						'during'
+					),
+					checklistItem(
+						'uber-tulfall',
+						'Upgrade Tulfall to the higher cold damage per power charge roll shown in the Uber equipment set',
+						'during'
+					),
+					checklistItem(
+						'uber-malachai',
+						'Upgrade Malachaiâ€™s Loop to the target spell damage per power charge roll',
+						'during'
+					),
+					checklistItem(
+						'uber-jewels',
+						'Acquire and socket Unnatural Instinct, Impossible Escape, Elegant Hubris, The Light of Meaning, and Sublime Vision in their PoB locations',
+						'during'
+					),
+					checklistItem(
+						'uber-hubris',
+						'Verify the final Elegant Hubris seed grants the intended charge, critical, spell, or Energy Shield notables',
+						'during'
+					),
+					checklistItem(
+						'uber-gems',
+						'Remove Flesh and Stone plus Enlighten and replace the boot Arcane Surge with More Duration',
+						'during'
+					),
+					checklistItem(
+						'uber-defences',
+						'Re-check Energy Shield, resistances, attributes, reservation, shock defense, and every other ailment answer after the final tree and jewels',
+						'during'
+					),
+					checklistItem(
+						'uber-match',
+						'Match the complete Uber Pcharge tree, equipment rolls, corruptions, jewels, flasks, and gem groups',
+						'before-next'
+					),
+					checklistItem(
+						'uber-charge-ready',
+						'Verify the final maximum power and frenzy charge counts in hideout and against a map boss',
+						'before-next'
+					),
+					checklistItem(
+						'uber-numbers-ready',
+						'Compare Energy Shield, damage, block, reservation, and ailment defenses against the Uber Pcharge PoB and explain every material gap',
+						'before-next'
+					),
+					checklistItem(
+						'uber-validation',
+						'Complete one repeatable mapping test and one boss test without changing gear, gems, or flasks between attempts',
+						'before-next'
+					)
 				]
 			}
 		]

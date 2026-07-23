@@ -1,31 +1,4 @@
 {
-	"mom-crit-winter-orb": {
-		"level-80-uber-lab": [],
-		"midgame": [
-			{
-				"name": "Mystic Refractor",
-				"baseType": "Pagan Wand",
-				"slot": "Weapon 1",
-				"category": "UniqueWeapon"
-			}
-		],
-		"endgame-no-cluster": [
-			{
-				"name": "Dying Sun",
-				"baseType": "Ruby Flask",
-				"slot": "Flask 2",
-				"category": "UniqueFlask"
-			}
-		],
-		"endgame-cluster": [
-			{
-				"name": "Dying Sun",
-				"baseType": "Ruby Flask",
-				"slot": "Flask 2",
-				"category": "UniqueFlask"
-			}
-		]
-	},
 	"hybrid-crit-winter-orb": {
 		"entering-maps": [],
 		"early-game": [],

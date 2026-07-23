@@ -13,16 +13,15 @@
 	} from 'flowbite-svelte-icons';
 	import BuildLibrary from '$lib/components/BuildLibrary.svelte';
 	import BuildNotesSection from '$lib/components/BuildNotesSection.svelte';
+	import ChecklistSection from '$lib/components/ChecklistSection.svelte';
 	import EquipmentSection from '$lib/components/EquipmentSection.svelte';
 	import GemGroupsSection from '$lib/components/GemGroupsSection.svelte';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
 	import StepInsights from '$lib/components/StepInsights.svelte';
-	import TodoSection from '$lib/components/TodoSection.svelte';
 	import UniqueItemsSection from '$lib/components/UniqueItemsSection.svelte';
 	import {
 		FUBGUN_GUIDE_URL,
 		MAXROLL_URL,
-		PRIMARY_POB_URL,
 		TRANSITION_POB_URL,
 		ZIZARAN_GUIDE_URL,
 		cloneGuide,
@@ -47,7 +46,7 @@
 
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
 	let activeStepId = $state(sampleGuides[0].steps[0].id);
-	let importUrl = $state(PRIMARY_POB_URL);
+	let importUrl = $state(TRANSITION_POB_URL);
 	let importMessage = $state('');
 	let ready = $state(false);
 	let priceSnapshot = $state<PoeNinjaPriceSnapshot | null>(null);
@@ -326,7 +325,7 @@
 
 		if (/^https?:\/\/(?:www\.)?pobb\.in\/[A-Za-z0-9_-]+\/?$/i.test(importUrl.trim())) {
 			importMessage =
-				'This PoB link is valid. Live extraction is the next integration; this scaffold currently includes the two supplied profiles.';
+				'This PoB link is valid. Live extraction is the next integration; this version is focused on the supplied transition profile.';
 			return;
 		}
 
@@ -370,7 +369,7 @@
 	<title>Atlas Step — Path of Exile progression planner</title>
 	<meta
 		name="description"
-		content="A loadout-driven Path of Exile progression planner for turning Path of Building checkpoints into achievable league goals."
+		content="A loadout-driven Path of Exile checklist for progressing a Winter Orb character from maps into power-charge stacking."
 	/>
 </svelte:head>
 
@@ -419,11 +418,11 @@
 						<span class="text-xs text-slate-600">Source PoB {guide.buildVersion}</span>
 					</div>
 					<h1 class="max-w-3xl text-2xl font-bold tracking-tight text-white sm:text-3xl">
-						Turn the build into a path you can finish.
+						Follow the transition one concrete action at a time.
 					</h1>
 					<p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
-						Every Path of Building loadout becomes a checkpoint. Add the work that matters, keep the
-						upgrade in front of you, and always know what “ready for the next step” means.
+						Each Path of Building loadout is a checklist: make the changes, verify the systems, and
+						finish the handoff checks before moving to the next version.
 					</p>
 				</div>
 				<div class="min-w-56 rounded-xl border border-slate-800 bg-slate-950/60 p-4">
@@ -435,7 +434,7 @@
 					</div>
 					<Progressbar progress={overallProgress} size="h-2" color="cyan" class="mt-3" />
 					<p class="mt-2 text-xs text-slate-600">
-						{completedCount} of {allTodos.length} goals complete
+						{completedCount} of {allTodos.length} checklist items complete
 					</p>
 				</div>
 			</div>
@@ -549,6 +548,28 @@
 
 				<StepInsights insights={activeStep.insights ?? []} />
 
+				<ChecklistSection
+					title="Do during this step"
+					description="Complete these actions while this loadout is your active setup."
+					phase="during"
+					items={activeStep.todos.filter((item) => item.phase === 'during')}
+					onToggle={toggleTodo}
+					onDelete={deleteTodo}
+					onAdd={addTodo}
+				/>
+
+				<ChecklistSection
+					title={activeIndex >= guide.steps.length - 1 ? 'Final verification' : 'Before moving on'}
+					description={activeIndex >= guide.steps.length - 1
+						? 'Run these checks before treating the imported progression as complete.'
+						: 'Verify this handoff before selecting the next Path of Building loadout.'}
+					phase="before-next"
+					items={activeStep.todos.filter((item) => item.phase === 'before-next')}
+					onToggle={toggleTodo}
+					onDelete={deleteTodo}
+					onAdd={addTodo}
+				/>
+
 				<EquipmentSection
 					items={activeStep.equipment ?? []}
 					previousItems={previousStep ? (previousStep.equipment ?? []) : null}
@@ -568,26 +589,6 @@
 					currentGroups={activeStep.gems ?? []}
 					previousGroups={previousStep ? (previousStep.gems ?? []) : null}
 					previousStepTitle={previousStep?.title}
-				/>
-
-				<TodoSection
-					title="During this step"
-					description="The work to focus on while this loadout is your active checkpoint."
-					phase="during"
-					todos={activeStep.todos.filter((todo) => todo.phase === 'during')}
-					onToggle={toggleTodo}
-					onDelete={deleteTodo}
-					onAdd={addTodo}
-				/>
-
-				<TodoSection
-					title="Before next step"
-					description="Your definition of done—the gates that make the next loadout a clean transition."
-					phase="before-next"
-					todos={activeStep.todos.filter((todo) => todo.phase === 'before-next')}
-					onToggle={toggleTodo}
-					onDelete={deleteTodo}
-					onAdd={addTodo}
 				/>
 
 				<BuildNotesSection
@@ -621,20 +622,31 @@
 				<div class="sticky top-6 space-y-4">
 					<section class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
 						<p class="text-[0.65rem] font-semibold tracking-[0.2em] text-slate-500 uppercase">
-							Next build idea
+							How to use this step
 						</p>
-						<h2 class="mt-2 text-sm font-semibold text-slate-100">Hybrid Crit transition</h2>
-						<p class="mt-2 text-xs leading-5 text-slate-500">
-							Load the second PoB’s six checkpoints when you are ready to evaluate power-charge
-							stacking.
-						</p>
-						<button
-							type="button"
-							onclick={() => selectGuide(sampleGuides[1])}
-							class="mt-4 flex w-full items-center justify-between rounded-lg border border-cyan-400/25 bg-cyan-400/10 px-3 py-2.5 text-left text-xs font-semibold text-cyan-300 transition hover:bg-cyan-400/15"
-						>
-							Load transition <ArrowRightOutline class="size-3.5" />
-						</button>
+						<ol class="mt-3 space-y-3">
+							<li class="flex gap-2.5 text-xs leading-5 text-slate-400">
+								<span
+									class="grid size-5 shrink-0 place-items-center rounded-full bg-cyan-400/10 text-[0.65rem] font-bold text-cyan-300"
+									>1</span
+								>
+								Complete the active-step actions.
+							</li>
+							<li class="flex gap-2.5 text-xs leading-5 text-slate-400">
+								<span
+									class="grid size-5 shrink-0 place-items-center rounded-full bg-cyan-400/10 text-[0.65rem] font-bold text-cyan-300"
+									>2</span
+								>
+								Use equipment and gem comparisons while making each change.
+							</li>
+							<li class="flex gap-2.5 text-xs leading-5 text-slate-400">
+								<span
+									class="grid size-5 shrink-0 place-items-center rounded-full bg-cyan-400/10 text-[0.65rem] font-bold text-cyan-300"
+									>3</span
+								>
+								Pass every handoff check before moving forward.
+							</li>
+						</ol>
 					</section>
 
 					<section class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
@@ -643,20 +655,12 @@
 						</p>
 						<div class="mt-3 space-y-2">
 							<a
-								href={PRIMARY_POB_URL}
-								target="_blank"
-								rel="noreferrer"
-								class="flex items-center gap-2 text-xs text-slate-400 transition hover:text-cyan-300"
-							>
-								<LinkOutline class="size-3.5" /> Primary PoB
-							</a>
-							<a
 								href={TRANSITION_POB_URL}
 								target="_blank"
 								rel="noreferrer"
 								class="flex items-center gap-2 text-xs text-slate-400 transition hover:text-cyan-300"
 							>
-								<LinkOutline class="size-3.5" /> Transition PoB
+								<LinkOutline class="size-3.5" /> Source transition PoB
 							</a>
 							<a
 								href={MAXROLL_URL}

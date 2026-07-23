@@ -11,16 +11,6 @@ const userAgent = 'AtlasStep/0.1 (pobb.in equipment extraction)';
 
 const builds = [
 	{
-		id: '221_ZcVSEO7G',
-		guideId: 'mom-crit-winter-orb',
-		steps: [
-			{ stepId: 'level-80-uber-lab', itemSetTitle: 'Early Game {4}' },
-			{ stepId: 'midgame', itemSetTitle: 'Midgame {3}' },
-			{ stepId: 'endgame-no-cluster', itemSetTitle: 'Endgame {1,2}' },
-			{ stepId: 'endgame-cluster', itemSetTitle: 'Endgame {1,2}' }
-		]
-	},
-	{
 		id: 'cd6A9tg8QjrJ',
 		guideId: 'hybrid-crit-winter-orb',
 		steps: [
@@ -198,8 +188,8 @@ if (checkOnly) {
 	if (currentContents !== nextContents) {
 		throw new Error('equipment.json does not match the configured pobb.in equipment sets.');
 	}
-	console.log('equipment.json matches both configured PoB builds.');
+	console.log('equipment.json matches the configured transition PoB.');
 } else {
 	await writeFile(outputPath, nextContents, 'utf8');
-	console.log('Updated src/lib/data/equipment.json from both configured PoB builds.');
+	console.log('Updated src/lib/data/equipment.json from the configured transition PoB.');
 }

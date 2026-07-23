@@ -79,12 +79,6 @@ const flaskPriorities: Record<string, string[]> = {
 };
 
 const checkpointPriorities: Record<string, string[]> = {
-	'level-80-uber-lab': [
-		'Cap elemental resistances',
-		'Build Life and Energy Shield',
-		'Meet attribute requirements',
-		'Prioritize cast speed before luxury damage'
-	],
 	'entering-maps': [
 		'Cap elemental resistances',
 		'Build Life and Energy Shield',
@@ -97,35 +91,17 @@ const checkpointPriorities: Record<string, string[]> = {
 		'Add cast speed',
 		'Upgrade only the weakest slot'
 	],
-	midgame: [
-		'Keep defenses and attributes solved',
-		'Add cast speed',
-		'Get Cold Exposure on gloves',
-		'Buy projectiles only after the basics'
-	],
 	'transition-mid-game': [
 		'Keep defenses and attributes solved',
 		'Add cast speed',
 		'Progress the amulet',
 		'Buy projectiles only after the basics'
 	],
-	'endgame-no-cluster': [
-		'Build the +2 cast-speed wand',
-		'Use high Armour/ES bases',
-		'Finish Cold Exposure and Unnerve',
-		'Keep resistances and attributes solved'
-	],
-	'endgame-cluster': [
-		'Preserve the finished rare-gear shell',
-		'Keep cast speed',
-		'Add cluster power without losing defenses',
-		'Retest projectile breakpoints'
-	],
 	'endgame-optional': [
 		'Buy one high-impact upgrade at a time',
 		'Preserve Energy Shield and resistances',
 		'Prioritize critical multiplier',
-		'Stop when the mapper meets your goal'
+		'Finish the CI checklist before charge stacking'
 	],
 	'pcharge-stack': [
 		'Acquire the complete charge package',

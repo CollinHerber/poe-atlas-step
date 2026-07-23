@@ -10,28 +10,6 @@ const userAgent = 'AtlasStep/0.1 (pobb.in equipped unique extraction)';
 
 const builds = [
 	{
-		id: '221_ZcVSEO7G',
-		guideId: 'mom-crit-winter-orb',
-		steps: [
-			{
-				stepId: 'level-80-uber-lab',
-				itemSetTitle: 'Early Game {4}',
-				treeTitle: 'Level 80 - Uber Lab {4}'
-			},
-			{ stepId: 'midgame', itemSetTitle: 'Midgame {3}', treeTitle: 'Midgame {3}' },
-			{
-				stepId: 'endgame-no-cluster',
-				itemSetTitle: 'Endgame {1,2}',
-				treeTitle: 'Endgame - No Cluster {2}'
-			},
-			{
-				stepId: 'endgame-cluster',
-				itemSetTitle: 'Endgame {1,2}',
-				treeTitle: 'Endgame - Cluster {1}'
-			}
-		]
-	},
-	{
 		id: 'cd6A9tg8QjrJ',
 		guideId: 'hybrid-crit-winter-orb',
 		steps: [
@@ -231,8 +209,8 @@ if (checkOnly) {
 			'unique-items.json does not match the equipped items in the configured pobb.in loadouts.'
 		);
 	}
-	console.log('unique-items.json matches both configured PoB builds.');
+	console.log('unique-items.json matches the configured transition PoB.');
 } else {
 	await writeFile(outputPath, nextContents, 'utf8');
-	console.log('Updated src/lib/data/unique-items.json from both configured PoB builds.');
+	console.log('Updated src/lib/data/unique-items.json from the configured transition PoB.');
 }

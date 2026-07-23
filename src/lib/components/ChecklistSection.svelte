@@ -7,7 +7,7 @@
 		title,
 		description,
 		phase,
-		todos,
+		items,
 		onToggle,
 		onDelete,
 		onAdd
@@ -15,7 +15,7 @@
 		title: string;
 		description: string;
 		phase: TodoPhase;
-		todos: GuideTodo[];
+		items: GuideTodo[];
 		onToggle: (id: string) => void;
 		onDelete: (id: string) => void;
 		onAdd: (text: string, phase: TodoPhase) => void;
@@ -23,7 +23,7 @@
 
 	let draft = $state('');
 
-	function addTodo(event: SubmitEvent) {
+	function addChecklistItem(event: SubmitEvent) {
 		event.preventDefault();
 		const text = draft.trim();
 		if (!text) return;
@@ -40,48 +40,51 @@
 				<p class="mt-1 text-sm leading-6 text-slate-500">{description}</p>
 			</div>
 			<span class="rounded-full bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-400">
-				{todos.filter((todo) => todo.done).length}/{todos.length}
+				{items.filter((item) => item.done).length}/{items.length}
 			</span>
 		</div>
 	</header>
 
 	<div class="divide-y divide-slate-800/80">
-		{#each todos as todo (todo.id)}
+		{#each items as item (item.id)}
 			<div class="group flex items-start gap-3 px-5 py-4 sm:px-6">
 				<input
 					type="checkbox"
-					checked={todo.done}
-					onchange={() => onToggle(todo.id)}
+					checked={item.done}
+					onchange={() => onToggle(item.id)}
 					class="mt-0.5 size-5 rounded border-slate-600 bg-slate-950 text-cyan-400 focus:ring-2 focus:ring-cyan-400/40"
-					aria-label={`Mark “${todo.text}” as ${todo.done ? 'incomplete' : 'complete'}`}
+					aria-label={`Mark â€œ${item.text}â€ as ${item.done ? 'incomplete' : 'complete'}`}
 				/>
 				<span
-					class={`min-w-0 flex-1 text-sm leading-6 ${todo.done ? 'text-slate-600 line-through' : 'text-slate-300'}`}
+					class={`min-w-0 flex-1 text-sm leading-6 ${item.done ? 'text-slate-600 line-through' : 'text-slate-300'}`}
 				>
-					{todo.text}
+					{item.text}
 				</span>
 				<button
 					type="button"
-					onclick={() => onDelete(todo.id)}
+					onclick={() => onDelete(item.id)}
 					class="rounded-lg p-1.5 text-slate-700 opacity-0 transition group-hover:opacity-100 hover:bg-rose-400/10 hover:text-rose-300 focus:opacity-100"
-					aria-label={`Delete “${todo.text}”`}
+					aria-label={`Delete â€œ${item.text}â€`}
 				>
 					<TrashBinOutline class="size-4" />
 				</button>
 			</div>
 		{:else}
 			<p class="px-6 py-8 text-center text-sm text-slate-600">
-				No goals yet. Add the first one below.
+				No checklist items yet. Add the first action below.
 			</p>
 		{/each}
 	</div>
 
-	<form onsubmit={addTodo} class="flex gap-2 border-t border-slate-800 bg-slate-950/25 p-4 sm:px-5">
-		<label class="sr-only" for={`todo-${phase}`}>Add a {title.toLowerCase()} goal</label>
+	<form
+		onsubmit={addChecklistItem}
+		class="flex gap-2 border-t border-slate-800 bg-slate-950/25 p-4 sm:px-5"
+	>
+		<label class="sr-only" for={`checklist-${phase}`}>Add a checklist item to {title}</label>
 		<input
-			id={`todo-${phase}`}
+			id={`checklist-${phase}`}
 			bind:value={draft}
-			placeholder="Add your own checkpoint…"
+			placeholder="Add a checklist actionâ€¦"
 			class="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
 		/>
 		<Button

@@ -49,6 +49,9 @@ jobs:
       - name: Refresh poe.ninja price snapshot
         run: pnpm prices:update
 
+      - name: Refresh PoE Ladder unique tier snapshot
+        run: pnpm tiers:update
+
       - name: Build static site
         run: pnpm build
 

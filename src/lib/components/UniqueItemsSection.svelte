@@ -1,15 +1,30 @@
 <script lang="ts">
-	import type { GuideUnique, PoeNinjaPriceSnapshot, PoeNinjaUniquePrice } from '$lib/types/guide';
 	import { buildTradeUrl, buildWikiUrl, uniquePriceKey } from '$lib/poe/items';
+	import {
+		findUniqueTier,
+		uniqueTierClass,
+		uniqueTierLabel,
+		uniqueTierRarity
+	} from '$lib/poe/unique-tiers';
+	import type {
+		GuideUnique,
+		PoeNinjaPriceSnapshot,
+		PoeNinjaUniquePrice,
+		UniqueTierSnapshot
+	} from '$lib/types/guide';
 
 	let {
 		items,
 		snapshot,
-		status
+		status,
+		tierSnapshot,
+		tierStatus
 	}: {
 		items: GuideUnique[];
 		snapshot: PoeNinjaPriceSnapshot | null;
 		status: 'loading' | 'ready' | 'unavailable';
+		tierSnapshot: UniqueTierSnapshot | null;
+		tierStatus: 'loading' | 'ready' | 'unavailable';
 	} = $props();
 
 	const league = $derived(snapshot?.league ?? 'Standard');
@@ -69,6 +84,7 @@
 		<div class="grid gap-px bg-slate-800/80 sm:grid-cols-2">
 			{#each items as item (`${item.slot}-${item.name}`)}
 				{@const price = getPrice(item)}
+				{@const tier = findUniqueTier(tierSnapshot, item)}
 				{@const tradeUrl = buildTradeUrl(item, league)}
 				{@const wikiUrl = buildWikiUrl(item)}
 				<article class="flex min-w-0 gap-4 bg-slate-900/95 p-5 sm:p-6">
@@ -96,6 +112,20 @@
 							{item.name}
 						</h4>
 						<p class="truncate text-xs text-slate-500">{item.baseType}</p>
+						<div class="mt-2 min-h-6">
+							{#if tier}
+								<span
+									class={`inline-flex items-center rounded-full border px-2 py-1 text-[0.65rem] font-bold ${uniqueTierClass(tier.tier)}`}
+									title="Community-estimated unique drop tier from PoE Ladder. T0 is the rarest."
+								>
+									{uniqueTierLabel(tier.tier)} · {uniqueTierRarity(tier.tier)}
+								</span>
+							{:else if tierStatus === 'loading'}
+								<span class="inline-block h-6 w-20 animate-pulse rounded-full bg-slate-800"></span>
+							{:else}
+								<span class="text-[0.65rem] font-semibold text-slate-700">Tier unknown</span>
+							{/if}
+						</div>
 
 						<div class="mt-3 flex flex-wrap items-center justify-between gap-2">
 							<div>
@@ -155,6 +185,12 @@
 			rel="noreferrer"
 			class="font-semibold text-slate-500 transition hover:text-cyan-300">poe.ninja</a
 		>
-		and may differ from live listings.
+		and may differ from live listings. Unique rarity tiers are sourced from
+		<a
+			href="https://poeladder.com/uniques"
+			target="_blank"
+			rel="noreferrer"
+			class="font-semibold text-slate-500 transition hover:text-amber-200">PoE Ladder</a
+		>; T0 is rarest.
 	</footer>
 </section>

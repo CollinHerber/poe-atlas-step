@@ -107,3 +107,18 @@ export type PoeNinjaPriceSnapshot = {
 	prices: Record<string, PoeNinjaUniquePrice>;
 	missing: string[];
 };
+
+export type UniqueTierEntry = {
+	name: string;
+	baseType: string;
+	tier: number;
+	grouping: string;
+	category: string;
+};
+
+export type UniqueTierSnapshot = {
+	fetchedAt: string;
+	source: string;
+	ladderIdentifier: string;
+	tiers: Record<string, UniqueTierEntry>;
+};

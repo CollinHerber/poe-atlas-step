@@ -2,11 +2,18 @@
 	import { SvelteMap } from 'svelte/reactivity';
 	import { ArrowUpRightFromSquareOutline, StarOutline } from 'flowbite-svelte-icons';
 	import { buildTradeUrl, buildWikiUrl, uniquePriceKey } from '$lib/poe/items';
+	import {
+		findUniqueTier,
+		uniqueTierClass,
+		uniqueTierLabel,
+		uniqueTierRarity
+	} from '$lib/poe/unique-tiers';
 	import type {
 		BuildGuide,
 		GuideUnique,
 		PoeNinjaPriceSnapshot,
-		PoeNinjaUniquePrice
+		PoeNinjaUniquePrice,
+		UniqueTierSnapshot
 	} from '$lib/types/guide';
 
 	type UniqueAppearance = {
@@ -25,11 +32,15 @@
 		guide,
 		snapshot,
 		status,
+		tierSnapshot,
+		tierStatus,
 		onSelectStep
 	}: {
 		guide: BuildGuide;
 		snapshot: PoeNinjaPriceSnapshot | null;
 		status: 'loading' | 'ready' | 'unavailable';
+		tierSnapshot: UniqueTierSnapshot | null;
+		tierStatus: 'loading' | 'ready' | 'unavailable';
 		onSelectStep: (stepId: string) => void;
 	} = $props();
 
@@ -74,6 +85,9 @@
 		uniqueItems.filter(({ item }) => snapshot?.prices[uniquePriceKey(item.name, item.baseType)])
 			.length
 	);
+	const tieredCount = $derived(
+		uniqueItems.filter(({ item }) => findUniqueTier(tierSnapshot, item)).length
+	);
 	const league = $derived(snapshot?.league ?? 'Standard');
 
 	function getPrice(item: GuideUnique): PoeNinjaUniquePrice | undefined {
@@ -117,11 +131,11 @@
 			</h1>
 			<p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
 				See when each item enters the build, compare the current market estimate, and jump directly
-				to trade when an upgrade reaches your target price.
+				to trade when an upgrade reaches your target price. T0 is the rarest community drop tier.
 			</p>
 		</div>
 
-		<div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+		<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
 			<div class="rounded-xl border border-slate-800 bg-slate-950/45 px-4 py-3">
 				<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">Items</p>
 				<p class="mt-1 text-lg font-bold text-white">{uniqueItems.length}</p>
@@ -130,9 +144,11 @@
 				<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">Priced</p>
 				<p class="mt-1 text-lg font-bold text-cyan-300">{pricedCount}</p>
 			</div>
-			<div
-				class="col-span-2 rounded-xl border border-slate-800 bg-slate-950/45 px-4 py-3 sm:col-span-1"
-			>
+			<div class="rounded-xl border border-slate-800 bg-slate-950/45 px-4 py-3">
+				<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">Tiered</p>
+				<p class="mt-1 text-lg font-bold text-amber-200">{tieredCount}</p>
+			</div>
+			<div class="rounded-xl border border-slate-800 bg-slate-950/45 px-4 py-3">
 				<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">League</p>
 				<p class="mt-1 truncate text-sm font-bold text-white">{league}</p>
 			</div>
@@ -142,15 +158,26 @@
 	<div
 		class="flex flex-col gap-1 border-b border-slate-800 bg-slate-950/20 px-5 py-3 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between sm:px-6"
 	>
-		<p>
-			{#if status === 'loading'}
-				<span class="animate-pulse">Loading market prices…</span>
-			{:else if snapshot}
-				Updated {formatUpdatedAt(snapshot.fetchedAt)}
-			{:else}
-				Price snapshot unavailable
-			{/if}
-		</p>
+		<div class="space-y-1">
+			<p>
+				{#if status === 'loading'}
+					<span class="animate-pulse">Loading market prices…</span>
+				{:else if snapshot}
+					Prices updated {formatUpdatedAt(snapshot.fetchedAt)}
+				{:else}
+					Price snapshot unavailable
+				{/if}
+			</p>
+			<p>
+				{#if tierStatus === 'loading'}
+					<span class="animate-pulse">Loading rarity tiers…</span>
+				{:else if tierSnapshot}
+					Tiers updated {formatUpdatedAt(tierSnapshot.fetchedAt)}
+				{:else}
+					Tier snapshot unavailable
+				{/if}
+			</p>
+		</div>
 		<p>Sorted by the first step where each item appears.</p>
 	</div>
 
@@ -158,6 +185,7 @@
 		<div class="divide-y divide-slate-800">
 			{#each uniqueItems as entry (uniquePriceKey(entry.item.name, entry.item.baseType))}
 				{@const price = getPrice(entry.item)}
+				{@const tier = findUniqueTier(tierSnapshot, entry.item)}
 				{@const wikiUrl = buildWikiUrl(entry.item)}
 				{@const tradeUrl = buildTradeUrl(entry.item, league)}
 				<article
@@ -192,6 +220,21 @@
 								{entry.item.name}
 							</h2>
 							<p class="truncate text-xs text-slate-500">{entry.item.baseType}</p>
+							<div class="mt-2 min-h-6">
+								{#if tier}
+									<span
+										class={`inline-flex items-center rounded-full border px-2 py-1 text-[0.65rem] font-bold ${uniqueTierClass(tier.tier)}`}
+										title="Community-estimated unique drop tier from PoE Ladder. T0 is the rarest."
+									>
+										{uniqueTierLabel(tier.tier)} · {uniqueTierRarity(tier.tier)}
+									</span>
+								{:else if tierStatus === 'loading'}
+									<span class="inline-block h-6 w-20 animate-pulse rounded-full bg-slate-800"
+									></span>
+								{:else}
+									<span class="text-[0.65rem] font-semibold text-slate-700">Tier unknown</span>
+								{/if}
+							</div>
 							<div class="mt-3">
 								{#if price}
 									<p class="text-base font-bold text-cyan-300">{formatPrice(price)}</p>
@@ -277,6 +320,12 @@
 			rel="noreferrer"
 			class="font-semibold text-slate-500 transition hover:text-cyan-300">poe.ninja</a
 		>
-		and may differ from live trade listings.
+		and may differ from live trade listings. Unique rarity tiers are sourced from
+		<a
+			href="https://poeladder.com/uniques"
+			target="_blank"
+			rel="noreferrer"
+			class="font-semibold text-slate-500 transition hover:text-amber-200">PoE Ladder</a
+		>; T0 is rarest.
 	</footer>
 </section>

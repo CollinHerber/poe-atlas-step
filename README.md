@@ -52,13 +52,14 @@ pnpm lint
 pnpm build
 ```
 
-Refresh the local price snapshot and validate unique-item wiki routes:
+Refresh the local price and unique-tier snapshots, then validate unique-item wiki routes:
 
 ```sh
 node scripts/update-pob-gems.mjs
 node scripts/update-pob-equipment.mjs
 node scripts/update-pob-uniques.mjs
 pnpm prices:update
+pnpm tiers:update
 pnpm wiki:validate
 ```
 
@@ -79,6 +80,10 @@ The workflow in `.github/workflows/deploy-pages.yml` builds and publishes the st
 The workflow sets SvelteKit's base path automatically for both project pages (`owner.github.io/repository`) and root user pages (`owner.github.io`).
 
 The same workflow refreshes `static/data/poe-ninja-prices.json` before each deployment and runs hourly so the static site can show current prices without making every visitor call the poe.ninja API. Until the next challenge league is active, poe.ninja's first active economy league may be Standard; the snapshot switches automatically when the league list changes.
+
+It also refreshes `static/data/unique-tiers.json` from PoE Ladder. These are community-estimated
+drop tiers from T0 through T5, with T0 representing the rarest tier. The client credential published
+in PoE Ladder's frontend is discovered at refresh time and is never stored in this repository.
 
 Wiki links are derived from each item's name. Variant names that do not have their own page can set a `wikiTitle` override in `src/lib/data/unique-items.json`; `pnpm wiki:validate` checks every resulting title against the public PoE Wiki API.
 

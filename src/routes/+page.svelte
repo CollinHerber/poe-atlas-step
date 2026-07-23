@@ -62,7 +62,8 @@
 		GuideInsight,
 		GuideStep,
 		PoeNinjaPriceSnapshot,
-		TodoPhase
+		TodoPhase,
+		UniqueTierSnapshot
 	} from '$lib/types/guide';
 
 	const SITE_URL = 'https://collinherber.github.io/poe-build-tool/';
@@ -89,6 +90,8 @@
 	let ready = $state(false);
 	let priceSnapshot = $state<PoeNinjaPriceSnapshot | null>(null);
 	let priceStatus = $state<'loading' | 'ready' | 'unavailable'>('loading');
+	let tierSnapshot = $state<UniqueTierSnapshot | null>(null);
+	let tierStatus = $state<'loading' | 'ready' | 'unavailable'>('loading');
 	let savedBuilds = $state<SavedBuildRecord[]>([]);
 	let activeSavedBuildId = $state<string | null>(null);
 	let workspaceSource = $state<'template' | 'saved' | 'shared'>('template');
@@ -201,6 +204,21 @@
 		}
 	}
 
+	async function loadTierSnapshot() {
+		tierStatus = 'loading';
+		try {
+			const response = await fetch(`${base}/data/unique-tiers.json`, { cache: 'no-store' });
+			if (!response.ok) throw new Error(`Tier snapshot returned ${response.status}`);
+			const nextSnapshot = (await response.json()) as UniqueTierSnapshot;
+			if (!nextSnapshot.source || !nextSnapshot.tiers) throw new Error('Invalid tier snapshot');
+			tierSnapshot = nextSnapshot;
+			tierStatus = 'ready';
+		} catch {
+			tierSnapshot = null;
+			tierStatus = 'unavailable';
+		}
+	}
+
 	async function initializeWorkspace() {
 		const storedBuilds = readSavedBuilds();
 		const refreshedBuilds = storedBuilds.map((savedBuild) => ({
@@ -237,6 +255,7 @@
 
 		ready = true;
 		void loadPriceSnapshot();
+		void loadTierSnapshot();
 	}
 
 	onMount(() => {
@@ -1094,6 +1113,8 @@
 						items={activeStep.uniques}
 						snapshot={priceSnapshot}
 						status={priceStatus}
+						{tierSnapshot}
+						{tierStatus}
 					/>
 				</div>
 
@@ -1227,6 +1248,8 @@
 					{guide}
 					snapshot={priceSnapshot}
 					status={priceStatus}
+					{tierSnapshot}
+					{tierStatus}
 					onSelectStep={(stepId) => void openUniqueStep(stepId)}
 				/>
 			</div>

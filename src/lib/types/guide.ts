@@ -25,6 +25,11 @@ export type GuideInsight = {
 	sourceUrl: string;
 };
 
+export type GuideNoteSection = {
+	title: string;
+	body: string;
+};
+
 export type GuideStep = {
 	id: string;
 	title: string;
@@ -32,6 +37,7 @@ export type GuideStep = {
 	description: string;
 	uniques: GuideUnique[];
 	insights?: GuideInsight[];
+	noteHighlights?: string[];
 	todos: GuideTodo[];
 };
 
@@ -42,6 +48,7 @@ export type BuildGuide = {
 	className: string;
 	level: number;
 	sourceUrl: string;
+	notes: GuideNoteSection[];
 	steps: GuideStep[];
 };
 

@@ -11,6 +11,7 @@
 		LinkOutline,
 		RefreshOutline
 	} from 'flowbite-svelte-icons';
+	import BuildNotesSection from '$lib/components/BuildNotesSection.svelte';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
 	import StepInsights from '$lib/components/StepInsights.svelte';
 	import TodoSection from '$lib/components/TodoSection.svelte';
@@ -358,6 +359,12 @@
 					onToggle={toggleTodo}
 					onDelete={deleteTodo}
 					onAdd={addTodo}
+				/>
+
+				<BuildNotesSection
+					sections={guide.notes}
+					highlights={activeStep.noteHighlights ?? []}
+					sourceUrl={guide.sourceUrl}
 				/>
 
 				<div class="flex items-center justify-between gap-3 pt-1">

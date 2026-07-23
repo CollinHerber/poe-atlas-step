@@ -1,6 +1,13 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import { Button } from 'flowbite-svelte';
-	import { PlusOutline, TrashBinOutline } from 'flowbite-svelte-icons';
+	import {
+		CheckOutline,
+		CloseOutline,
+		EditOutline,
+		PlusOutline,
+		TrashBinOutline
+	} from 'flowbite-svelte-icons';
 	import type { GuideTodo, TodoPhase } from '$lib/types/guide';
 
 	let {
@@ -10,6 +17,7 @@
 		items,
 		onToggle,
 		onDelete,
+		onEdit,
 		onAdd
 	}: {
 		title: string;
@@ -18,10 +26,14 @@
 		items: GuideTodo[];
 		onToggle: (id: string) => void;
 		onDelete: (id: string) => void;
+		onEdit: (id: string, text: string) => void;
 		onAdd: (text: string, phase: TodoPhase) => void;
 	} = $props();
 
 	let draft = $state('');
+	let editingId = $state<string | null>(null);
+	let editDraft = $state('');
+	let editInput = $state<HTMLInputElement>();
 
 	function addChecklistItem(event: SubmitEvent) {
 		event.preventDefault();
@@ -29,6 +41,26 @@
 		if (!text) return;
 		onAdd(text, phase);
 		draft = '';
+	}
+
+	async function startEditing(item: GuideTodo) {
+		editingId = item.id;
+		editDraft = item.text;
+		await tick();
+		editInput?.focus();
+	}
+
+	function cancelEditing() {
+		editingId = null;
+		editDraft = '';
+	}
+
+	function saveChecklistItem(event: SubmitEvent, id: string) {
+		event.preventDefault();
+		const text = editDraft.trim();
+		if (!text) return;
+		onEdit(id, text);
+		cancelEditing();
 	}
 </script>
 
@@ -55,19 +87,63 @@
 					class="mt-0.5 size-5 rounded border-slate-600 bg-slate-950 text-cyan-400 focus:ring-2 focus:ring-cyan-400/40"
 					aria-label={`Mark â€œ${item.text}â€ as ${item.done ? 'incomplete' : 'complete'}`}
 				/>
-				<span
-					class={`min-w-0 flex-1 text-sm leading-6 ${item.done ? 'text-slate-600 line-through' : 'text-slate-300'}`}
-				>
-					{item.text}
-				</span>
-				<button
-					type="button"
-					onclick={() => onDelete(item.id)}
-					class="rounded-lg p-1.5 text-slate-700 opacity-0 transition group-hover:opacity-100 hover:bg-rose-400/10 hover:text-rose-300 focus:opacity-100"
-					aria-label={`Delete â€œ${item.text}â€`}
-				>
-					<TrashBinOutline class="size-4" />
-				</button>
+				{#if editingId === item.id}
+					<form
+						onsubmit={(event) => saveChecklistItem(event, item.id)}
+						class="flex min-w-0 flex-1 items-start gap-2"
+					>
+						<label class="sr-only" for={`edit-todo-${item.id}`}>Edit checklist item</label>
+						<input
+							id={`edit-todo-${item.id}`}
+							bind:this={editInput}
+							bind:value={editDraft}
+							required
+							maxlength="2000"
+							class="min-w-0 flex-1 rounded-lg border border-cyan-400/50 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-cyan-300 focus:ring-1 focus:ring-cyan-300 focus:outline-none"
+						/>
+						<button
+							type="submit"
+							class="rounded-lg bg-cyan-400/10 p-2 text-cyan-300 transition hover:bg-cyan-400/20 hover:text-cyan-200"
+							aria-label="Save checklist item"
+						>
+							<CheckOutline class="size-4" />
+						</button>
+						<button
+							type="button"
+							onclick={cancelEditing}
+							class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-800 hover:text-slate-300"
+							aria-label="Cancel editing checklist item"
+						>
+							<CloseOutline class="size-4" />
+						</button>
+					</form>
+				{:else}
+					<span
+						class={`min-w-0 flex-1 text-sm leading-6 ${item.done ? 'text-slate-600 line-through' : 'text-slate-300'}`}
+					>
+						{item.text}
+					</span>
+					<div
+						class="flex shrink-0 items-center opacity-70 transition sm:opacity-0 sm:group-focus-within:opacity-100 sm:group-hover:opacity-100"
+					>
+						<button
+							type="button"
+							onclick={() => startEditing(item)}
+							class="rounded-lg p-1.5 text-slate-600 transition hover:bg-cyan-400/10 hover:text-cyan-300"
+							aria-label={`Edit “${item.text}”`}
+						>
+							<EditOutline class="size-4" />
+						</button>
+						<button
+							type="button"
+							onclick={() => onDelete(item.id)}
+							class="rounded-lg p-1.5 text-slate-700 transition hover:bg-rose-400/10 hover:text-rose-300"
+							aria-label={`Delete “${item.text}”`}
+						>
+							<TrashBinOutline class="size-4" />
+						</button>
+					</div>
+				{/if}
 			</div>
 		{:else}
 			<p class="px-6 py-8 text-center text-sm text-slate-600">
@@ -84,6 +160,7 @@
 		<input
 			id={`checklist-${phase}`}
 			bind:value={draft}
+			maxlength="2000"
 			placeholder="Add a checklist actionâ€¦"
 			class="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
 		/>

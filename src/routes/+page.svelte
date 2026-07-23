@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { onMount, untrack } from 'svelte';
+	import { onMount, tick, untrack } from 'svelte';
 	import { Badge, Button, Progressbar } from 'flowbite-svelte';
 	import {
 		ArrowLeftOutline,
@@ -8,6 +8,9 @@
 		ArrowUpRightFromSquareOutline,
 		AtomOutline,
 		BookOpenOutline,
+		CheckOutline,
+		CloseOutline,
+		EditOutline,
 		LinkOutline,
 		RefreshOutline
 	} from 'flowbite-svelte-icons';
@@ -42,7 +45,12 @@
 		readSharedBuildToken
 	} from '$lib/sharing/build-share';
 	import type { SavedBuildRecord } from '$lib/persistence/build-library';
-	import type { BuildGuide, PoeNinjaPriceSnapshot, TodoPhase } from '$lib/types/guide';
+	import type {
+		BuildGuide,
+		GuideInsight,
+		PoeNinjaPriceSnapshot,
+		TodoPhase
+	} from '$lib/types/guide';
 
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
 	let activeStepId = $state(sampleGuides[0].steps[0].id);
@@ -58,6 +66,13 @@
 	let libraryMessage = $state('');
 	let shareUrl = $state('');
 	let sharing = $state(false);
+	let editingStepDetails = $state(false);
+	let stepTitleInput = $state<HTMLInputElement>();
+	let stepDraft = $state({
+		title: '',
+		eyebrow: '',
+		description: ''
+	});
 
 	let activeIndex = $derived(guide.steps.findIndex((step) => step.id === activeStepId));
 	let activeStep = $derived(guide.steps[Math.max(activeIndex, 0)]);
@@ -74,10 +89,21 @@
 	function mergeGuideProgress(baseGuide: BuildGuide, savedSteps: BuildGuide['steps']): BuildGuide {
 		const savedById = new Map(savedSteps.map((step) => [step.id, step]));
 		const nextGuide = cloneGuide(baseGuide);
-		nextGuide.steps = nextGuide.steps.map((step) => ({
-			...step,
-			todos: mergeSavedTodos(step.todos, savedById.get(step.id)?.todos ?? [])
-		}));
+		nextGuide.steps = nextGuide.steps.map((step) => {
+			const savedStep = savedById.get(step.id);
+			return {
+				...step,
+				...(savedStep
+					? {
+							title: savedStep.title,
+							eyebrow: savedStep.eyebrow,
+							description: savedStep.description
+						}
+					: {}),
+				...(savedStep?.insights !== undefined ? { insights: savedStep.insights } : {}),
+				todos: mergeSavedTodos(step.todos, savedStep?.todos ?? [])
+			};
+		});
 		return nextGuide;
 	}
 
@@ -108,10 +134,15 @@
 	) {
 		const defaultIds = new Set(defaultTodos.map((todo) => todo.id));
 		const savedById = new Map(savedTodos.map((todo) => [todo.id, todo]));
-		const mergedDefaults = defaultTodos.map((todo) => ({
-			...todo,
-			done: savedById.get(todo.id)?.done ?? todo.done
-		}));
+		const mergedDefaults = defaultTodos.map((todo) => {
+			const savedTodo = savedById.get(todo.id);
+			return {
+				...todo,
+				text: savedTodo?.text ?? todo.text,
+				phase: savedTodo?.phase ?? todo.phase,
+				done: savedTodo?.done ?? todo.done
+			};
+		});
 		const customTodos = savedTodos.filter(
 			(todo) => todo.id.startsWith('custom-') && !defaultIds.has(todo.id)
 		);
@@ -208,6 +239,7 @@
 	});
 
 	function selectGuide(nextGuide: BuildGuide) {
+		editingStepDetails = false;
 		guide = loadSavedGuide(nextGuide);
 		activeStepId = guide.steps[0].id;
 		activeSavedBuildId = null;
@@ -250,6 +282,7 @@
 	}
 
 	function loadSavedBuild(savedBuild: SavedBuildRecord) {
+		editingStepDetails = false;
 		guide = refreshBundledGuide(savedBuild.guide);
 		activeStepId = guide.steps.some((step) => step.id === savedBuild.activeStepId)
 			? savedBuild.activeStepId
@@ -337,6 +370,11 @@
 		if (item) item.done = !item.done;
 	}
 
+	function editTodo(todoId: string, text: string) {
+		const item = activeStep.todos.find((todo) => todo.id === todoId);
+		if (item) item.text = text;
+	}
+
 	function deleteTodo(todoId: string) {
 		activeStep.todos = activeStep.todos.filter((todo) => todo.id !== todoId);
 	}
@@ -350,9 +388,58 @@
 		});
 	}
 
+	function addInsight(insight: GuideInsight) {
+		if (!activeStep.insights) activeStep.insights = [];
+		activeStep.insights.push(insight);
+	}
+
+	function editInsight(index: number, insight: GuideInsight) {
+		if (!activeStep.insights?.[index]) return;
+		activeStep.insights[index] = insight;
+	}
+
+	function deleteInsight(index: number) {
+		if (!activeStep.insights?.[index]) return;
+		activeStep.insights = activeStep.insights.filter((_, insightIndex) => insightIndex !== index);
+	}
+
+	async function openStepEditor() {
+		stepDraft = {
+			title: activeStep.title,
+			eyebrow: activeStep.eyebrow,
+			description: activeStep.description
+		};
+		editingStepDetails = true;
+		await tick();
+		stepTitleInput?.focus();
+	}
+
+	function closeStepEditor() {
+		editingStepDetails = false;
+	}
+
+	function saveStepDetails(event: SubmitEvent) {
+		event.preventDefault();
+		const title = stepDraft.title.trim();
+		const eyebrow = stepDraft.eyebrow.trim();
+		const description = stepDraft.description.trim();
+		if (!title || !eyebrow || !description) return;
+
+		activeStep.title = title;
+		activeStep.eyebrow = eyebrow;
+		activeStep.description = description;
+		editingStepDetails = false;
+	}
+
+	function selectStep(stepId: string) {
+		editingStepDetails = false;
+		activeStepId = stepId;
+	}
+
 	function resetGuide() {
 		const original = sampleGuides.find((item) => item.id === guide.id);
 		if (!original) return;
+		editingStepDetails = false;
 		guide = cloneGuide(original);
 		activeStepId = guide.steps[0].id;
 		if (typeof localStorage !== 'undefined') localStorage.removeItem(storageKey(guide.id));
@@ -360,6 +447,7 @@
 
 	function moveStep(direction: -1 | 1) {
 		const nextIndex = Math.min(Math.max(activeIndex + direction, 0), guide.steps.length - 1);
+		editingStepDetails = false;
 		activeStepId = guide.steps[nextIndex].id;
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
@@ -482,7 +570,7 @@
 			<span class="shrink-0 text-xs font-semibold tracking-wider text-slate-600 uppercase"
 				>Steps</span
 			>
-			<ProgressRail steps={guide.steps} {activeStepId} onSelect={(id) => (activeStepId = id)} />
+			<ProgressRail steps={guide.steps} {activeStepId} onSelect={selectStep} />
 		</div>
 
 		<div
@@ -503,25 +591,87 @@
 							LVL {guide.level}
 						</span>
 					</div>
-					<ProgressRail steps={guide.steps} {activeStepId} onSelect={(id) => (activeStepId = id)} />
+					<ProgressRail steps={guide.steps} {activeStepId} onSelect={selectStep} />
 				</div>
 			</aside>
 
 			<div class="min-w-0 space-y-5">
 				<section class="rounded-2xl border border-slate-800 bg-slate-900/45 p-5 sm:p-7">
 					<div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-						<div>
-							<p class="text-xs font-semibold tracking-[0.2em] text-cyan-400 uppercase">
-								Step {activeIndex + 1} of {guide.steps.length} · {activeStep.eyebrow}
-							</p>
-							<h2 class="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-								{activeStep.title}
-							</h2>
-							<p class="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
-								{activeStep.description}
-							</p>
-						</div>
+						{#if editingStepDetails}
+							<form onsubmit={saveStepDetails} class="min-w-0 flex-1">
+								<div class="grid gap-4">
+									<label class="grid gap-1.5 text-xs font-semibold text-slate-400">
+										Section label
+										<input
+											bind:value={stepDraft.eyebrow}
+											required
+											maxlength="300"
+											placeholder="Life-based baseline"
+											class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm font-normal text-slate-100 placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
+										/>
+									</label>
+									<label class="grid gap-1.5 text-xs font-semibold text-slate-400">
+										Section title
+										<input
+											bind:this={stepTitleInput}
+											bind:value={stepDraft.title}
+											required
+											maxlength="300"
+											class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-base font-semibold text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
+										/>
+									</label>
+									<label class="grid gap-1.5 text-xs font-semibold text-slate-400">
+										Section description
+										<textarea
+											bind:value={stepDraft.description}
+											required
+											maxlength="4000"
+											rows="3"
+											class="resize-y rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm leading-6 font-normal text-slate-100 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
+										></textarea>
+									</label>
+								</div>
+								<div class="mt-4 flex flex-wrap gap-2">
+									<button
+										type="submit"
+										class="inline-flex items-center gap-1.5 rounded-lg bg-cyan-400 px-3 py-2 text-xs font-bold text-slate-950 transition hover:bg-cyan-300"
+									>
+										<CheckOutline class="size-3.5" /> Save section
+									</button>
+									<button
+										type="button"
+										onclick={closeStepEditor}
+										class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
+									>
+										<CloseOutline class="size-3.5" /> Cancel
+									</button>
+								</div>
+							</form>
+						{:else}
+							<div class="min-w-0 flex-1">
+								<p class="text-xs font-semibold tracking-[0.2em] text-cyan-400 uppercase">
+									Step {activeIndex + 1} of {guide.steps.length} · {activeStep.eyebrow}
+								</p>
+								<h2 class="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+									{activeStep.title}
+								</h2>
+								<p class="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
+									{activeStep.description}
+								</p>
+							</div>
+						{/if}
 						<div class="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
+							{#if !editingStepDetails}
+								<button
+									type="button"
+									onclick={openStepEditor}
+									class="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/50 hover:text-cyan-300"
+									aria-label={`Edit ${activeStep.title} section title and description`}
+								>
+									<EditOutline class="size-3.5" /> Edit section
+								</button>
+							{/if}
 							{#if pathOfBuildingUrl}
 								<!-- Custom protocol URLs must not use SvelteKit's internal route resolver. -->
 								<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -546,29 +696,40 @@
 					</div>
 				</section>
 
-				<StepInsights insights={activeStep.insights ?? []} />
+				{#key activeStep.id}
+					<StepInsights
+						insights={activeStep.insights ?? []}
+						onAdd={addInsight}
+						onEdit={editInsight}
+						onDelete={deleteInsight}
+					/>
 
-				<ChecklistSection
-					title="Do during this step"
-					description="Complete these actions while this loadout is your active setup."
-					phase="during"
-					items={activeStep.todos.filter((item) => item.phase === 'during')}
-					onToggle={toggleTodo}
-					onDelete={deleteTodo}
-					onAdd={addTodo}
-				/>
+					<ChecklistSection
+						title="Do during this step"
+						description="Complete these actions while this loadout is your active setup."
+						phase="during"
+						items={activeStep.todos.filter((item) => item.phase === 'during')}
+						onToggle={toggleTodo}
+						onDelete={deleteTodo}
+						onEdit={editTodo}
+						onAdd={addTodo}
+					/>
 
-				<ChecklistSection
-					title={activeIndex >= guide.steps.length - 1 ? 'Final verification' : 'Before moving on'}
-					description={activeIndex >= guide.steps.length - 1
-						? 'Run these checks before treating the imported progression as complete.'
-						: 'Verify this handoff before selecting the next Path of Building loadout.'}
-					phase="before-next"
-					items={activeStep.todos.filter((item) => item.phase === 'before-next')}
-					onToggle={toggleTodo}
-					onDelete={deleteTodo}
-					onAdd={addTodo}
-				/>
+					<ChecklistSection
+						title={activeIndex >= guide.steps.length - 1
+							? 'Final verification'
+							: 'Before moving on'}
+						description={activeIndex >= guide.steps.length - 1
+							? 'Run these checks before treating the imported progression as complete.'
+							: 'Verify this handoff before selecting the next Path of Building loadout.'}
+						phase="before-next"
+						items={activeStep.todos.filter((item) => item.phase === 'before-next')}
+						onToggle={toggleTodo}
+						onDelete={deleteTodo}
+						onEdit={editTodo}
+						onAdd={addTodo}
+					/>
+				{/key}
 
 				<EquipmentSection
 					items={activeStep.equipment ?? []}

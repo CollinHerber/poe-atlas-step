@@ -52,6 +52,12 @@
 		TodoPhase
 	} from '$lib/types/guide';
 
+	const SITE_URL = 'https://collinherber.github.io/poe-build-tool/';
+	const SOCIAL_IMAGE_URL = `${SITE_URL}og.png`;
+	const SITE_TITLE = 'Atlas Step — Path of Exile Build Progression Planner';
+	const SITE_DESCRIPTION =
+		'Turn Path of Building loadouts into an editable, step-by-step league progression checklist for gear, gems, upgrades, and build transitions.';
+
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
 	let activeStepId = $state(sampleGuides[0].steps[0].id);
 	let importUrl = $state(TRANSITION_POB_URL);
@@ -454,10 +460,35 @@
 </script>
 
 <svelte:head>
-	<title>Atlas Step — Path of Exile progression planner</title>
+	<title>{SITE_TITLE}</title>
+	<meta name="description" content={SITE_DESCRIPTION} />
+	<meta name="application-name" content="Atlas Step" />
+	<meta name="theme-color" content="#080b12" />
+	<link rel="canonical" href={SITE_URL} />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Atlas Step" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:title" content={SITE_TITLE} />
+	<meta property="og:description" content={SITE_DESCRIPTION} />
+	<meta property="og:url" content={SITE_URL} />
+	<meta property="og:image" content={SOCIAL_IMAGE_URL} />
+	<meta property="og:image:secure_url" content={SOCIAL_IMAGE_URL} />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
 	<meta
-		name="description"
-		content="A loadout-driven Path of Exile checklist for progressing a Winter Orb character from maps into power-charge stacking."
+		property="og:image:alt"
+		content="Atlas Step progression rail, checklist, and equipment cards on a dark cyan and amber interface."
+	/>
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={SITE_TITLE} />
+	<meta name="twitter:description" content={SITE_DESCRIPTION} />
+	<meta name="twitter:image" content={SOCIAL_IMAGE_URL} />
+	<meta
+		name="twitter:image:alt"
+		content="Atlas Step progression rail, checklist, and equipment cards on a dark cyan and amber interface."
 	/>
 </svelte:head>
 

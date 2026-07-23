@@ -69,19 +69,32 @@
 
 	const storageKey = (guideId: string) => `atlas-step:guide:${guideId}`;
 
+	function mergeGuideProgress(baseGuide: BuildGuide, savedSteps: BuildGuide['steps']): BuildGuide {
+		const savedById = new Map(savedSteps.map((step) => [step.id, step]));
+		const nextGuide = cloneGuide(baseGuide);
+		nextGuide.steps = nextGuide.steps.map((step) => ({
+			...step,
+			todos: mergeSavedTodos(step.todos, savedById.get(step.id)?.todos ?? [])
+		}));
+		return nextGuide;
+	}
+
+	function refreshBundledGuide(savedGuide: BuildGuide) {
+		const baseGuide = sampleGuides.find(
+			(candidate) => candidate.id === savedGuide.id && candidate.sourceUrl === savedGuide.sourceUrl
+		);
+		return baseGuide
+			? mergeGuideProgress(baseGuide, savedGuide.steps)
+			: clonePlainGuide(savedGuide);
+	}
+
 	function loadSavedGuide(baseGuide: BuildGuide) {
 		if (typeof localStorage === 'undefined') return cloneGuide(baseGuide);
 		const saved = localStorage.getItem(storageKey(baseGuide.id));
 		if (!saved) return cloneGuide(baseGuide);
 		try {
 			const savedSteps = JSON.parse(saved) as BuildGuide['steps'];
-			const savedById = new Map(savedSteps.map((step) => [step.id, step]));
-			const nextGuide = cloneGuide(baseGuide);
-			nextGuide.steps = nextGuide.steps.map((step) => ({
-				...step,
-				todos: mergeSavedTodos(step.todos, savedById.get(step.id)?.todos ?? [])
-			}));
-			return nextGuide;
+			return mergeGuideProgress(baseGuide, savedSteps);
 		} catch {
 			return cloneGuide(baseGuide);
 		}
@@ -119,13 +132,21 @@
 	}
 
 	async function initializeWorkspace() {
-		savedBuilds = readSavedBuilds();
+		const storedBuilds = readSavedBuilds();
+		const refreshedBuilds = storedBuilds.map((savedBuild) => ({
+			...savedBuild,
+			guide: refreshBundledGuide(savedBuild.guide)
+		}));
+		savedBuilds = refreshedBuilds;
+		if (JSON.stringify(storedBuilds) !== JSON.stringify(refreshedBuilds)) {
+			writeSavedBuilds(refreshedBuilds);
+		}
 		const shareToken = readSharedBuildToken(window.location.hash);
 
 		if (shareToken) {
 			try {
 				const shared = await decodeSharedBuild(shareToken);
-				guide = clonePlainGuide(shared.guide);
+				guide = refreshBundledGuide(shared.guide);
 				activeStepId = shared.activeStepId;
 				importUrl = guide.sourceUrl;
 				savedBuildName = `${shared.name} copy`;
@@ -227,7 +248,7 @@
 	}
 
 	function loadSavedBuild(savedBuild: SavedBuildRecord) {
-		guide = clonePlainGuide(savedBuild.guide);
+		guide = refreshBundledGuide(savedBuild.guide);
 		activeStepId = guide.steps.some((step) => step.id === savedBuild.activeStepId)
 			? savedBuild.activeStepId
 			: guide.steps[0].id;

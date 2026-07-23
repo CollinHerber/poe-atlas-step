@@ -31,6 +31,12 @@
 		"early-game": [],
 		"transition-mid-game": [
 			{
+				"name": "Mystic Refractor",
+				"baseType": "Pagan Wand",
+				"slot": "Weapon 1",
+				"category": "UniqueWeapon"
+			},
+			{
 				"name": "Foulborn The Pandemonius",
 				"baseType": "Jade Amulet",
 				"slot": "Amulet",
@@ -44,40 +50,136 @@
 				"category": "UniqueAccessory"
 			},
 			{
-				"name": "Mystic Refractor",
-				"baseType": "Pagan Wand",
-				"slot": "Weapon 1",
-				"category": "UniqueWeapon"
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"slot": "Flask 5",
+				"category": "UniqueFlask"
 			}
 		],
 		"endgame-optional": [
+			{
+				"name": "Light of Lunaris",
+				"baseType": "Jingling Spirit Shield",
+				"slot": "Weapon 2",
+				"category": "UniqueArmour"
+			},
+			{
+				"name": "Replica Dragonfang's Flight",
+				"baseType": "Onyx Amulet",
+				"slot": "Amulet",
+				"category": "UniqueAccessory"
+			},
 			{
 				"name": "Death Rush",
 				"baseType": "Amethyst Ring",
 				"slot": "Ring 2",
 				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"slot": "Flask 1",
+				"category": "UniqueFlask"
+			},
+			{
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"slot": "Flask 5",
+				"category": "UniqueFlask"
+			},
+			{
+				"name": "Watcher's Eye",
+				"baseType": "Prismatic Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
+			},
+			{
+				"name": "The Light of Meaning",
+				"baseType": "Prismatic Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
 			}
 		],
 		"pcharge-stack": [
 			{
-				"name": "Badge of the Brotherhood",
-				"baseType": "Turquoise Amulet",
-				"slot": "Amulet",
-				"category": "UniqueAccessory"
+				"name": "Tulfall",
+				"baseType": "Opal Wand",
+				"slot": "Weapon 1",
+				"category": "UniqueWeapon"
+			},
+			{
+				"name": "Malachai's Loop",
+				"baseType": "Harmonic Spirit Shield",
+				"slot": "Weapon 2",
+				"category": "UniqueArmour"
 			},
 			{
 				"name": "Willclash",
 				"baseType": "Golden Mask",
 				"slot": "Helmet",
 				"category": "UniqueArmour"
+			},
+			{
+				"name": "Ralakesh's Impatience",
+				"baseType": "Riveted Boots",
+				"slot": "Boots",
+				"category": "UniqueArmour"
+			},
+			{
+				"name": "Badge of the Brotherhood",
+				"baseType": "Turquoise Amulet",
+				"slot": "Amulet",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Romira's Banquet",
+				"baseType": "Diamond Ring",
+				"slot": "Ring 1",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Romira's Banquet",
+				"baseType": "Diamond Ring",
+				"slot": "Ring 2",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Graven's Secret",
+				"baseType": "Cloth Belt",
+				"slot": "Belt",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"slot": "Flask 1",
+				"category": "UniqueFlask"
+			},
+			{
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"slot": "Flask 5",
+				"category": "UniqueFlask"
+			},
+			{
+				"name": "Elegant Hubris",
+				"baseType": "Timeless Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
 			}
 		],
 		"uber-pcharge": [
 			{
-				"name": "Badge of the Brotherhood",
-				"baseType": "Turquoise Amulet",
-				"slot": "Amulet",
-				"category": "UniqueAccessory"
+				"name": "Tulfall",
+				"baseType": "Opal Wand",
+				"slot": "Weapon 1",
+				"category": "UniqueWeapon"
+			},
+			{
+				"name": "Malachai's Loop",
+				"baseType": "Harmonic Spirit Shield",
+				"slot": "Weapon 2",
+				"category": "UniqueArmour"
 			},
 			{
 				"name": "Willclash",
@@ -86,8 +188,62 @@
 				"category": "UniqueArmour"
 			},
 			{
+				"name": "Ralakesh's Impatience",
+				"baseType": "Riveted Boots",
+				"slot": "Boots",
+				"category": "UniqueArmour"
+			},
+			{
+				"name": "Badge of the Brotherhood",
+				"baseType": "Turquoise Amulet",
+				"slot": "Amulet",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Graven's Secret",
+				"baseType": "Cloth Belt",
+				"slot": "Belt",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"slot": "Flask 1",
+				"category": "UniqueFlask"
+			},
+			{
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"slot": "Flask 5",
+				"category": "UniqueFlask"
+			},
+			{
 				"name": "Unnatural Instinct",
 				"baseType": "Viridian Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
+			},
+			{
+				"name": "Impossible Escape",
+				"baseType": "Viridian Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
+			},
+			{
+				"name": "Elegant Hubris",
+				"baseType": "Timeless Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
+			},
+			{
+				"name": "The Light of Meaning",
+				"baseType": "Prismatic Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
+			},
+			{
+				"name": "Sublime Vision",
+				"baseType": "Prismatic Jewel",
 				"slot": "Jewel",
 				"category": "UniqueJewel"
 			}

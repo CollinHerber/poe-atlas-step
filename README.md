@@ -44,9 +44,14 @@ pnpm build
 Refresh the local price snapshot and validate unique-item wiki routes:
 
 ```sh
+node scripts/update-pob-uniques.mjs
 pnpm prices:update
 pnpm wiki:validate
 ```
+
+`update-pob-uniques.mjs` decodes the configured pobb.in builds and rebuilds each checkpoint's
+unique list from its selected equipment set and matching passive-tree jewel sockets. Run it with
+`--check` to verify the committed data without rewriting it.
 
 ## GitHub Pages
 

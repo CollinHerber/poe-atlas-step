@@ -4,7 +4,9 @@
 	import { Badge, Button, Progressbar } from 'flowbite-svelte';
 	import {
 		ArrowLeftOutline,
+		ArrowDownOutline,
 		ArrowRightOutline,
+		ArrowUpOutline,
 		ArrowUpRightFromSquareOutline,
 		AtomOutline,
 		BookOpenOutline,
@@ -13,6 +15,7 @@
 		EditOutline,
 		GithubSolid,
 		LinkOutline,
+		PlusOutline,
 		RefreshOutline
 	} from 'flowbite-svelte-icons';
 	import BuildLibrary from '$lib/components/BuildLibrary.svelte';
@@ -53,6 +56,7 @@
 	import type {
 		BuildGuide,
 		GuideInsight,
+		GuideStep,
 		PoeNinjaPriceSnapshot,
 		TodoPhase
 	} from '$lib/types/guide';
@@ -89,6 +93,7 @@
 	let shareUrl = $state('');
 	let sharing = $state(false);
 	let editingStepDetails = $state(false);
+	let creatingStep = $state(false);
 	let stepTitleInput = $state<HTMLInputElement>();
 	let stepDraft = $state({
 		title: '',
@@ -107,25 +112,27 @@
 	);
 
 	const storageKey = (guideId: string) => `atlas-step:guide:${guideId}`;
+	const cloneStep = (step: GuideStep): GuideStep => JSON.parse(JSON.stringify(step)) as GuideStep;
 
 	function mergeGuideProgress(baseGuide: BuildGuide, savedSteps: BuildGuide['steps']): BuildGuide {
-		const savedById = new Map(savedSteps.map((step) => [step.id, step]));
+		const baseById = new Map(baseGuide.steps.map((step) => [step.id, step]));
+		const savedIds = new Set(savedSteps.map((step) => step.id));
 		const nextGuide = cloneGuide(baseGuide);
-		nextGuide.steps = nextGuide.steps.map((step) => {
-			const savedStep = savedById.get(step.id);
+		const orderedSavedSteps = savedSteps.map((savedStep) => {
+			const baseStep = baseById.get(savedStep.id);
+			if (!baseStep) return cloneStep(savedStep);
+
 			return {
-				...step,
-				...(savedStep
-					? {
-							title: savedStep.title,
-							eyebrow: savedStep.eyebrow,
-							description: savedStep.description
-						}
-					: {}),
-				...(savedStep?.insights !== undefined ? { insights: savedStep.insights } : {}),
-				todos: mergeSavedTodos(step.todos, savedStep?.todos ?? [])
+				...baseStep,
+				title: savedStep.title,
+				eyebrow: savedStep.eyebrow,
+				description: savedStep.description,
+				...(savedStep.insights !== undefined ? { insights: savedStep.insights } : {}),
+				todos: mergeSavedTodos(baseStep.todos, savedStep.todos)
 			};
 		});
+		const newBundledSteps = nextGuide.steps.filter((step) => !savedIds.has(step.id));
+		nextGuide.steps = [...orderedSavedSteps, ...newBundledSteps];
 		return nextGuide;
 	}
 
@@ -459,13 +466,30 @@
 			eyebrow: activeStep.eyebrow,
 			description: activeStep.description
 		};
+		creatingStep = false;
 		editingStepDetails = true;
 		await tick();
 		stepTitleInput?.focus();
 	}
 
+	async function openNewStepEditor() {
+		if (guide.steps.length >= 50) return;
+		stepDraft = {
+			title: 'New section',
+			eyebrow: 'Custom step',
+			description: 'Describe what needs to happen during this part of the progression.'
+		};
+		creatingStep = true;
+		editingStepDetails = true;
+		await tick();
+		document.getElementById('step-details')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		stepTitleInput?.focus();
+		stepTitleInput?.select();
+	}
+
 	function closeStepEditor() {
 		editingStepDetails = false;
+		creatingStep = false;
 	}
 
 	function saveStepDetails(event: SubmitEvent) {
@@ -475,14 +499,39 @@
 		const description = stepDraft.description.trim();
 		if (!title || !eyebrow || !description) return;
 
-		activeStep.title = title;
-		activeStep.eyebrow = eyebrow;
-		activeStep.description = description;
+		if (creatingStep) {
+			const id =
+				typeof crypto !== 'undefined' && 'randomUUID' in crypto
+					? `custom-step-${crypto.randomUUID()}`
+					: `custom-step-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+			const newStep: BuildGuide['steps'][number] = {
+				id,
+				title,
+				eyebrow,
+				description,
+				uniques: [],
+				equipment: [],
+				gems: [],
+				insights: [],
+				noteHighlights: [],
+				todos: []
+			};
+			const insertAt = Math.min(activeIndex + 1, guide.steps.length);
+			guide.steps.splice(insertAt, 0, newStep);
+			activeStepId = id;
+		} else {
+			activeStep.title = title;
+			activeStep.eyebrow = eyebrow;
+			activeStep.description = description;
+		}
+
 		editingStepDetails = false;
+		creatingStep = false;
 	}
 
 	function selectStep(stepId: string) {
 		editingStepDetails = false;
+		creatingStep = false;
 		activeStepId = stepId;
 	}
 
@@ -499,11 +548,20 @@
 		if (typeof localStorage !== 'undefined') localStorage.removeItem(storageKey(guide.id));
 	}
 
-	function moveStep(direction: -1 | 1) {
+	function navigateStep(direction: -1 | 1) {
 		const nextIndex = Math.min(Math.max(activeIndex + direction, 0), guide.steps.length - 1);
 		editingStepDetails = false;
+		creatingStep = false;
 		activeStepId = guide.steps[nextIndex].id;
 		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
+
+	function reorderStep(direction: -1 | 1) {
+		const targetIndex = activeIndex + direction;
+		if (activeIndex < 0 || targetIndex < 0 || targetIndex >= guide.steps.length) return;
+
+		const [step] = guide.steps.splice(activeIndex, 1);
+		guide.steps.splice(targetIndex, 0, step);
 	}
 </script>
 
@@ -662,10 +720,18 @@
 			onCopy={() => void copyShareUrl()}
 		/>
 
-		<div class="mb-5 flex items-center gap-2 overflow-x-auto pb-1 lg:hidden">
-			<span class="shrink-0 text-xs font-semibold tracking-wider text-slate-600 uppercase"
-				>Steps</span
-			>
+		<div class="mb-5 lg:hidden">
+			<div class="mb-2 flex items-center justify-between gap-3">
+				<span class="text-xs font-semibold tracking-wider text-slate-600 uppercase">Steps</span>
+				<button
+					type="button"
+					onclick={openNewStepEditor}
+					disabled={guide.steps.length >= 50}
+					class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/50 hover:text-cyan-300 disabled:cursor-not-allowed disabled:opacity-40"
+				>
+					<PlusOutline class="size-3.5" /> Add section
+				</button>
+			</div>
 			<ProgressRail steps={guide.steps} {activeStepId} onSelect={selectStep} />
 		</div>
 
@@ -688,14 +754,30 @@
 						</span>
 					</div>
 					<ProgressRail steps={guide.steps} {activeStepId} onSelect={selectStep} />
+					<button
+						type="button"
+						onclick={openNewStepEditor}
+						disabled={guide.steps.length >= 50}
+						class="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-slate-700 px-3 py-2.5 text-xs font-semibold text-slate-400 transition hover:border-cyan-400/50 hover:bg-cyan-400/5 hover:text-cyan-300 disabled:cursor-not-allowed disabled:opacity-40"
+					>
+						<PlusOutline class="size-4" /> Add section
+					</button>
 				</div>
 			</aside>
 
 			<div class="min-w-0 space-y-5">
-				<section class="rounded-2xl border border-slate-800 bg-slate-900/45 p-5 sm:p-7">
+				<section
+					id="step-details"
+					class="scroll-mt-6 rounded-2xl border border-slate-800 bg-slate-900/45 p-5 sm:p-7"
+				>
 					<div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
 						{#if editingStepDetails}
 							<form onsubmit={saveStepDetails} class="min-w-0 flex-1">
+								{#if creatingStep}
+									<p class="mb-4 text-xs font-semibold tracking-[0.16em] text-cyan-400 uppercase">
+										Add after {activeStep.title}
+									</p>
+								{/if}
 								<div class="grid gap-4">
 									<label class="grid gap-1.5 text-xs font-semibold text-slate-400">
 										Section label
@@ -733,7 +815,8 @@
 										type="submit"
 										class="inline-flex items-center gap-1.5 rounded-lg bg-cyan-400 px-3 py-2 text-xs font-bold text-slate-950 transition hover:bg-cyan-300"
 									>
-										<CheckOutline class="size-3.5" /> Save section
+										<CheckOutline class="size-3.5" />
+										{creatingStep ? 'Add section' : 'Save section'}
 									</button>
 									<button
 										type="button"
@@ -759,6 +842,32 @@
 						{/if}
 						<div class="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
 							{#if !editingStepDetails}
+								<div
+									class="inline-flex overflow-hidden rounded-lg border border-slate-700 bg-slate-900"
+									role="group"
+									aria-label={`Reorder ${activeStep.title} section`}
+								>
+									<button
+										type="button"
+										onclick={() => reorderStep(-1)}
+										disabled={activeIndex <= 0}
+										title="Move section earlier"
+										aria-label={`Move ${activeStep.title} earlier`}
+										class="grid size-8 place-items-center text-slate-400 transition hover:bg-slate-800 hover:text-cyan-300 disabled:cursor-not-allowed disabled:opacity-30"
+									>
+										<ArrowUpOutline class="size-3.5" />
+									</button>
+									<button
+										type="button"
+										onclick={() => reorderStep(1)}
+										disabled={activeIndex >= guide.steps.length - 1}
+										title="Move section later"
+										aria-label={`Move ${activeStep.title} later`}
+										class="grid size-8 place-items-center border-l border-slate-700 text-slate-400 transition hover:bg-slate-800 hover:text-cyan-300 disabled:cursor-not-allowed disabled:opacity-30"
+									>
+										<ArrowDownOutline class="size-3.5" />
+									</button>
+								</div>
 								<button
 									type="button"
 									onclick={openStepEditor}
@@ -891,7 +1000,7 @@
 						type="button"
 						color="dark"
 						disabled={activeIndex <= 0}
-						onclick={() => moveStep(-1)}
+						onclick={() => navigateStep(-1)}
 						class="!border-slate-700 !bg-slate-900"
 					>
 						<ArrowLeftOutline class="mr-2 size-4" /> Previous
@@ -900,7 +1009,7 @@
 						type="button"
 						color="cyan"
 						disabled={activeIndex >= guide.steps.length - 1}
-						onclick={() => moveStep(1)}
+						onclick={() => navigateStep(1)}
 					>
 						Next step <ArrowRightOutline class="ml-2 size-4" />
 					</Button>

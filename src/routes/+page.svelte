@@ -40,6 +40,7 @@
 		writeSavedBuilds
 	} from '$lib/persistence/build-library';
 	import { buildPathOfBuildingUrl } from '$lib/poe/path-of-building';
+	import { importPobbBuild } from '$lib/poe/pobb-import';
 	import {
 		createShareUrl,
 		decodeSharedBuild,
@@ -75,6 +76,7 @@
 	let activeStepId = $state(sampleGuides[0].steps[0].id);
 	let importUrl = $state(TRANSITION_POB_URL);
 	let importMessage = $state('');
+	let importing = $state(false);
 	let ready = $state(false);
 	let priceSnapshot = $state<PoeNinjaPriceSnapshot | null>(null);
 	let priceStatus = $state<'loading' | 'ready' | 'unavailable'>('loading');
@@ -377,21 +379,39 @@
 		}
 	}
 
-	function importBuild(event: SubmitEvent) {
+	async function importBuild(event: SubmitEvent) {
 		event.preventDefault();
+		if (importing) return;
 		const found = findGuideByUrl(importUrl);
 		if (found) {
 			selectGuide(found);
 			return;
 		}
 
-		if (/^https?:\/\/(?:www\.)?pobb\.in\/[A-Za-z0-9_-]+\/?$/i.test(importUrl.trim())) {
-			importMessage =
-				'This PoB link is valid. Live extraction is the next integration; this version is focused on the supplied transition profile.';
-			return;
-		}
+		importing = true;
+		importMessage = 'Reading the Path of Building and assembling an editable baseline…';
 
-		importMessage = 'Paste a full pobb.in link, for example https://pobb.in/your-build-id.';
+		try {
+			const imported = await importPobbBuild(importUrl);
+			editingStepDetails = false;
+			guide = imported.guide;
+			activeStepId = imported.guide.steps[0].id;
+			activeSavedBuildId = null;
+			workspaceSource = 'shared';
+			savedBuildName = imported.guide.name;
+			shareUrl = '';
+			importUrl = imported.guide.sourceUrl;
+			libraryMessage =
+				'Imported an editable baseline. Save a local copy before leaving if you want to keep your changes.';
+			importMessage = `Imported ${imported.summary.loadoutCount} loadouts with ${imported.summary.equipmentCount} equipment entries, ${imported.summary.gemCount} gems, ${imported.summary.uniqueCount} unique references, and ${imported.summary.noteCount} note sections.`;
+		} catch (error) {
+			importMessage =
+				error instanceof Error
+					? error.message
+					: 'This Path of Building could not be imported. Check the link and try again.';
+		} finally {
+			importing = false;
+		}
 	}
 
 	function toggleTodo(todoId: string) {
@@ -598,15 +618,22 @@
 							id="pob-url"
 							type="url"
 							bind:value={importUrl}
+							disabled={importing}
 							class="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
 							placeholder="https://pobb.in/…"
 						/>
-						<Button type="submit" color="cyan" class="whitespace-nowrap">Build guide</Button>
+						<Button type="submit" color="cyan" disabled={importing} class="whitespace-nowrap">
+							{importing ? 'Importing…' : 'Build guide'}
+						</Button>
 					</div>
 				</div>
 				{#if importMessage}
 					<p class="mt-2 text-xs text-slate-500" role="status">{importMessage}</p>
 				{/if}
+				<p class="mt-1 text-[0.65rem] text-slate-700">
+					Public pobb.in data is read through Jina Reader because pobb.in blocks direct browser
+					access from static sites.
+				</p>
 			</form>
 		</section>
 

@@ -5,7 +5,7 @@ Atlas Step turns Path of Building loadouts into a clickable league-progression c
 - **Do during this step** for concrete gear, gem, tree, and verification work.
 - **Before moving on** for the checks that make a transition safe to complete.
 
-The MVP is focused on the six-loadout Winter Orb transition PoB, from the life-based Elementalist mapping baseline through Occultist, Chaos Inoculation, and the final power-charge setup. Checklist progress and custom actions are saved locally in the browser. Named build copies can be kept in a device-local library, and compressed share links carry a complete portable snapshot in the URL fragment without requiring a backend or account.
+The bundled guide focuses on the six-loadout Winter Orb transition PoB, from the life-based Elementalist mapping baseline through Occultist, Chaos Inoculation, and the final power-charge setup. Any public `pobb.in` link can also be imported as an editable baseline. Checklist progress and custom actions are saved locally in the browser, and named build copies can be kept in a device-local library.
 
 Every loadout also lists its equipment, modifier priorities, equipped uniques, exact gem groups, changes from the previous loadout, trade links, and cached poe.ninja market estimates.
 
@@ -13,10 +13,21 @@ Every loadout also lists its equipment, modifier priorities, equipped uniques, e
 
 - **Save copy** creates a named build in the browser's local storage.
 - Opening a saved build makes it the active copy; checklist changes and the active step then save automatically.
-- **Generate link** creates and copies a self-contained link for the current build.
+- **Generate link** creates a portable build link and shortens it anonymously through Spoo.me when it fits the service limit.
 - Opening a share link loads the shared snapshot without changing the recipient's existing saved builds. They can use **Save copy** to keep it.
 
 Clearing browser storage removes saved builds from that device. Share links should be regenerated after making changes that another person needs to receive.
+
+## Generic pobb.in imports
+
+Recognized bundled builds load their curated progression guide. Other public `pobb.in` links are decoded in the browser and converted into a baseline using the data available in the PoB:
+
+- passive-tree loadouts become progression steps;
+- item and skill sets are matched by title, loadout reference markers, and leveling ranges;
+- equipped gear, unique items, gem groups, character metadata, and author notes are imported;
+- starter checklists and a source reference are generated for every step.
+
+Because `pobb.in` does not allow its raw endpoint to be read directly by a static site, unsupported links are fetched through [Jina Reader](https://jina.ai/en-US/reader/). Unknown gems remain neutrally colored until their socket attribute is known. Imported baselines should be saved locally before leaving the page.
 
 ## Stack
 
@@ -71,6 +82,6 @@ The same workflow refreshes `static/data/poe-ninja-prices.json` before each depl
 
 Wiki links are derived from each item's name. Variant names that do not have their own page can set a `wikiTitle` override in `src/lib/data/unique-items.json`; `pnpm wiki:validate` checks every resulting title against the public PoE Wiki API.
 
-## MVP boundary
+## Import boundary
 
-The importer recognizes the supplied transition PoB and loads its real loadout names. The UI and data model are ready for a generic PoB extraction adapter, but arbitrary live `pobb.in` extraction is intentionally left as the next integration because a static GitHub Pages app cannot rely on a same-origin backend.
+Generic imports intentionally create a baseline rather than a fully authored guide. They preserve the build data that maps cleanly into Atlas Step, but they do not attempt to explain passive-tree choices, infer upgrade priorities, or replace the build author's instructions.

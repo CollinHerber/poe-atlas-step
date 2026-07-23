@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { diffGemGroups } from '$lib/poe/gems';
+	import { displayGemColor, type GemDisplayColor } from '$lib/poe/gem-colors';
 	import type { GuideGem, GuideGemColor, GuideGemGroup } from '$lib/types/guide';
 
 	let {
@@ -23,31 +24,36 @@
 		return details.join(' · ');
 	}
 
-	const gemColorLabels: Record<GuideGemColor, string> = {
+	const gemColorLabels: Record<GemDisplayColor, string> = {
 		red: 'Strength',
 		green: 'Dexterity',
-		blue: 'Intelligence'
+		blue: 'Intelligence',
+		unknown: 'Unknown color'
 	};
 
-	const gemCardClasses: Record<GuideGemColor, string> = {
+	const gemCardClasses: Record<GemDisplayColor, string> = {
 		red: 'border-red-400/30 bg-red-500/10',
 		green: 'border-emerald-400/30 bg-emerald-500/10',
-		blue: 'border-blue-400/30 bg-blue-500/10'
+		blue: 'border-blue-400/30 bg-blue-500/10',
+		unknown: 'border-slate-600/40 bg-slate-700/15'
 	};
 
-	const gemTextClasses: Record<GuideGemColor, string> = {
+	const gemTextClasses: Record<GemDisplayColor, string> = {
 		red: 'text-red-200',
 		green: 'text-emerald-200',
-		blue: 'text-blue-200'
+		blue: 'text-blue-200',
+		unknown: 'text-slate-300'
 	};
 
-	const gemDotClasses: Record<GuideGemColor, string> = {
+	const gemDotClasses: Record<GemDisplayColor, string> = {
 		red: 'border-red-300/40 bg-red-500',
 		green: 'border-emerald-300/40 bg-emerald-500',
-		blue: 'border-blue-300/40 bg-blue-500'
+		blue: 'border-blue-300/40 bg-blue-500',
+		unknown: 'border-slate-400/40 bg-slate-600'
 	};
 
-	const gemColor = (gem: GuideGem): GuideGemColor => gem.color ?? 'blue';
+	const legendColors: GuideGemColor[] = ['red', 'green', 'blue'];
+	const gemColor = (gem: GuideGem) => displayGemColor(gem);
 
 	function changeDetails(before: GuideGem, after: GuideGem) {
 		const details: string[] = [];
@@ -56,11 +62,6 @@
 		if (before.enabled !== after.enabled) details.push(after.enabled ? 'enabled' : 'disabled');
 		if (before.support !== after.support)
 			details.push(after.support ? 'now a support' : 'now a skill');
-		if (before.color !== after.color) {
-			details.push(
-				`${gemColorLabels[gemColor(before)]} → ${gemColorLabels[gemColor(after)]} socket`
-			);
-		}
 		if (!details.length && before.name !== after.name) details.push(`renamed from ${before.name}`);
 		return details.join(', ');
 	}
@@ -79,13 +80,13 @@
 			</p>
 		</div>
 		<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-			{#each Object.entries(gemColorLabels) as [color, label] (color)}
+			{#each legendColors as color (color)}
 				<span class="inline-flex items-center gap-1.5 text-[0.65rem] font-medium text-slate-500">
 					<span
-						class={['size-2.5 rounded-sm border shadow-sm', gemDotClasses[color as GuideGemColor]]}
+						class={['size-2.5 rounded-sm border shadow-sm', gemDotClasses[color]]}
 						aria-hidden="true"
 					></span>
-					{label}
+					{gemColorLabels[color]}
 				</span>
 			{/each}
 			<span class="text-xs text-slate-600">{currentGroups.length} groups · {gemCount} gems</span>

@@ -68,7 +68,9 @@
 				{#each sections as section (section.title)}
 					<article class="border-l border-slate-700/70 pl-4">
 						<h4 class="text-sm font-semibold text-slate-200">{section.title}</h4>
-						<p class="mt-2 text-xs leading-6 text-slate-500">{section.body}</p>
+						<p class="mt-2 text-xs leading-6 whitespace-pre-line text-slate-500">
+							{section.body}
+						</p>
 					</article>
 				{/each}
 			</div>

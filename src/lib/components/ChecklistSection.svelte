@@ -2,6 +2,7 @@
 	import { tick } from 'svelte';
 	import { Button } from 'flowbite-svelte';
 	import {
+		BarsOutline,
 		CheckOutline,
 		CloseOutline,
 		EditOutline,
@@ -18,7 +19,8 @@
 		onToggle,
 		onDelete,
 		onEdit,
-		onAdd
+		onAdd,
+		onReorder
 	}: {
 		title: string;
 		description: string;
@@ -28,12 +30,21 @@
 		onDelete: (id: string) => void;
 		onEdit: (id: string, text: string) => void;
 		onAdd: (text: string, phase: TodoPhase) => void;
+		onReorder: (
+			phase: TodoPhase,
+			draggedId: string,
+			targetId: string,
+			placement: 'before' | 'after'
+		) => void;
 	} = $props();
 
 	let draft = $state('');
 	let editingId = $state<string | null>(null);
 	let editDraft = $state('');
 	let editInput = $state<HTMLInputElement>();
+	let draggedId = $state<string | null>(null);
+	let dropTarget = $state<{ id: string; placement: 'before' | 'after' } | null>(null);
+	let reorderAnnouncement = $state('');
 
 	function addChecklistItem(event: SubmitEvent) {
 		event.preventDefault();
@@ -62,6 +73,62 @@
 		onEdit(id, text);
 		cancelEditing();
 	}
+
+	function startDragging(event: DragEvent, item: GuideTodo) {
+		if (!event.dataTransfer || editingId === item.id) {
+			event.preventDefault();
+			return;
+		}
+
+		draggedId = item.id;
+		dropTarget = null;
+		event.dataTransfer.effectAllowed = 'move';
+		event.dataTransfer.setData('text/plain', item.id);
+		const row = (event.currentTarget as HTMLElement).closest<HTMLElement>('[data-checklist-row]');
+		if (row) event.dataTransfer.setDragImage(row, 24, 24);
+	}
+
+	function updateDropTarget(event: DragEvent, item: GuideTodo) {
+		if (!draggedId || draggedId === item.id) return;
+		event.preventDefault();
+		if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
+		const row = event.currentTarget as HTMLElement;
+		const placement =
+			event.clientY < row.getBoundingClientRect().top + row.offsetHeight / 2 ? 'before' : 'after';
+		dropTarget = { id: item.id, placement };
+	}
+
+	function finishDragging() {
+		draggedId = null;
+		dropTarget = null;
+	}
+
+	function dropItem(event: DragEvent, target: GuideTodo) {
+		event.preventDefault();
+		if (!draggedId || draggedId === target.id || !dropTarget) {
+			finishDragging();
+			return;
+		}
+
+		const draggedItem = items.find((item) => item.id === draggedId);
+		onReorder(phase, draggedId, target.id, dropTarget.placement);
+		reorderAnnouncement = draggedItem
+			? `Moved ${draggedItem.text} ${dropTarget.placement} ${target.text}.`
+			: 'Checklist item moved.';
+		finishDragging();
+	}
+
+	function moveWithKeyboard(event: KeyboardEvent, item: GuideTodo) {
+		if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+		event.preventDefault();
+		const index = items.findIndex((candidate) => candidate.id === item.id);
+		const direction = event.key === 'ArrowUp' ? -1 : 1;
+		const target = items[index + direction];
+		if (!target) return;
+		const placement = direction < 0 ? 'before' : 'after';
+		onReorder(phase, item.id, target.id, placement);
+		reorderAnnouncement = `Moved ${item.text} ${placement} ${target.text}.`;
+	}
 </script>
 
 <section class="rounded-2xl border border-slate-800 bg-slate-900/65 shadow-xl shadow-black/10">
@@ -77,9 +144,37 @@
 		</div>
 	</header>
 
-	<div class="divide-y divide-slate-800/80">
+	<div class="divide-y divide-slate-800/80" role="list">
 		{#each items as item (item.id)}
-			<div class="group flex items-start gap-3 px-5 py-4 sm:px-6">
+			<div
+				data-checklist-row
+				role="listitem"
+				ondragover={(event) => updateDropTarget(event, item)}
+				ondrop={(event) => dropItem(event, item)}
+				class={`group relative flex items-start gap-3 px-5 py-4 transition sm:px-6 ${
+					draggedId === item.id ? 'opacity-45' : ''
+				}`}
+			>
+				{#if dropTarget?.id === item.id}
+					<span
+						class={`pointer-events-none absolute right-4 left-4 z-20 h-0.5 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(103,232,249,0.75)] ${
+							dropTarget.placement === 'before' ? 'top-0' : 'bottom-0'
+						}`}
+						aria-hidden="true"
+					></span>
+				{/if}
+				<button
+					type="button"
+					draggable="true"
+					ondragstart={(event) => startDragging(event, item)}
+					ondragend={finishDragging}
+					onkeydown={(event) => moveWithKeyboard(event, item)}
+					class="mt-0.5 grid size-5 shrink-0 cursor-grab place-items-center rounded text-slate-700 transition hover:bg-slate-800 hover:text-slate-400 focus:text-cyan-300 focus:ring-1 focus:ring-cyan-400/50 focus:outline-none active:cursor-grabbing"
+					aria-label={`Reorder “${item.text}”. Drag, or use the up and down arrow keys.`}
+					title="Drag to reorder"
+				>
+					<BarsOutline class="size-4" />
+				</button>
 				<input
 					type="checkbox"
 					checked={item.done}
@@ -151,6 +246,7 @@
 			</p>
 		{/each}
 	</div>
+	<p class="sr-only" aria-live="polite">{reorderAnnouncement}</p>
 
 	<form
 		onsubmit={addChecklistItem}

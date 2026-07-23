@@ -193,21 +193,24 @@
 		defaultTodos: BuildGuide['steps'][number]['todos'],
 		savedTodos: BuildGuide['steps'][number]['todos']
 	) {
-		const defaultIds = new Set(defaultTodos.map((todo) => todo.id));
-		const savedById = new Map(savedTodos.map((todo) => [todo.id, todo]));
-		const mergedDefaults = defaultTodos.map((todo) => {
-			const savedTodo = savedById.get(todo.id);
-			return {
-				...todo,
-				text: savedTodo?.text ?? todo.text,
-				phase: savedTodo?.phase ?? todo.phase,
-				done: savedTodo?.done ?? todo.done
-			};
+		const defaultById = new Map(defaultTodos.map((todo) => [todo.id, todo]));
+		const savedIds = new Set(savedTodos.map((todo) => todo.id));
+		const orderedSavedTodos = savedTodos.flatMap((savedTodo) => {
+			const defaultTodo = defaultById.get(savedTodo.id);
+			if (defaultTodo) {
+				return [
+					{
+						...defaultTodo,
+						text: savedTodo.text,
+						phase: savedTodo.phase,
+						done: savedTodo.done
+					}
+				];
+			}
+			return savedTodo.id.startsWith('custom-') ? [savedTodo] : [];
 		});
-		const customTodos = savedTodos.filter(
-			(todo) => todo.id.startsWith('custom-') && !defaultIds.has(todo.id)
-		);
-		return [...mergedDefaults, ...customTodos];
+		const newDefaultTodos = defaultTodos.filter((todo) => !savedIds.has(todo.id));
+		return [...orderedSavedTodos, ...newDefaultTodos];
 	}
 
 	async function loadPriceSnapshot() {
@@ -497,6 +500,29 @@
 			phase,
 			done: false
 		});
+	}
+
+	function reorderTodo(
+		phase: TodoPhase,
+		draggedId: string,
+		targetId: string,
+		placement: 'before' | 'after'
+	) {
+		const phaseItems = activeStep.todos.filter((todo) => todo.phase === phase);
+		const sourceIndex = phaseItems.findIndex((todo) => todo.id === draggedId);
+		const targetIndex = phaseItems.findIndex((todo) => todo.id === targetId);
+		if (sourceIndex < 0 || targetIndex < 0 || sourceIndex === targetIndex) return;
+
+		const [movedItem] = phaseItems.splice(sourceIndex, 1);
+		let insertionIndex = targetIndex;
+		if (sourceIndex < targetIndex) insertionIndex -= 1;
+		if (placement === 'after') insertionIndex += 1;
+		phaseItems.splice(insertionIndex, 0, movedItem);
+
+		let nextPhaseIndex = 0;
+		activeStep.todos = activeStep.todos.map((todo) =>
+			todo.phase === phase ? phaseItems[nextPhaseIndex++] : todo
+		);
 	}
 
 	function addInsight(insight: GuideInsight) {
@@ -1195,6 +1221,7 @@
 							onDelete={deleteTodo}
 							onEdit={editTodo}
 							onAdd={addTodo}
+							onReorder={reorderTodo}
 						/>
 					</div>
 
@@ -1212,6 +1239,7 @@
 							onDelete={deleteTodo}
 							onEdit={editTodo}
 							onAdd={addTodo}
+							onReorder={reorderTodo}
 						/>
 					</div>
 				{/key}

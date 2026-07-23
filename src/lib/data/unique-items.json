@@ -1,0 +1,95 @@
+{
+	"mom-crit-winter-orb": {
+		"level-80-uber-lab": [],
+		"midgame": [
+			{
+				"name": "Mystic Refractor",
+				"baseType": "Pagan Wand",
+				"slot": "Weapon 1",
+				"category": "UniqueWeapon"
+			}
+		],
+		"endgame-no-cluster": [
+			{
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"slot": "Flask 2",
+				"category": "UniqueFlask"
+			}
+		],
+		"endgame-cluster": [
+			{
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"slot": "Flask 2",
+				"category": "UniqueFlask"
+			}
+		]
+	},
+	"hybrid-crit-winter-orb": {
+		"entering-maps": [],
+		"early-game": [],
+		"transition-mid-game": [
+			{
+				"name": "Foulborn The Pandemonius",
+				"baseType": "Jade Amulet",
+				"slot": "Amulet",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Death Rush",
+				"baseType": "Amethyst Ring",
+				"slot": "Ring 2",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Mystic Refractor",
+				"baseType": "Pagan Wand",
+				"slot": "Weapon 1",
+				"category": "UniqueWeapon"
+			}
+		],
+		"endgame-optional": [
+			{
+				"name": "Death Rush",
+				"baseType": "Amethyst Ring",
+				"slot": "Ring 2",
+				"category": "UniqueAccessory"
+			}
+		],
+		"pcharge-stack": [
+			{
+				"name": "Badge of the Brotherhood",
+				"baseType": "Turquoise Amulet",
+				"slot": "Amulet",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Willclash",
+				"baseType": "Golden Mask",
+				"slot": "Helmet",
+				"category": "UniqueArmour"
+			}
+		],
+		"uber-pcharge": [
+			{
+				"name": "Badge of the Brotherhood",
+				"baseType": "Turquoise Amulet",
+				"slot": "Amulet",
+				"category": "UniqueAccessory"
+			},
+			{
+				"name": "Willclash",
+				"baseType": "Golden Mask",
+				"slot": "Helmet",
+				"category": "UniqueArmour"
+			},
+			{
+				"name": "Unnatural Instinct",
+				"baseType": "Viridian Jewel",
+				"slot": "Jewel",
+				"category": "UniqueJewel"
+			}
+		]
+	}
+}

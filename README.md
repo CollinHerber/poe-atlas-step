@@ -5,7 +5,7 @@ Atlas Step turns Path of Building loadouts into a clickable league-progression g
 - **During this step** for active upgrades and progression work.
 - **Before next step** for the conditions that make a transition complete.
 
-The MVP ships with the two Winter Orb Elementalist PoBs used to shape the project. Progress and custom goals are saved locally in the browser.
+The MVP ships with the two Winter Orb Elementalist PoBs used to shape the project. Progress and custom goals are saved locally in the browser. Every loadout also lists its equipped uniques, links directly to a pre-filled Path of Exile trade search, and displays a cached poe.ninja market estimate.
 
 ## Stack
 
@@ -30,11 +30,19 @@ pnpm lint
 pnpm build
 ```
 
+Refresh the local price snapshot:
+
+```sh
+pnpm prices:update
+```
+
 ## GitHub Pages
 
 The workflow in `.github/workflows/deploy-pages.yml` builds and publishes the static `build/` directory on pushes to `main`. In the GitHub repository, open **Settings → Pages** and choose **GitHub Actions** as the source.
 
 The workflow sets SvelteKit's base path automatically for both project pages (`owner.github.io/repository`) and root user pages (`owner.github.io`).
+
+The same workflow refreshes `static/data/poe-ninja-prices.json` before each deployment and runs hourly so the static site can show current prices without making every visitor call the poe.ninja API. Until the next challenge league is active, poe.ninja's first active economy league may be Standard; the snapshot switches automatically when the league list changes.
 
 ## MVP boundary
 

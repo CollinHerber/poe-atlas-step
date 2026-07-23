@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import { Badge, Button, Progressbar } from 'flowbite-svelte';
 	import {
@@ -12,6 +13,7 @@
 	} from 'flowbite-svelte-icons';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
 	import TodoSection from '$lib/components/TodoSection.svelte';
+	import UniqueItemsSection from '$lib/components/UniqueItemsSection.svelte';
 	import {
 		MAXROLL_URL,
 		PRIMARY_POB_URL,
@@ -20,13 +22,15 @@
 		findGuideByUrl,
 		sampleGuides
 	} from '$lib/data/sample-guides';
-	import type { BuildGuide, TodoPhase } from '$lib/types/guide';
+	import type { BuildGuide, PoeNinjaPriceSnapshot, TodoPhase } from '$lib/types/guide';
 
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
 	let activeStepId = $state(sampleGuides[0].steps[0].id);
 	let importUrl = $state(PRIMARY_POB_URL);
 	let importMessage = $state('');
 	let ready = $state(false);
+	let priceSnapshot = $state<PoeNinjaPriceSnapshot | null>(null);
+	let priceStatus = $state<'loading' | 'ready' | 'unavailable'>('loading');
 
 	let activeIndex = $derived(guide.steps.findIndex((step) => step.id === activeStepId));
 	let activeStep = $derived(guide.steps[Math.max(activeIndex, 0)]);
@@ -43,10 +47,31 @@
 		const saved = localStorage.getItem(storageKey(baseGuide.id));
 		if (!saved) return cloneGuide(baseGuide);
 		try {
-			const steps = JSON.parse(saved) as BuildGuide['steps'];
-			return { ...cloneGuide(baseGuide), steps };
+			const savedSteps = JSON.parse(saved) as BuildGuide['steps'];
+			const savedById = new Map(savedSteps.map((step) => [step.id, step]));
+			const nextGuide = cloneGuide(baseGuide);
+			nextGuide.steps = nextGuide.steps.map((step) => ({
+				...step,
+				todos: savedById.get(step.id)?.todos ?? step.todos
+			}));
+			return nextGuide;
 		} catch {
 			return cloneGuide(baseGuide);
+		}
+	}
+
+	async function loadPriceSnapshot() {
+		priceStatus = 'loading';
+		try {
+			const response = await fetch(`${base}/data/poe-ninja-prices.json`, { cache: 'no-store' });
+			if (!response.ok) throw new Error(`Price snapshot returned ${response.status}`);
+			const nextSnapshot = (await response.json()) as PoeNinjaPriceSnapshot;
+			if (!nextSnapshot.league || !nextSnapshot.prices) throw new Error('Invalid price snapshot');
+			priceSnapshot = nextSnapshot;
+			priceStatus = 'ready';
+		} catch {
+			priceSnapshot = null;
+			priceStatus = 'unavailable';
 		}
 	}
 
@@ -54,6 +79,7 @@
 		guide = loadSavedGuide(sampleGuides[0]);
 		activeStepId = guide.steps[0].id;
 		ready = true;
+		void loadPriceSnapshot();
 	});
 
 	$effect(() => {
@@ -270,6 +296,12 @@
 						</a>
 					</div>
 				</section>
+
+				<UniqueItemsSection
+					items={activeStep.uniques}
+					snapshot={priceSnapshot}
+					status={priceStatus}
+				/>
 
 				<TodoSection
 					title="During this step"

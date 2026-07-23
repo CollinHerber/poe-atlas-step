@@ -1,4 +1,5 @@
-import type { BuildGuide, GuideStep, TodoPhase } from '$lib/types/guide';
+import uniqueItems from '$lib/data/unique-items.json';
+import type { BuildGuide, GuideStep, GuideUnique, TodoPhase } from '$lib/types/guide';
 
 const todo = (id: string, text: string, phase: TodoPhase): GuideStep['todos'][number] => ({
 	id,
@@ -6,6 +7,11 @@ const todo = (id: string, text: string, phase: TodoPhase): GuideStep['todos'][nu
 	phase,
 	done: false
 });
+
+const uniqueItemsByStep = uniqueItems as Record<string, Record<string, GuideUnique[]>>;
+
+const uniques = (guideId: string, stepId: string): GuideUnique[] =>
+	(uniqueItemsByStep[guideId]?.[stepId] ?? []).map((item) => ({ ...item }));
 
 export const PRIMARY_POB_URL = 'https://pobb.in/221_ZcVSEO7G';
 export const TRANSITION_POB_URL = 'https://pobb.in/cd6A9tg8QjrJ';
@@ -27,6 +33,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Foundation',
 				description:
 					'Use this checkpoint to stabilize the character, finish the campaign-to-map handoff, and make the fourth ascendancy feel earned instead of rushed.',
+				uniques: uniques('mom-crit-winter-orb', 'level-80-uber-lab'),
 				todos: [
 					todo(
 						'80-open-loadout',
@@ -49,6 +56,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Atlas momentum',
 				description:
 					'Turn Atlas completion into a repeatable routine. Keep upgrades concrete and small enough that every session can move at least one checkbox.',
+				uniques: uniques('mom-crit-winter-orb', 'midgame'),
 				todos: [
 					todo('mid-tree', 'Compare the Midgame tree and note every respec', 'during'),
 					todo('mid-atlas', 'Choose a first Atlas strategy and save the tree link', 'during'),
@@ -63,6 +71,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Baseline endgame',
 				description:
 					'Build a dependable endgame baseline before paying for cluster jewels. This is the spot to prove the farming loop and eliminate unclear upgrade goals.',
+				uniques: uniques('mom-crit-winter-orb', 'endgame-no-cluster'),
 				todos: [
 					todo('end-no-tree', 'Match the no-cluster passive tree', 'during'),
 					todo('end-no-pob', 'Compare your character in PoB against this loadout', 'during'),
@@ -77,6 +86,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Primary destination',
 				description:
 					'Complete the first build’s intended destination, then decide whether the power-charge transition is exciting enough to become the next project.',
+				uniques: uniques('mom-crit-winter-orb', 'endgame-cluster'),
 				todos: [
 					todo(
 						'end-cluster-swap',
@@ -117,6 +127,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Entry point',
 				description:
 					'Capture the mapping baseline represented by this build before changing its core pieces.',
+				uniques: uniques('hybrid-crit-winter-orb', 'entering-maps'),
 				todos: [
 					todo(
 						'maps-compare',
@@ -132,6 +143,7 @@ export const sampleGuides: BuildGuide[] = [
 				title: 'Early game',
 				eyebrow: 'Stabilize',
 				description: 'Consolidate the early upgrades and keep the next purchase visible.',
+				uniques: uniques('hybrid-crit-winter-orb', 'early-game'),
 				todos: [
 					todo('early-compare', 'Compare against the Early game loadout', 'during'),
 					todo('early-target', 'Pick the weakest current slot', 'during'),
@@ -144,6 +156,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Build depth',
 				description:
 					'Use a repeatable farm to fund the larger mechanical upgrades in the transition build.',
+				uniques: uniques('hybrid-crit-winter-orb', 'transition-mid-game'),
 				todos: [
 					todo('trans-mid-compare', 'Compare against the Mid game loadout', 'during'),
 					todo('trans-mid-farm', 'Track one complete farming set', 'during'),
@@ -156,6 +169,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Optional power',
 				description:
 					'Evaluate optional endgame pieces by impact, cost, and how much you enjoy the content that funds them.',
+				uniques: uniques('hybrid-crit-winter-orb', 'endgame-optional'),
 				todos: [
 					todo('optional-list', 'Rank the optional upgrades by impact', 'during'),
 					todo('optional-one', 'Complete the highest-value optional upgrade', 'during'),
@@ -168,6 +182,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Major transition',
 				description:
 					'Treat the power-charge setup as a project: price it, stage it, and avoid a half-finished swap.',
+				uniques: uniques('hybrid-crit-winter-orb', 'pcharge-stack'),
 				todos: [
 					todo('pc-price', 'Price the complete power-charge transition', 'during'),
 					todo('pc-parts', 'Acquire every mandatory transition piece', 'during'),
@@ -180,6 +195,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Aspirational',
 				description:
 					'The aspirational endpoint. Pick a challenge worth testing and stop upgrading only when the goal—not the checklist—is finished.',
+				uniques: uniques('hybrid-crit-winter-orb', 'uber-pcharge'),
 				todos: [
 					todo('uber-compare', 'Compare against the Uber Pcharge loadout', 'during'),
 					todo('uber-goal', 'Choose the aspirational content target', 'during'),

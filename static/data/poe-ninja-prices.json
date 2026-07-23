@@ -1,0 +1,79 @@
+{
+  "league": "Standard",
+  "fetchedAt": "2026-07-23T14:04:01.735Z",
+  "source": "https://poe.ninja/",
+  "prices": {
+    "Mystic Refractor|Pagan Wand": {
+      "name": "Mystic Refractor",
+      "baseType": "Pagan Wand",
+      "category": "UniqueWeapon",
+      "chaosValue": 36423,
+      "divineValue": 27,
+      "listingCount": 88,
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvV2VhcG9ucy9PbmVIYW5kV2VhcG9ucy9XYW5kcy9XYW5kb2ZCbGFzdGluZyIsInciOjEsImgiOjMsInNjYWxlIjoxfV0/de9f534714/WandofBlasting.png",
+      "detailsId": "mystic-refractor-pagan-wand"
+    },
+    "Dying Sun|Ruby Flask": {
+      "name": "Dying Sun",
+      "baseType": "Ruby Flask",
+      "category": "UniqueFlask",
+      "chaosValue": 1349,
+      "divineValue": 1,
+      "listingCount": 2838,
+      "icon": "https://web.poecdn.com/gen/image/WzksMTQseyJmIjoiMkRJdGVtcy9GbGFza3MvU2hhcGVyc0ZsYXNrIiwidyI6MSwiaCI6Miwic2NhbGUiOjEsImxldmVsIjoxfV0/c6e2f8118d/ShapersFlask.png",
+      "detailsId": "dying-sun"
+    },
+    "Foulborn The Pandemonius|Jade Amulet": {
+      "name": "Foulborn The Pandemonius",
+      "baseType": "Jade Amulet",
+      "category": "UniqueAccessory",
+      "chaosValue": 1349,
+      "divineValue": 1,
+      "listingCount": 6,
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9HbGFjaWVyQ2Fjb29uVXBncmFkZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJtdXRhdGVkIjp0cnVlfV0/4676228206/GlacierCacoonUpgrade.png",
+      "variant": "Chill Immune",
+      "detailsId": "foulborn-the-pandemonius-chill-immune-jade-amulet"
+    },
+    "Death Rush|Amethyst Ring": {
+      "name": "Death Rush",
+      "baseType": "Amethyst Ring",
+      "category": "UniqueAccessory",
+      "chaosValue": 150,
+      "divineValue": 0.11,
+      "listingCount": 519,
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvQW1ldGh5c3RSaW5nVW5pcXVlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1ade97e0ac/AmethystRingUnique.png",
+      "detailsId": "death-rush-amethyst-ring"
+    },
+    "Badge of the Brotherhood|Turquoise Amulet": {
+      "name": "Badge of the Brotherhood",
+      "baseType": "Turquoise Amulet",
+      "category": "UniqueAccessory",
+      "chaosValue": 1349,
+      "divineValue": 1,
+      "listingCount": 514,
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQW11bGV0cy9Bc3Nhc3NpblVuaXF1ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/3616219d7d/AssassinUnique.png",
+      "detailsId": "badge-of-the-brotherhood-turquoise-amulet"
+    },
+    "Willclash|Golden Mask": {
+      "name": "Willclash",
+      "baseType": "Golden Mask",
+      "category": "UniqueArmour",
+      "chaosValue": 300,
+      "divineValue": 0.22,
+      "listingCount": 131,
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL01pbmRCbG9ja01hc2siLCJ3IjoyLCJoIjoyLCJzY2FsZSI6MX1d/aeb4a78ada/MindBlockMask.png",
+      "detailsId": "willclash-golden-mask"
+    },
+    "Unnatural Instinct|Viridian Jewel": {
+      "name": "Unnatural Instinct",
+      "baseType": "Viridian Jewel",
+      "category": "UniqueJewel",
+      "chaosValue": 2698,
+      "divineValue": 2,
+      "listingCount": 2477,
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvSmV3ZWxzL1VubmF0dXJhbEluc3RpbmN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/c37fa5c2b6/UnnaturalInstinct.png",
+      "detailsId": "unnatural-instinct-viridian-jewel"
+    }
+  },
+  "missing": []
+}

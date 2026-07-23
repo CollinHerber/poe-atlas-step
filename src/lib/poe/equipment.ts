@@ -7,6 +7,12 @@ export type EquipmentChange = {
 	after?: GuideEquipmentItem;
 };
 
+export type EquipmentModifierComparison = {
+	text: string;
+	previousText?: string;
+	tone: 'same' | 'higher' | 'lower' | 'added' | 'removed' | 'changed';
+};
+
 const rareSlotPriorities: Record<string, string[]> = {
 	'Weapon 1': [
 		'+cold/spell gem levels',
@@ -167,6 +173,87 @@ const itemSignature = (item: GuideEquipmentItem) =>
 		implicits: item.implicits,
 		stats: item.stats
 	});
+
+export const equipmentModifierLines = (item: GuideEquipmentItem | undefined) =>
+	item ? [...(item.implicits ?? []).map((implicit) => implicit.text), ...item.stats] : [];
+
+const modifierNumbers = (line: string) =>
+	[...line.matchAll(/[+-]?\d+(?:\.\d+)?/gu)].map((match) => Number(match[0]));
+
+const modifierSignature = (line: string) =>
+	line
+		.toLowerCase()
+		.replace(/[+-]?\d+(?:\.\d+)?/gu, '#')
+		.replace(/\s+/gu, ' ')
+		.trim();
+
+const compareModifierValues = (
+	before: string,
+	after: string
+): EquipmentModifierComparison['tone'] => {
+	if (before === after) return 'same';
+	const beforeNumbers = modifierNumbers(before);
+	const afterNumbers = modifierNumbers(after);
+	if (!beforeNumbers.length || beforeNumbers.length !== afterNumbers.length) return 'changed';
+
+	const differences = afterNumbers.map((value, index) => value - beforeNumbers[index]);
+	if (differences.every((difference) => difference >= 0) && differences.some(Boolean)) {
+		return 'higher';
+	}
+	if (differences.every((difference) => difference <= 0) && differences.some(Boolean)) {
+		return 'lower';
+	}
+
+	const beforeAverage =
+		beforeNumbers.reduce((total, value) => total + value, 0) / beforeNumbers.length;
+	const afterAverage =
+		afterNumbers.reduce((total, value) => total + value, 0) / afterNumbers.length;
+	if (afterAverage > beforeAverage) return 'higher';
+	if (afterAverage < beforeAverage) return 'lower';
+	return 'changed';
+};
+
+export function compareEquipmentModifiers(
+	before: GuideEquipmentItem | undefined,
+	after: GuideEquipmentItem | undefined
+): EquipmentModifierComparison[] {
+	const beforeLines = equipmentModifierLines(before);
+	const afterLines = equipmentModifierLines(after);
+	const beforeBySignature = new Map<string, Array<{ index: number; text: string }>>();
+
+	for (const [index, text] of beforeLines.entries()) {
+		const signature = modifierSignature(text);
+		const matches = beforeBySignature.get(signature) ?? [];
+		matches.push({ index, text });
+		beforeBySignature.set(signature, matches);
+	}
+
+	const matchedBefore = new Set<number>();
+	const comparisons = afterLines.map((text): EquipmentModifierComparison => {
+		const match = beforeBySignature
+			.get(modifierSignature(text))
+			?.find((candidate) => !matchedBefore.has(candidate.index));
+		if (!match) return { text, tone: 'added' };
+		matchedBefore.add(match.index);
+		return {
+			text,
+			previousText: match.text,
+			tone: compareModifierValues(match.text, text)
+		};
+	});
+
+	for (const [index, text] of beforeLines.entries()) {
+		if (!matchedBefore.has(index)) {
+			comparisons.push({
+				text: `Missing: ${text}`,
+				previousText: text,
+				tone: 'removed'
+			});
+		}
+	}
+
+	return comparisons;
+}
 
 export function diffEquipment(
 	previousItems: GuideEquipmentItem[],

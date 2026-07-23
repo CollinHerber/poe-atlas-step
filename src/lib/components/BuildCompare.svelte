@@ -12,7 +12,12 @@
 		formatCharacterStat,
 		formatConfigurationValue
 	} from '$lib/poe/compare';
-	import { diffEquipment } from '$lib/poe/equipment';
+	import {
+		compareEquipmentModifiers,
+		diffEquipment,
+		equipmentModifierLines,
+		type EquipmentModifierComparison
+	} from '$lib/poe/equipment';
 	import { displayGemColor, type GemDisplayColor } from '$lib/poe/gem-colors';
 	import { diffGemGroups } from '$lib/poe/gems';
 	import { importPobbBuild, parsePobbUrl } from '$lib/poe/pobb-import';
@@ -156,8 +161,7 @@
 	}
 
 	function itemLines(item: GuideEquipmentItem | undefined) {
-		if (!item) return [];
-		return [...(item.implicits ?? []).map((implicit) => implicit.text), ...item.stats].slice(0, 5);
+		return equipmentModifierLines(item).slice(0, 12);
 	}
 
 	function gemMeta(gem: GuideGem) {
@@ -188,6 +192,24 @@
 		replaced: 'Different item',
 		updated: 'Different modifiers'
 	} as const;
+
+	const modifierToneClasses: Record<EquipmentModifierComparison['tone'], string> = {
+		same: 'text-slate-400',
+		higher: 'border border-emerald-400/20 bg-emerald-400/10 text-emerald-300',
+		lower: 'border border-rose-400/20 bg-rose-400/10 text-rose-300',
+		added: 'border border-emerald-400/20 bg-emerald-400/10 text-emerald-300',
+		removed: 'border border-rose-400/20 bg-rose-400/10 text-rose-300',
+		changed: 'border border-amber-400/20 bg-amber-400/10 text-amber-200'
+	};
+
+	const modifierToneLabels: Record<EquipmentModifierComparison['tone'], string> = {
+		same: '',
+		higher: 'Higher',
+		lower: 'Lower',
+		added: 'Added',
+		removed: 'Removed',
+		changed: 'Changed'
+	};
 </script>
 
 <div class="space-y-6">
@@ -362,7 +384,7 @@
 										<p class="mt-2 text-sm font-semibold text-slate-100">{change.before.name}</p>
 										<p class="text-xs text-slate-500">{change.before.baseType}</p>
 										<ul class="mt-3 space-y-1.5">
-											{#each itemLines(change.before) as line (line)}
+											{#each itemLines(change.before) as line, index (`${line}-${index}`)}
 												<li class="text-xs leading-5 text-slate-400">{line}</li>
 											{/each}
 										</ul>
@@ -381,8 +403,23 @@
 										<p class="mt-2 text-sm font-semibold text-slate-100">{change.after.name}</p>
 										<p class="text-xs text-slate-500">{change.after.baseType}</p>
 										<ul class="mt-3 space-y-1.5">
-											{#each itemLines(change.after) as line (line)}
-												<li class="text-xs leading-5 text-slate-400">{line}</li>
+											{#each compareEquipmentModifiers(change.before, change.after).slice(0, 12) as modifier, index (`${modifier.text}-${index}`)}
+												<li
+													class={[
+														'flex items-start justify-between gap-2 rounded-md px-2 py-1 text-xs leading-5',
+														modifierToneClasses[modifier.tone]
+													]}
+													title={modifier.previousText && modifier.tone !== 'same'
+														? `Website: ${modifier.previousText}`
+														: undefined}
+												>
+													<span>{modifier.text}</span>
+													{#if modifierToneLabels[modifier.tone]}
+														<span class="shrink-0 text-[0.6rem] font-bold tracking-wide uppercase">
+															{modifierToneLabels[modifier.tone]}
+														</span>
+													{/if}
+												</li>
 											{/each}
 										</ul>
 									{:else}

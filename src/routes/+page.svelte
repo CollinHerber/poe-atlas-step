@@ -9,17 +9,21 @@
 		ArrowUpOutline,
 		ArrowUpRightFromSquareOutline,
 		AtomOutline,
+		BookmarkOutline,
 		BookOpenOutline,
 		CheckOutline,
 		CloseOutline,
 		EditOutline,
 		GithubSolid,
 		LinkOutline,
+		ListOutline,
 		PlusOutline,
-		RefreshOutline
+		RefreshOutline,
+		StarOutline
 	} from 'flowbite-svelte-icons';
 	import BuildLibrary from '$lib/components/BuildLibrary.svelte';
 	import BuildNotesSection from '$lib/components/BuildNotesSection.svelte';
+	import BuildUniquesDashboard from '$lib/components/BuildUniquesDashboard.svelte';
 	import ChecklistSection from '$lib/components/ChecklistSection.svelte';
 	import EquipmentSection from '$lib/components/EquipmentSection.svelte';
 	import GemGroupsSection from '$lib/components/GemGroupsSection.svelte';
@@ -92,6 +96,10 @@
 	let libraryMessage = $state('');
 	let shareUrl = $state('');
 	let sharing = $state(false);
+	let activeToolTab = $state<'build-steps' | 'uniques'>('build-steps');
+	let showBuildLibrary = $state(false);
+	let buildLibraryButton = $state<HTMLButtonElement>();
+	let buildLibraryCloseButton = $state<HTMLButtonElement>();
 	let editingStepDetails = $state(false);
 	let creatingStep = $state(false);
 	let stepTitleInput = $state<HTMLInputElement>();
@@ -563,7 +571,32 @@
 		const [step] = guide.steps.splice(activeIndex, 1);
 		guide.steps.splice(targetIndex, 0, step);
 	}
+
+	async function openBuildLibrary() {
+		showBuildLibrary = true;
+		await tick();
+		buildLibraryCloseButton?.focus();
+	}
+
+	async function closeBuildLibrary() {
+		showBuildLibrary = false;
+		await tick();
+		buildLibraryButton?.focus();
+	}
+
+	function handleWindowKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && showBuildLibrary) void closeBuildLibrary();
+	}
+
+	async function openUniqueStep(stepId: string) {
+		selectStep(stepId);
+		activeToolTab = 'build-steps';
+		await tick();
+		document.getElementById('step-details')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
 </script>
+
+<svelte:window onkeydown={handleWindowKeydown} />
 
 <svelte:head>
 	<title>{SITE_TITLE}</title>
@@ -603,7 +636,10 @@
 		class="pointer-events-none fixed inset-x-0 top-0 h-[28rem] bg-[radial-gradient(circle_at_50%_-20%,rgba(34,211,238,0.13),transparent_62%)]"
 	></div>
 
-	<header class="relative border-b border-slate-800/90 bg-[#0b0f18]/90 backdrop-blur-xl">
+	<header
+		inert={showBuildLibrary}
+		class="relative border-b border-slate-800/90 bg-[#0b0f18]/90 backdrop-blur-xl"
+	>
 		<div
 			class="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8"
 		>
@@ -619,7 +655,23 @@
 				</div>
 			</div>
 			<div class="flex items-center gap-2">
-				<Badge color="cyan" rounded>3.29 plan</Badge>
+				<span class="hidden lg:inline-flex"><Badge color="cyan" rounded>3.29 plan</Badge></span>
+				<button
+					bind:this={buildLibraryButton}
+					type="button"
+					onclick={openBuildLibrary}
+					aria-haspopup="dialog"
+					aria-expanded={showBuildLibrary}
+					class="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900/70 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/50 hover:text-cyan-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+				>
+					<BookmarkOutline class="size-4" />
+					<span class="hidden sm:inline">Builds</span>
+					<span
+						class="grid min-w-5 place-items-center rounded-full bg-slate-800 px-1.5 py-0.5 text-[0.6rem] text-slate-500"
+					>
+						{savedBuilds.length}
+					</span>
+				</button>
 				<a
 					href="https://github.com/CollinHerber/poe-build-tool"
 					target="_blank"
@@ -641,8 +693,87 @@
 		</div>
 	</header>
 
-	<main class="relative mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+	{#if showBuildLibrary}
+		<div
+			class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-sm sm:p-6"
+			role="presentation"
+			onclick={(event) => {
+				if (event.target === event.currentTarget) void closeBuildLibrary();
+			}}
+		>
+			<div
+				role="dialog"
+				aria-modal="true"
+				aria-label="Build library"
+				class="my-auto max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-y-auto rounded-2xl border border-slate-700 bg-[#0b101a] p-4 shadow-2xl shadow-black/50 sm:max-h-[calc(100vh-3rem)] sm:p-6"
+			>
+				<div class="mb-3 flex justify-end">
+					<button
+						bind:this={buildLibraryCloseButton}
+						type="button"
+						onclick={closeBuildLibrary}
+						aria-label="Close build library"
+						class="grid size-9 place-items-center rounded-lg border border-slate-700 bg-slate-900 text-slate-400 transition hover:border-cyan-400/50 hover:text-cyan-300"
+					>
+						<CloseOutline class="size-4" />
+					</button>
+				</div>
+				<BuildLibrary
+					builds={savedBuilds}
+					activeBuildId={activeSavedBuildId}
+					bind:buildName={savedBuildName}
+					{shareUrl}
+					message={libraryMessage}
+					{sharing}
+					onSave={saveCurrentBuild}
+					onLoad={(build) => {
+						loadSavedBuild(build);
+						void closeBuildLibrary();
+					}}
+					onDelete={deleteSavedBuild}
+					onShare={shareCurrentBuild}
+					onCopy={() => void copyShareUrl()}
+				/>
+			</div>
+		</div>
+	{/if}
+
+	<main
+		inert={showBuildLibrary}
+		class="relative mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8"
+	>
+		<div
+			class="mb-6 inline-flex max-w-full gap-1 overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/70 p-1"
+			aria-label="Atlas Step tools"
+		>
+			<button
+				type="button"
+				aria-pressed={activeToolTab === 'build-steps'}
+				onclick={() => (activeToolTab = 'build-steps')}
+				class={`inline-flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+					activeToolTab === 'build-steps'
+						? 'bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-950/20'
+						: 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+				}`}
+			>
+				<ListOutline class="size-4" /> Build Steps
+			</button>
+			<button
+				type="button"
+				aria-pressed={activeToolTab === 'uniques'}
+				onclick={() => (activeToolTab = 'uniques')}
+				class={`inline-flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+					activeToolTab === 'uniques'
+						? 'bg-amber-300 text-slate-950 shadow-lg shadow-amber-950/20'
+						: 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+				}`}
+			>
+				<StarOutline class="size-4" /> Uniques
+			</button>
+		</div>
+
 		<section
+			class:hidden={activeToolTab !== 'build-steps'}
 			class="mb-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 shadow-2xl shadow-black/20"
 		>
 			<div class="grid gap-6 p-5 sm:p-6 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -706,21 +837,7 @@
 			</form>
 		</section>
 
-		<BuildLibrary
-			builds={savedBuilds}
-			activeBuildId={activeSavedBuildId}
-			bind:buildName={savedBuildName}
-			{shareUrl}
-			message={libraryMessage}
-			{sharing}
-			onSave={saveCurrentBuild}
-			onLoad={loadSavedBuild}
-			onDelete={deleteSavedBuild}
-			onShare={shareCurrentBuild}
-			onCopy={() => void copyShareUrl()}
-		/>
-
-		<div class="mb-5 lg:hidden">
+		<div class:hidden={activeToolTab !== 'build-steps'} class="mb-5 lg:hidden">
 			<div class="mb-2 flex items-center justify-between gap-3">
 				<span class="text-xs font-semibold tracking-wider text-slate-600 uppercase">Steps</span>
 				<button
@@ -736,6 +853,7 @@
 		</div>
 
 		<div
+			class:hidden={activeToolTab !== 'build-steps'}
 			class="grid gap-6 lg:grid-cols-[290px_minmax(0,1fr)] xl:grid-cols-[310px_minmax(0,1fr)_250px]"
 		>
 			<aside class="hidden lg:block">
@@ -1103,9 +1221,20 @@
 				</div>
 			</aside>
 		</div>
+		{#if activeToolTab === 'uniques'}
+			<div>
+				<BuildUniquesDashboard
+					{guide}
+					snapshot={priceSnapshot}
+					status={priceStatus}
+					onSelectStep={(stepId) => void openUniqueStep(stepId)}
+				/>
+			</div>
+		{/if}
 	</main>
 
 	<footer
+		inert={showBuildLibrary}
 		class="relative mt-8 border-t border-slate-900 px-4 py-8 text-center text-xs text-slate-700"
 	>
 		Atlas Step is an independent planning tool and is not affiliated with Grinding Gear Games.

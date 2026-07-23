@@ -8,6 +8,7 @@
 					{
 						"id": "WinterOrb",
 						"name": "Winter Orb",
+						"color": "blue",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -16,6 +17,7 @@
 					{
 						"id": "SupportColdPenetration",
 						"name": "Cold Penetration",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -24,6 +26,7 @@
 					{
 						"id": "SupportInfusedChannelling",
 						"name": "Infused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -32,6 +35,7 @@
 					{
 						"id": "SupportLesserMultipleProjectiles",
 						"name": "Multiple Projectiles",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -40,6 +44,7 @@
 					{
 						"id": "SupportFocusedChannelling",
 						"name": "Focused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -48,6 +53,7 @@
 					{
 						"id": "SupportInspiration",
 						"name": "Inspiration",
+						"color": "red",
 						"level": 20,
 						"quality": 0,
 						"enabled": false,
@@ -62,6 +68,7 @@
 					{
 						"id": "QuickGuard",
 						"name": "Steelskin",
+						"color": "red",
 						"level": 15,
 						"quality": 20,
 						"enabled": false,
@@ -70,6 +77,7 @@
 					{
 						"id": "Automation",
 						"name": "Automation",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -78,6 +86,7 @@
 					{
 						"id": "SupportArcaneSurge",
 						"name": "Arcane Surge",
+						"color": "blue",
 						"level": 1,
 						"quality": 0,
 						"enabled": true,
@@ -86,6 +95,7 @@
 					{
 						"id": "Frostbite",
 						"name": "Frostbite",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -100,6 +110,7 @@
 					{
 						"id": "FleshAndStone",
 						"name": "Flesh and Stone",
+						"color": "red",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -108,6 +119,7 @@
 					{
 						"id": "ArcticArmour",
 						"name": "Arctic Armour",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -116,6 +128,7 @@
 					{
 						"id": "TempestShield",
 						"name": "Tempest Shield",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -130,6 +143,7 @@
 					{
 						"id": "SummonIceGolem",
 						"name": "Summon Ice Golem",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -138,6 +152,7 @@
 					{
 						"id": "SummonLightningGolem",
 						"name": "Summon Lightning Golem",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -146,6 +161,7 @@
 					{
 						"id": "SummonFlameGolem",
 						"name": "Summon Flame Golem",
+						"color": "red",
 						"level": 20,
 						"quality": 10,
 						"enabled": true,
@@ -154,6 +170,7 @@
 					{
 						"id": "SummonStoneGolem",
 						"name": "Summon Stone Golem",
+						"color": "red",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -168,6 +185,7 @@
 					{
 						"id": "Frostblink",
 						"name": "Frostblink",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -176,6 +194,7 @@
 					{
 						"id": "HeraldOfIce",
 						"name": "Herald of Ice",
+						"color": "green",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -184,6 +203,7 @@
 					{
 						"id": "SupportIceBite",
 						"name": "Ice Bite",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -198,6 +218,7 @@
 					{
 						"id": "ShieldCharge",
 						"name": "Shield Charge",
+						"color": "red",
 						"level": 1,
 						"quality": 30,
 						"enabled": true,
@@ -206,6 +227,7 @@
 					{
 						"id": "SupportFasterAttacks",
 						"name": "Faster Attacks",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -214,6 +236,7 @@
 					{
 						"id": "SupportMomentum",
 						"name": "Momentum",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -230,6 +253,7 @@
 					{
 						"id": "WinterOrb",
 						"name": "Winter Orb",
+						"color": "blue",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -238,6 +262,7 @@
 					{
 						"id": "SupportIncreasedCriticalDamage",
 						"name": "Increased Critical Damage",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -246,6 +271,7 @@
 					{
 						"id": "SupportIncreasedCriticalStrikes",
 						"name": "Increased Critical Strikes",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -254,6 +280,7 @@
 					{
 						"id": "SupportLesserMultipleProjectiles",
 						"name": "Multiple Projectiles",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -262,6 +289,7 @@
 					{
 						"id": "SupportPowerChargeOnCritical",
 						"name": "Power Charge On Critical",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -270,6 +298,7 @@
 					{
 						"id": "SupportFocusedChannelling",
 						"name": "Focused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -284,6 +313,7 @@
 					{
 						"id": "QuickGuard",
 						"name": "Steelskin",
+						"color": "red",
 						"level": 15,
 						"quality": 20,
 						"enabled": false,
@@ -292,6 +322,7 @@
 					{
 						"id": "Automation",
 						"name": "Automation",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -300,6 +331,7 @@
 					{
 						"id": "SupportArcaneSurge",
 						"name": "Arcane Surge",
+						"color": "blue",
 						"level": 1,
 						"quality": 0,
 						"enabled": true,
@@ -308,6 +340,7 @@
 					{
 						"id": "Frostbite",
 						"name": "Frostbite",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -322,6 +355,7 @@
 					{
 						"id": "FleshAndStone",
 						"name": "Flesh and Stone",
+						"color": "red",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -330,6 +364,7 @@
 					{
 						"id": "ArcticArmour",
 						"name": "Arctic Armour",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -338,6 +373,7 @@
 					{
 						"id": "TempestShield",
 						"name": "Tempest Shield",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -352,6 +388,7 @@
 					{
 						"id": "SummonIceGolem",
 						"name": "Summon Ice Golem",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -360,6 +397,7 @@
 					{
 						"id": "SummonLightningGolem",
 						"name": "Summon Lightning Golem",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -368,6 +406,7 @@
 					{
 						"id": "SummonFlameGolem",
 						"name": "Summon Flame Golem",
+						"color": "red",
 						"level": 20,
 						"quality": 10,
 						"enabled": true,
@@ -376,6 +415,7 @@
 					{
 						"id": "SummonStoneGolem",
 						"name": "Summon Stone Golem",
+						"color": "red",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -390,6 +430,7 @@
 					{
 						"id": "Frostblink",
 						"name": "Frostblink",
+						"color": "blue",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -398,6 +439,7 @@
 					{
 						"id": "HeraldOfIce",
 						"name": "Herald of Ice",
+						"color": "green",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -406,6 +448,7 @@
 					{
 						"id": "SupportIceBite",
 						"name": "Ice Bite",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -420,6 +463,7 @@
 					{
 						"id": "ShieldCharge",
 						"name": "Shield Charge",
+						"color": "red",
 						"level": 14,
 						"quality": 30,
 						"enabled": true,
@@ -428,6 +472,7 @@
 					{
 						"id": "SupportFasterAttacks",
 						"name": "Faster Attacks",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -436,6 +481,7 @@
 					{
 						"id": "SupportMomentum",
 						"name": "Momentum",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -452,6 +498,7 @@
 					{
 						"id": "WinterOrb",
 						"name": "Winter Orb",
+						"color": "blue",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -460,6 +507,7 @@
 					{
 						"id": "SupportIncreasedCriticalDamage",
 						"name": "Increased Critical Damage",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -468,6 +516,7 @@
 					{
 						"id": "SupportIncreasedCriticalStrikes",
 						"name": "Increased Critical Strikes",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -476,6 +525,7 @@
 					{
 						"id": "SupportInfusedChannelling",
 						"name": "Infused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -484,6 +534,7 @@
 					{
 						"id": "SupportFocusedChannelling",
 						"name": "Focused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -492,6 +543,7 @@
 					{
 						"id": "SupportPowerChargeOnCritical",
 						"name": "Power Charge On Critical",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -506,6 +558,7 @@
 					{
 						"id": "QuickGuard",
 						"name": "Steelskin",
+						"color": "red",
 						"level": 15,
 						"quality": 20,
 						"enabled": false,
@@ -514,6 +567,7 @@
 					{
 						"id": "Automation",
 						"name": "Automation",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -522,6 +576,7 @@
 					{
 						"id": "SupportArcaneSurge",
 						"name": "Arcane Surge",
+						"color": "blue",
 						"level": 1,
 						"quality": 20,
 						"enabled": true,
@@ -530,6 +585,7 @@
 					{
 						"id": "Frostbite",
 						"name": "Frostbite",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -544,6 +600,7 @@
 					{
 						"id": "FleshAndStone",
 						"name": "Flesh and Stone",
+						"color": "red",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -552,6 +609,7 @@
 					{
 						"id": "ArcticArmour",
 						"name": "Arctic Armour",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -560,6 +618,7 @@
 					{
 						"id": "TempestShield",
 						"name": "Tempest Shield",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -574,6 +633,7 @@
 					{
 						"id": "SummonIceGolem",
 						"name": "Summon Ice Golem",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -582,6 +642,7 @@
 					{
 						"id": "SummonLightningGolem",
 						"name": "Summon Lightning Golem",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -590,6 +651,7 @@
 					{
 						"id": "SummonFlameGolem",
 						"name": "Summon Flame Golem",
+						"color": "red",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -598,6 +660,7 @@
 					{
 						"id": "SummonStoneGolem",
 						"name": "Summon Stone Golem",
+						"color": "red",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -612,6 +675,7 @@
 					{
 						"id": "Frostblink",
 						"name": "Frostblink",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -620,6 +684,7 @@
 					{
 						"id": "HeraldOfIce",
 						"name": "Herald of Ice",
+						"color": "green",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -628,6 +693,7 @@
 					{
 						"id": "SupportIceBite",
 						"name": "Ice Bite",
+						"color": "green",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -642,6 +708,7 @@
 					{
 						"id": "ShieldCharge",
 						"name": "Shield Charge",
+						"color": "red",
 						"level": 14,
 						"quality": 30,
 						"enabled": true,
@@ -650,6 +717,7 @@
 					{
 						"id": "SupportFasterAttacks",
 						"name": "Faster Attacks",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -658,6 +726,7 @@
 					{
 						"id": "SupportMomentum",
 						"name": "Momentum",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -674,6 +743,7 @@
 					{
 						"id": "WinterOrb",
 						"name": "Winter Orb",
+						"color": "blue",
 						"level": 21,
 						"quality": 30,
 						"enabled": true,
@@ -682,6 +752,7 @@
 					{
 						"id": "SupportInfusedChannelling",
 						"name": "Infused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -690,6 +761,7 @@
 					{
 						"id": "SupportColdPenetration",
 						"name": "Cold Penetration",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -698,6 +770,7 @@
 					{
 						"id": "SupportInspiration",
 						"name": "Inspiration",
+						"color": "red",
 						"level": 21,
 						"quality": 20,
 						"enabled": true,
@@ -706,6 +779,7 @@
 					{
 						"id": "SupportPowerChargeOnCritical",
 						"name": "Power Charge On Critical",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -714,6 +788,7 @@
 					{
 						"id": "SupportFocusedChannelling",
 						"name": "Focused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -728,6 +803,7 @@
 					{
 						"id": "QuickGuard",
 						"name": "Steelskin",
+						"color": "red",
 						"level": 13,
 						"quality": 20,
 						"enabled": true,
@@ -736,6 +812,7 @@
 					{
 						"id": "Automation",
 						"name": "Automation",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -744,6 +821,7 @@
 					{
 						"id": "SupportArcaneSurge",
 						"name": "Arcane Surge",
+						"color": "blue",
 						"level": 1,
 						"quality": 20,
 						"enabled": true,
@@ -752,6 +830,7 @@
 					{
 						"id": "Frostbite",
 						"name": "Frostbite",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -766,6 +845,7 @@
 					{
 						"id": "Zealotry",
 						"name": "Zealotry",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -774,6 +854,7 @@
 					{
 						"id": "Discipline",
 						"name": "Discipline",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -782,6 +863,7 @@
 					{
 						"id": "SupportEnlighten",
 						"name": "Enlighten",
+						"color": "green",
 						"level": 3,
 						"quality": 20,
 						"enabled": true,
@@ -790,6 +872,7 @@
 					{
 						"id": "TempestShield",
 						"name": "Tempest Shield",
+						"color": "blue",
 						"level": 21,
 						"quality": 2,
 						"enabled": true,
@@ -804,6 +887,7 @@
 					{
 						"id": "HeraldOfIce",
 						"name": "Herald of Ice",
+						"color": "green",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -812,6 +896,7 @@
 					{
 						"id": "SupportScornfulHerald",
 						"name": "Scornful Herald",
+						"color": "blue",
 						"level": 3,
 						"quality": 20,
 						"enabled": true,
@@ -820,6 +905,7 @@
 					{
 						"id": "SupportIceBite",
 						"name": "Ice Bite",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -834,6 +920,7 @@
 					{
 						"id": "ShieldCharge",
 						"name": "Shield Charge",
+						"color": "red",
 						"level": 14,
 						"quality": 30,
 						"enabled": true,
@@ -842,6 +929,7 @@
 					{
 						"id": "SupportFasterAttacks",
 						"name": "Faster Attacks",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -850,6 +938,7 @@
 					{
 						"id": "Frostblink",
 						"name": "Frostblink",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -866,6 +955,7 @@
 					{
 						"id": "WinterOrb",
 						"name": "Winter Orb",
+						"color": "blue",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -874,6 +964,7 @@
 					{
 						"id": "SupportInfusedChannelling",
 						"name": "Infused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -882,6 +973,7 @@
 					{
 						"id": "SupportColdPenetration",
 						"name": "Cold Penetration",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -890,6 +982,7 @@
 					{
 						"id": "SupportPowerChargeOnCritical",
 						"name": "Power Charge On Critical",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -898,6 +991,7 @@
 					{
 						"id": "SupportInspiration",
 						"name": "Inspiration",
+						"color": "red",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -906,6 +1000,7 @@
 					{
 						"id": "SupportFocusedChannelling",
 						"name": "Focused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -914,6 +1009,7 @@
 					{
 						"id": "SupportLesserMultipleProjectiles",
 						"name": "Multiple Projectiles",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": false,
@@ -928,6 +1024,7 @@
 					{
 						"id": "SupportArcaneSurge",
 						"name": "Arcane Surge",
+						"color": "blue",
 						"level": 1,
 						"quality": 20,
 						"enabled": true,
@@ -936,6 +1033,7 @@
 					{
 						"id": "SnipersMark",
 						"name": "Sniper's Mark",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -944,6 +1042,7 @@
 					{
 						"id": "SupportCastWhenDamageTaken",
 						"name": "Cast when Damage Taken",
+						"color": "red",
 						"level": 1,
 						"quality": 20,
 						"enabled": true,
@@ -952,6 +1051,7 @@
 					{
 						"id": "ImmortalCall",
 						"name": "Immortal Call",
+						"color": "red",
 						"level": 1,
 						"quality": 20,
 						"enabled": false,
@@ -966,6 +1066,7 @@
 					{
 						"id": "FleshAndStone",
 						"name": "Flesh and Stone",
+						"color": "red",
 						"level": 20,
 						"quality": 0,
 						"enabled": true,
@@ -974,6 +1075,7 @@
 					{
 						"id": "Discipline",
 						"name": "Discipline",
+						"color": "blue",
 						"level": 21,
 						"quality": 0,
 						"enabled": true,
@@ -982,6 +1084,7 @@
 					{
 						"id": "SupportEnlighten",
 						"name": "Enlighten",
+						"color": "green",
 						"level": 3,
 						"quality": 20,
 						"enabled": true,
@@ -990,6 +1093,7 @@
 					{
 						"id": "ArcticArmour",
 						"name": "Arctic Armour",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1004,6 +1108,7 @@
 					{
 						"id": "HeraldOfIce",
 						"name": "Herald of Ice",
+						"color": "green",
 						"level": 21,
 						"quality": 30,
 						"enabled": true,
@@ -1012,6 +1117,7 @@
 					{
 						"id": "SupportScornfulHerald",
 						"name": "Scornful Herald",
+						"color": "blue",
 						"level": 3,
 						"quality": 20,
 						"enabled": true,
@@ -1020,6 +1126,7 @@
 					{
 						"id": "SupportIceBite",
 						"name": "Ice Bite",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1028,6 +1135,7 @@
 					{
 						"id": "SupportPowerChargeOnCritical",
 						"name": "Power Charge On Critical",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1042,6 +1150,7 @@
 					{
 						"id": "Frostblink",
 						"name": "Frostblink",
+						"color": "blue",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -1050,6 +1159,7 @@
 					{
 						"id": "FrostShield",
 						"name": "Frost Shield",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1058,6 +1168,7 @@
 					{
 						"id": "SupportArcaneSurge",
 						"name": "Arcane Surge",
+						"color": "blue",
 						"level": 1,
 						"quality": 20,
 						"enabled": true,
@@ -1072,6 +1183,7 @@
 					{
 						"id": "ShieldCharge",
 						"name": "Shield Charge",
+						"color": "red",
 						"level": 14,
 						"quality": 30,
 						"enabled": true,
@@ -1080,6 +1192,7 @@
 					{
 						"id": "SupportFasterAttacks",
 						"name": "Faster Attacks",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1088,6 +1201,7 @@
 					{
 						"id": "SupportMomentum",
 						"name": "Momentum",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1104,6 +1218,7 @@
 					{
 						"id": "WinterOrb",
 						"name": "Winter Orb",
+						"color": "blue",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -1112,6 +1227,7 @@
 					{
 						"id": "SupportInfusedChannelling",
 						"name": "Infused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1120,6 +1236,7 @@
 					{
 						"id": "SupportColdPenetration",
 						"name": "Cold Penetration",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1128,6 +1245,7 @@
 					{
 						"id": "SupportPowerChargeOnCritical",
 						"name": "Power Charge On Critical",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1136,6 +1254,7 @@
 					{
 						"id": "SupportInspiration",
 						"name": "Inspiration",
+						"color": "red",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1144,6 +1263,7 @@
 					{
 						"id": "SupportFocusedChannelling",
 						"name": "Focused Channelling",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1152,6 +1272,7 @@
 					{
 						"id": "SupportLesserMultipleProjectiles",
 						"name": "Multiple Projectiles",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": false,
@@ -1166,6 +1287,7 @@
 					{
 						"id": "SnipersMark",
 						"name": "Sniper's Mark",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1174,6 +1296,7 @@
 					{
 						"id": "SupportCastWhenDamageTaken",
 						"name": "Cast when Damage Taken",
+						"color": "red",
 						"level": 1,
 						"quality": 20,
 						"enabled": true,
@@ -1182,6 +1305,7 @@
 					{
 						"id": "ImmortalCall",
 						"name": "Immortal Call",
+						"color": "red",
 						"level": 1,
 						"quality": 20,
 						"enabled": false,
@@ -1190,6 +1314,7 @@
 					{
 						"id": "SupportMoreDuration",
 						"name": "More Duration",
+						"color": "red",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1204,6 +1329,7 @@
 					{
 						"id": "Discipline",
 						"name": "Discipline",
+						"color": "blue",
 						"level": 21,
 						"quality": 0,
 						"enabled": true,
@@ -1212,6 +1338,7 @@
 					{
 						"id": "ArcticArmour",
 						"name": "Arctic Armour",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1226,6 +1353,7 @@
 					{
 						"id": "HeraldOfIce",
 						"name": "Herald of Ice",
+						"color": "green",
 						"level": 21,
 						"quality": 30,
 						"enabled": true,
@@ -1234,6 +1362,7 @@
 					{
 						"id": "SupportScornfulHerald",
 						"name": "Scornful Herald",
+						"color": "blue",
 						"level": 3,
 						"quality": 20,
 						"enabled": true,
@@ -1242,6 +1371,7 @@
 					{
 						"id": "SupportIceBite",
 						"name": "Ice Bite",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1250,6 +1380,7 @@
 					{
 						"id": "SupportPowerChargeOnCritical",
 						"name": "Power Charge On Critical",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1264,6 +1395,7 @@
 					{
 						"id": "Frostblink",
 						"name": "Frostblink",
+						"color": "blue",
 						"level": 20,
 						"quality": 30,
 						"enabled": true,
@@ -1272,6 +1404,7 @@
 					{
 						"id": "FrostShield",
 						"name": "Frost Shield",
+						"color": "blue",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1280,6 +1413,7 @@
 					{
 						"id": "SupportArcaneSurge",
 						"name": "Arcane Surge",
+						"color": "blue",
 						"level": 1,
 						"quality": 20,
 						"enabled": true,
@@ -1294,6 +1428,7 @@
 					{
 						"id": "ShieldCharge",
 						"name": "Shield Charge",
+						"color": "red",
 						"level": 14,
 						"quality": 30,
 						"enabled": true,
@@ -1302,6 +1437,7 @@
 					{
 						"id": "SupportFasterAttacks",
 						"name": "Faster Attacks",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,
@@ -1310,6 +1446,7 @@
 					{
 						"id": "SupportMomentum",
 						"name": "Momentum",
+						"color": "green",
 						"level": 20,
 						"quality": 20,
 						"enabled": true,

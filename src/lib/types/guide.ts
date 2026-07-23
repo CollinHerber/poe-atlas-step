@@ -30,9 +30,12 @@ export type GuideNoteSection = {
 	body: string;
 };
 
+export type GuideGemColor = 'red' | 'green' | 'blue';
+
 export type GuideGem = {
 	id: string;
 	name: string;
+	color?: GuideGemColor;
 	level: number;
 	quality: number;
 	enabled: boolean;

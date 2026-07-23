@@ -76,6 +76,10 @@ const isGem = (value: unknown): value is GuideGem =>
 	isObject(value) &&
 	isString(value.id, 300) &&
 	isString(value.name, 300) &&
+	(value.color === undefined ||
+		value.color === 'red' ||
+		value.color === 'green' ||
+		value.color === 'blue') &&
 	typeof value.level === 'number' &&
 	Number.isFinite(value.level) &&
 	value.level >= 0 &&

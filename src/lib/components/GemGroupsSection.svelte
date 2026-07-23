@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { diffGemGroups } from '$lib/poe/gems';
-	import type { GuideGem, GuideGemGroup } from '$lib/types/guide';
+	import type { GuideGem, GuideGemColor, GuideGemGroup } from '$lib/types/guide';
 
 	let {
 		currentGroups,
@@ -18,9 +18,36 @@
 	function formatGemMeta(gem: GuideGem) {
 		const details = [`Lvl ${gem.level}`];
 		if (gem.quality > 0) details.push(`Q${gem.quality}`);
+		if (gem.support) details.push('Support');
 		if (!gem.enabled) details.push('off');
 		return details.join(' · ');
 	}
+
+	const gemColorLabels: Record<GuideGemColor, string> = {
+		red: 'Strength',
+		green: 'Dexterity',
+		blue: 'Intelligence'
+	};
+
+	const gemCardClasses: Record<GuideGemColor, string> = {
+		red: 'border-red-400/30 bg-red-500/10',
+		green: 'border-emerald-400/30 bg-emerald-500/10',
+		blue: 'border-blue-400/30 bg-blue-500/10'
+	};
+
+	const gemTextClasses: Record<GuideGemColor, string> = {
+		red: 'text-red-200',
+		green: 'text-emerald-200',
+		blue: 'text-blue-200'
+	};
+
+	const gemDotClasses: Record<GuideGemColor, string> = {
+		red: 'border-red-300/40 bg-red-500',
+		green: 'border-emerald-300/40 bg-emerald-500',
+		blue: 'border-blue-300/40 bg-blue-500'
+	};
+
+	const gemColor = (gem: GuideGem): GuideGemColor => gem.color ?? 'blue';
 
 	function changeDetails(before: GuideGem, after: GuideGem) {
 		const details: string[] = [];
@@ -29,6 +56,11 @@
 		if (before.enabled !== after.enabled) details.push(after.enabled ? 'enabled' : 'disabled');
 		if (before.support !== after.support)
 			details.push(after.support ? 'now a support' : 'now a skill');
+		if (before.color !== after.color) {
+			details.push(
+				`${gemColorLabels[gemColor(before)]} → ${gemColorLabels[gemColor(after)]} socket`
+			);
+		}
 		if (!details.length && before.name !== after.name) details.push(`renamed from ${before.name}`);
 		return details.join(', ');
 	}
@@ -46,7 +78,18 @@
 				Socket groups and links from this Path of Building checkpoint.
 			</p>
 		</div>
-		<p class="text-xs text-slate-600">{currentGroups.length} groups · {gemCount} gems</p>
+		<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+			{#each Object.entries(gemColorLabels) as [color, label] (color)}
+				<span class="inline-flex items-center gap-1.5 text-[0.65rem] font-medium text-slate-500">
+					<span
+						class={['size-2.5 rounded-sm border shadow-sm', gemDotClasses[color as GuideGemColor]]}
+						aria-hidden="true"
+					></span>
+					{label}
+				</span>
+			{/each}
+			<span class="text-xs text-slate-600">{currentGroups.length} groups · {gemCount} gems</span>
+		</div>
 	</header>
 
 	<div class="border-b border-slate-800 bg-slate-950/25 px-5 py-4 sm:px-6">
@@ -87,17 +130,25 @@
 						<div class="mt-2 flex flex-wrap gap-1.5">
 							{#each change.added as gem, gemIndex (`added-${gem.id}-${gemIndex}`)}
 								<span
-									class="rounded-md border border-emerald-400/20 bg-emerald-400/10 px-2 py-1 text-[0.7rem] font-medium text-emerald-300"
+									class="inline-flex items-center gap-1.5 rounded-md border border-emerald-400/20 bg-emerald-400/10 px-2 py-1 text-[0.7rem] font-medium text-emerald-300"
 									title={formatGemMeta(gem)}
 								>
+									<span
+										class={['size-2 rounded-sm border', gemDotClasses[gemColor(gem)]]}
+										aria-hidden="true"
+									></span>
 									+ {gem.name}
 								</span>
 							{/each}
 							{#each change.removed as gem, gemIndex (`removed-${gem.id}-${gemIndex}`)}
 								<span
-									class="rounded-md border border-rose-400/20 bg-rose-400/10 px-2 py-1 text-[0.7rem] font-medium text-rose-300 line-through decoration-rose-300/50"
+									class="inline-flex items-center gap-1.5 rounded-md border border-rose-400/20 bg-rose-400/10 px-2 py-1 text-[0.7rem] font-medium text-rose-300 line-through decoration-rose-300/50"
 									title={formatGemMeta(gem)}
 								>
+									<span
+										class={['size-2 rounded-sm border', gemDotClasses[gemColor(gem)]]}
+										aria-hidden="true"
+									></span>
 									− {gem.name}
 								</span>
 							{/each}
@@ -142,18 +193,12 @@
 							<div
 								class={[
 									'rounded-lg border px-2.5 py-2',
-									gem.support
-										? 'border-violet-400/20 bg-violet-400/8'
-										: 'border-cyan-400/20 bg-cyan-400/8',
+									gemCardClasses[gemColor(gem)],
 									gem.enabled && group.enabled ? '' : 'opacity-45'
 								]}
+								title={`${gemColorLabels[gemColor(gem)]} gem`}
 							>
-								<p
-									class={[
-										'text-xs font-semibold',
-										gem.support ? 'text-violet-200' : 'text-cyan-200'
-									]}
-								>
+								<p class={['text-xs font-semibold', gemTextClasses[gemColor(gem)]]}>
 									{gem.name}
 								</p>
 								<p class="mt-0.5 text-[0.65rem] text-slate-600">{formatGemMeta(gem)}</p>

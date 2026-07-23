@@ -46,7 +46,8 @@ const gemChanged = (before: GuideGem, after: GuideGem) =>
 	before.level !== after.level ||
 	before.quality !== after.quality ||
 	before.enabled !== after.enabled ||
-	before.support !== after.support;
+	before.support !== after.support ||
+	before.color !== after.color;
 
 export function diffGemGroups(
 	previousGroups: GuideGemGroup[],

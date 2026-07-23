@@ -23,6 +23,44 @@ const builds = [
 	}
 ];
 
+const gemColors = new Map([
+	['ArcticArmour', 'green'],
+	['Automation', 'blue'],
+	['Discipline', 'blue'],
+	['FleshAndStone', 'red'],
+	['Frostbite', 'blue'],
+	['Frostblink', 'blue'],
+	['FrostShield', 'blue'],
+	['HeraldOfIce', 'green'],
+	['ImmortalCall', 'red'],
+	['QuickGuard', 'red'],
+	['ShieldCharge', 'red'],
+	['SnipersMark', 'green'],
+	['SummonFlameGolem', 'red'],
+	['SummonIceGolem', 'green'],
+	['SummonLightningGolem', 'blue'],
+	['SummonStoneGolem', 'red'],
+	['SupportArcaneSurge', 'blue'],
+	['SupportCastWhenDamageTaken', 'red'],
+	['SupportColdPenetration', 'blue'],
+	['SupportEnlighten', 'green'],
+	['SupportFasterAttacks', 'green'],
+	['SupportFocusedChannelling', 'blue'],
+	['SupportIceBite', 'green'],
+	['SupportIncreasedCriticalDamage', 'blue'],
+	['SupportIncreasedCriticalStrikes', 'blue'],
+	['SupportInfusedChannelling', 'blue'],
+	['SupportInspiration', 'red'],
+	['SupportLesserMultipleProjectiles', 'green'],
+	['SupportMomentum', 'green'],
+	['SupportMoreDuration', 'red'],
+	['SupportPowerChargeOnCritical', 'blue'],
+	['SupportScornfulHerald', 'blue'],
+	['TempestShield', 'blue'],
+	['WinterOrb', 'blue'],
+	['Zealotry', 'blue']
+]);
+
 const decodeXml = (value) =>
 	value
 		.replaceAll('&quot;', '"')
@@ -67,12 +105,16 @@ const parseGem = (tag) => {
 	const name =
 		readAttribute(tag, 'nameSpec') ||
 		humanizeIdentifier(variantId || skillId || gemId.split('/').at(-1) || '');
+	const id = variantId || skillId || gemId || name;
+	const color = gemColors.get(id);
 
 	if (!name) throw new Error(`Gem is missing a usable name: ${tag}`);
+	if (!color) throw new Error(`Gem "${name}" (${id}) is missing an in-game socket color.`);
 
 	return {
-		id: variantId || skillId || gemId || name,
+		id,
 		name,
+		color,
 		level: readNumberAttribute(tag, 'level'),
 		quality: readNumberAttribute(tag, 'quality'),
 		enabled: readBooleanAttribute(tag, 'enabled'),

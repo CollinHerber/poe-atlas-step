@@ -1,0 +1,2330 @@
+{
+	"mom-crit-winter-orb": {
+		"level-80-uber-lab": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 21,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIncreasedCriticalDamage",
+						"name": "Increased Critical Damage",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIncreasedCriticalStrikes",
+						"name": "Increased Critical Strikes",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportGreaterMultipleProjectiles",
+						"name": "Greater Multiple Projectiles",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportHypothermia",
+						"name": "Hypothermia",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "FrostBomb",
+						"name": "Frost Bomb",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportBonechill",
+						"name": "Bonechill",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Zealotry",
+						"name": "Zealotry",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"label": "Golems",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SummonFlameGolem",
+						"name": "Summon Flame Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolem",
+						"name": "Summon Stone Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonLightningGolem",
+						"name": "Summon Lightning Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonChaosGolem",
+						"name": "Summon Chaos Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"label": "CWDT Immortal Call(level it up!)",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SupportCastWhenDamageTaken",
+						"name": "Cast when Damage Taken",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "ImmortalCall",
+						"name": "Immortal Call",
+						"level": 20,
+						"quality": 30,
+						"enabled": false,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Granted skill",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "PrimalAegis",
+						"name": "Primal Aegis",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			}
+		],
+		"midgame": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 21,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIncreasedCriticalDamage",
+						"name": "Increased Critical Damage",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIncreasedCriticalStrikes",
+						"name": "Increased Critical Strikes",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportColdPenetration",
+						"name": "Cold Penetration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportHypothermia",
+						"name": "Hypothermia",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "FrostBomb",
+						"name": "Frost Bomb",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportBonechill",
+						"name": "Bonechill",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Zealotry",
+						"name": "Zealotry",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"label": "Golems",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SummonFlameGolem",
+						"name": "Summon Flame Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolem",
+						"name": "Summon Stone Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonLightningGolem",
+						"name": "Summon Lightning Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonChaosGolem",
+						"name": "Summon Chaos Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "RighteousFireAltX",
+						"name": "Righteous Fire of Arcane Devotion",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"label": "CWDT Immortal Call(level it up!)",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SupportCastWhenDamageTaken",
+						"name": "Cast when Damage Taken",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "ImmortalCall",
+						"name": "Immortal Call",
+						"level": 20,
+						"quality": 30,
+						"enabled": false,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Granted skill",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "PrimalAegis",
+						"name": "Primal Aegis",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			}
+		],
+		"endgame-no-cluster": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 21,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIncreasedCriticalDamage",
+						"name": "Increased Critical Damage",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIncreasedCriticalStrikes",
+						"name": "Increased Critical Strikes",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportHypothermia",
+						"name": "Hypothermia",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportColdPenetration",
+						"name": "Cold Penetration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": true
+					},
+					{
+						"id": "SupportGreaterMultipleProjectiles",
+						"name": "Greater Multiple Projectiles",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"label": "Frostblink, Frost Shield",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "FrostShield",
+						"name": "Frost Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": false
+					},
+					{
+						"id": "SupportBonechill",
+						"name": "Bonechill",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Zealotry",
+						"name": "Zealotry",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"label": "Golems - Run Chaos before you have Safeguarding",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SummonFlameGolem",
+						"name": "Summon Flame Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolem",
+						"name": "Summon Stone Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolemAltY",
+						"name": "Summon Stone Golem of Safeguarding",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonLightningGolem",
+						"name": "Summon Lightning Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonChaosGolem",
+						"name": "Summon Chaos Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": false,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "RighteousFireAltX",
+						"name": "Righteous Fire of Arcane Devotion",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ForbiddenRite",
+						"name": "Forbidden Rite",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"label": "CWDT Immortal Call(level it up!)",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SupportCastWhenDamageTaken",
+						"name": "Cast when Damage Taken",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "ImmortalCall",
+						"name": "Immortal Call",
+						"level": 20,
+						"quality": 30,
+						"enabled": false,
+						"support": false
+					}
+				]
+			}
+		],
+		"endgame-cluster": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 21,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIncreasedCriticalDamage",
+						"name": "Increased Critical Damage",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIncreasedCriticalStrikes",
+						"name": "Increased Critical Strikes",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportHypothermia",
+						"name": "Hypothermia",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportColdPenetration",
+						"name": "Cold Penetration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": true
+					},
+					{
+						"id": "SupportGreaterMultipleProjectiles",
+						"name": "Greater Multiple Projectiles",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"label": "Frostblink, Frost Shield",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "FrostShield",
+						"name": "Frost Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": false
+					},
+					{
+						"id": "SupportBonechill",
+						"name": "Bonechill",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Zealotry",
+						"name": "Zealotry",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"label": "Golems - Run Chaos before you have Safeguarding",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SummonFlameGolem",
+						"name": "Summon Flame Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolem",
+						"name": "Summon Stone Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolemAltY",
+						"name": "Summon Stone Golem of Safeguarding",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonLightningGolem",
+						"name": "Summon Lightning Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonChaosGolem",
+						"name": "Summon Chaos Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": false,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "RighteousFireAltX",
+						"name": "Righteous Fire of Arcane Devotion",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ForbiddenRite",
+						"name": "Forbidden Rite",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"label": "CWDT Immortal Call(level it up!)",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SupportCastWhenDamageTaken",
+						"name": "Cast when Damage Taken",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "ImmortalCall",
+						"name": "Immortal Call",
+						"level": 20,
+						"quality": 30,
+						"enabled": false,
+						"support": false
+					}
+				]
+			}
+		]
+	},
+	"hybrid-crit-winter-orb": {
+		"entering-maps": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportColdPenetration",
+						"name": "Cold Penetration",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportLesserMultipleProjectiles",
+						"name": "Multiple Projectiles",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInspiration",
+						"name": "Inspiration",
+						"level": 20,
+						"quality": 0,
+						"enabled": false,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "QuickGuard",
+						"name": "Steelskin",
+						"level": 15,
+						"quality": 20,
+						"enabled": false,
+						"support": false
+					},
+					{
+						"id": "Automation",
+						"name": "Automation",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportArcaneSurge",
+						"name": "Arcane Surge",
+						"level": 1,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "FleshAndStone",
+						"name": "Flesh and Stone",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SummonIceGolem",
+						"name": "Summon Ice Golem",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonLightningGolem",
+						"name": "Summon Lightning Golem",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonFlameGolem",
+						"name": "Summon Flame Golem",
+						"level": 20,
+						"quality": 10,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolem",
+						"name": "Summon Stone Golem",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIceBite",
+						"name": "Ice Bite",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 1,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportMomentum",
+						"name": "Momentum",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					}
+				]
+			}
+		],
+		"early-game": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIncreasedCriticalDamage",
+						"name": "Increased Critical Damage",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIncreasedCriticalStrikes",
+						"name": "Increased Critical Strikes",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportLesserMultipleProjectiles",
+						"name": "Multiple Projectiles",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportPowerChargeOnCritical",
+						"name": "Power Charge On Critical",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "QuickGuard",
+						"name": "Steelskin",
+						"level": 15,
+						"quality": 20,
+						"enabled": false,
+						"support": false
+					},
+					{
+						"id": "Automation",
+						"name": "Automation",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportArcaneSurge",
+						"name": "Arcane Surge",
+						"level": 1,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "FleshAndStone",
+						"name": "Flesh and Stone",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SummonIceGolem",
+						"name": "Summon Ice Golem",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonLightningGolem",
+						"name": "Summon Lightning Golem",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonFlameGolem",
+						"name": "Summon Flame Golem",
+						"level": 20,
+						"quality": 10,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolem",
+						"name": "Summon Stone Golem",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIceBite",
+						"name": "Ice Bite",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 14,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportMomentum",
+						"name": "Momentum",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					}
+				]
+			}
+		],
+		"transition-mid-game": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIncreasedCriticalDamage",
+						"name": "Increased Critical Damage",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIncreasedCriticalStrikes",
+						"name": "Increased Critical Strikes",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportPowerChargeOnCritical",
+						"name": "Power Charge On Critical",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "QuickGuard",
+						"name": "Steelskin",
+						"level": 15,
+						"quality": 20,
+						"enabled": false,
+						"support": false
+					},
+					{
+						"id": "Automation",
+						"name": "Automation",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportArcaneSurge",
+						"name": "Arcane Surge",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "FleshAndStone",
+						"name": "Flesh and Stone",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SummonIceGolem",
+						"name": "Summon Ice Golem",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonLightningGolem",
+						"name": "Summon Lightning Golem",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonFlameGolem",
+						"name": "Summon Flame Golem",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SummonStoneGolem",
+						"name": "Summon Stone Golem",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportIceBite",
+						"name": "Ice Bite",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 14,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportMomentum",
+						"name": "Momentum",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			}
+		],
+		"endgame-optional": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 21,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportColdPenetration",
+						"name": "Cold Penetration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInspiration",
+						"name": "Inspiration",
+						"level": 21,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportPowerChargeOnCritical",
+						"name": "Power Charge On Critical",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "QuickGuard",
+						"name": "Steelskin",
+						"level": 13,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Automation",
+						"name": "Automation",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportArcaneSurge",
+						"name": "Arcane Surge",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "Frostbite",
+						"name": "Frostbite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Zealotry",
+						"name": "Zealotry",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Discipline",
+						"name": "Discipline",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportEnlighten",
+						"name": "Enlighten",
+						"level": 3,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "TempestShield",
+						"name": "Tempest Shield",
+						"level": 21,
+						"quality": 2,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportScornfulHerald",
+						"name": "Scornful Herald",
+						"level": 3,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIceBite",
+						"name": "Ice Bite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 14,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			}
+		],
+		"pcharge-stack": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportColdPenetration",
+						"name": "Cold Penetration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportPowerChargeOnCritical",
+						"name": "Power Charge On Critical",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInspiration",
+						"name": "Inspiration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportLesserMultipleProjectiles",
+						"name": "Multiple Projectiles",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SupportArcaneSurge",
+						"name": "Arcane Surge",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SnipersMark",
+						"name": "Sniper's Mark",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportCastWhenDamageTaken",
+						"name": "Cast when Damage Taken",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "ImmortalCall",
+						"name": "Immortal Call",
+						"level": 1,
+						"quality": 20,
+						"enabled": false,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "FleshAndStone",
+						"name": "Flesh and Stone",
+						"level": 20,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "Discipline",
+						"name": "Discipline",
+						"level": 21,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportEnlighten",
+						"name": "Enlighten",
+						"level": 3,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 21,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportScornfulHerald",
+						"name": "Scornful Herald",
+						"level": 3,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIceBite",
+						"name": "Ice Bite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportPowerChargeOnCritical",
+						"name": "Power Charge On Critical",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "FrostShield",
+						"name": "Frost Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportArcaneSurge",
+						"name": "Arcane Surge",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 14,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportMomentum",
+						"name": "Momentum",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			}
+		],
+		"uber-pcharge": [
+			{
+				"slot": "Body Armour",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "WinterOrb",
+						"name": "Winter Orb",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportInfusedChannelling",
+						"name": "Infused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportColdPenetration",
+						"name": "Cold Penetration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportPowerChargeOnCritical",
+						"name": "Power Charge On Critical",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportInspiration",
+						"name": "Inspiration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportFocusedChannelling",
+						"name": "Focused Channelling",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportLesserMultipleProjectiles",
+						"name": "Multiple Projectiles",
+						"level": 20,
+						"quality": 20,
+						"enabled": false,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Boots",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "SnipersMark",
+						"name": "Sniper's Mark",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportCastWhenDamageTaken",
+						"name": "Cast when Damage Taken",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "ImmortalCall",
+						"name": "Immortal Call",
+						"level": 1,
+						"quality": 20,
+						"enabled": false,
+						"support": false
+					},
+					{
+						"id": "SupportMoreDuration",
+						"name": "More Duration",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Helmet",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Discipline",
+						"name": "Discipline",
+						"level": 21,
+						"quality": 0,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "ArcticArmour",
+						"name": "Arctic Armour",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					}
+				]
+			},
+			{
+				"slot": "Gloves",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "HeraldOfIce",
+						"name": "Herald of Ice",
+						"level": 21,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportScornfulHerald",
+						"name": "Scornful Herald",
+						"level": 3,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportIceBite",
+						"name": "Ice Bite",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportPowerChargeOnCritical",
+						"name": "Power Charge On Critical",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 1",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "Frostblink",
+						"name": "Frostblink",
+						"level": 20,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "FrostShield",
+						"name": "Frost Shield",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportArcaneSurge",
+						"name": "Arcane Surge",
+						"level": 1,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"enabled": true,
+				"gems": [
+					{
+						"id": "ShieldCharge",
+						"name": "Shield Charge",
+						"level": 14,
+						"quality": 30,
+						"enabled": true,
+						"support": false
+					},
+					{
+						"id": "SupportFasterAttacks",
+						"name": "Faster Attacks",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					},
+					{
+						"id": "SupportMomentum",
+						"name": "Momentum",
+						"level": 20,
+						"quality": 20,
+						"enabled": true,
+						"support": true
+					}
+				]
+			}
+		]
+	}
+}

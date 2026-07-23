@@ -1,4 +1,11 @@
-import type { BuildGuide, GuideStep, GuideTodo, GuideUnique } from '$lib/types/guide';
+import type {
+	BuildGuide,
+	GuideGem,
+	GuideGemGroup,
+	GuideStep,
+	GuideTodo,
+	GuideUnique
+} from '$lib/types/guide';
 
 export type SavedBuildRecord = {
 	id: string;
@@ -63,6 +70,31 @@ const isUnique = (value: unknown): value is GuideUnique =>
 	uniqueCategories.has(value.category) &&
 	(value.wikiTitle === undefined || isString(value.wikiTitle, 300));
 
+const isGem = (value: unknown): value is GuideGem =>
+	isObject(value) &&
+	isString(value.id, 300) &&
+	isString(value.name, 300) &&
+	typeof value.level === 'number' &&
+	Number.isFinite(value.level) &&
+	value.level >= 0 &&
+	value.level <= 40 &&
+	typeof value.quality === 'number' &&
+	Number.isFinite(value.quality) &&
+	value.quality >= 0 &&
+	value.quality <= 100 &&
+	typeof value.enabled === 'boolean' &&
+	typeof value.support === 'boolean';
+
+const isGemGroup = (value: unknown): value is GuideGemGroup =>
+	isObject(value) &&
+	isString(value.slot, 200) &&
+	(value.label === undefined || isString(value.label, 300)) &&
+	typeof value.enabled === 'boolean' &&
+	Array.isArray(value.gems) &&
+	value.gems.length > 0 &&
+	value.gems.length <= 20 &&
+	value.gems.every(isGem);
+
 const isStep = (value: unknown): value is GuideStep => {
 	if (
 		!isObject(value) ||
@@ -76,6 +108,13 @@ const isStep = (value: unknown): value is GuideStep => {
 		!Array.isArray(value.todos) ||
 		value.todos.length > 250 ||
 		!value.todos.every(isTodo)
+	) {
+		return false;
+	}
+
+	if (
+		value.gems !== undefined &&
+		(!Array.isArray(value.gems) || value.gems.length > 50 || !value.gems.every(isGemGroup))
 	) {
 		return false;
 	}

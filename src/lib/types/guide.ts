@@ -30,12 +30,29 @@ export type GuideNoteSection = {
 	body: string;
 };
 
+export type GuideGem = {
+	id: string;
+	name: string;
+	level: number;
+	quality: number;
+	enabled: boolean;
+	support: boolean;
+};
+
+export type GuideGemGroup = {
+	slot: string;
+	label?: string;
+	enabled: boolean;
+	gems: GuideGem[];
+};
+
 export type GuideStep = {
 	id: string;
 	title: string;
 	eyebrow: string;
 	description: string;
 	uniques: GuideUnique[];
+	gems?: GuideGemGroup[];
 	insights?: GuideInsight[];
 	noteHighlights?: string[];
 	todos: GuideTodo[];

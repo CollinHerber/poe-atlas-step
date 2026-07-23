@@ -1,6 +1,13 @@
+import gemGroups from '$lib/data/gems.json';
 import uniqueItems from '$lib/data/unique-items.json';
 import { primaryBuildNotes, transitionBuildNotes } from '$lib/data/build-notes';
-import type { BuildGuide, GuideStep, GuideUnique, TodoPhase } from '$lib/types/guide';
+import type {
+	BuildGuide,
+	GuideGemGroup,
+	GuideStep,
+	GuideUnique,
+	TodoPhase
+} from '$lib/types/guide';
 
 const todo = (id: string, text: string, phase: TodoPhase): GuideStep['todos'][number] => ({
 	id,
@@ -10,9 +17,13 @@ const todo = (id: string, text: string, phase: TodoPhase): GuideStep['todos'][nu
 });
 
 const uniqueItemsByStep = uniqueItems as Record<string, Record<string, GuideUnique[]>>;
+const gemGroupsByStep = gemGroups as Record<string, Record<string, GuideGemGroup[]>>;
 
 const uniques = (guideId: string, stepId: string): GuideUnique[] =>
 	(uniqueItemsByStep[guideId]?.[stepId] ?? []).map((item) => ({ ...item }));
+
+const gems = (guideId: string, stepId: string): GuideGemGroup[] =>
+	structuredClone(gemGroupsByStep[guideId]?.[stepId] ?? []);
 
 export const PRIMARY_POB_URL = 'https://pobb.in/221_ZcVSEO7G';
 export const TRANSITION_POB_URL = 'https://pobb.in/cd6A9tg8QjrJ';
@@ -40,6 +51,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Use this checkpoint to stabilize the character, finish the campaign-to-map handoff, and make the fourth ascendancy feel earned instead of rushed.',
 				uniques: uniques('mom-crit-winter-orb', 'level-80-uber-lab'),
+				gems: gems('mom-crit-winter-orb', 'level-80-uber-lab'),
 				noteHighlights: [
 					'Finish the core golem trio, then choose the fourth golem to solve defense, critical chance, or chaos resistance.',
 					'Use Bastion of Elements as the safe fourth ascendancy; take Shaper of Storms early only if you accept the defensive tradeoff.',
@@ -129,6 +141,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Turn Atlas completion into a repeatable routine. Keep upgrades concrete and small enough that every session can move at least one checkbox.',
 				uniques: uniques('mom-crit-winter-orb', 'midgame'),
+				gems: gems('mom-crit-winter-orb', 'midgame'),
 				noteHighlights: [
 					'Prioritize cast speed before decorative damage: Profane Wand and a Moonstone Ring are the feel-good baseline.',
 					'Keep Greater Multiple Projectiles until Mystic Refractor, Dying Sun, or gem levels supply enough projectiles, then re-test the socket.',
@@ -212,6 +225,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Build a dependable endgame baseline before paying for cluster jewels. This is the spot to prove the farming loop and eliminate unclear upgrade goals.',
 				uniques: uniques('mom-crit-winter-orb', 'endgame-no-cluster'),
+				gems: gems('mom-crit-winter-orb', 'endgame-no-cluster'),
 				noteHighlights: [
 					'Re-test the projectile support after Dying Sun is equipped; actual overlap and clearing matter more than the tooltip.',
 					'Do not overspend trying to force boss damage into the mapper. Save toward clusters, power charges, or a Creeping Frost package.',
@@ -292,6 +306,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Complete the first build’s intended destination, then decide whether the power-charge transition is exciting enough to become the next project.',
 				uniques: uniques('mom-crit-winter-orb', 'endgame-cluster'),
+				gems: gems('mom-crit-winter-orb', 'endgame-cluster'),
 				noteHighlights: [
 					'Swap to Shaper of Storms when Stormrider is installed so the cluster notable has reliable shock support.',
 					'Use low-level Forbidden Rite with Enduring Composure to begin generating endurance charges before boss contact.',
@@ -385,6 +400,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Capture the mapping baseline represented by this build before changing its core pieces.',
 				uniques: uniques('hybrid-crit-winter-orb', 'entering-maps'),
+				gems: gems('hybrid-crit-winter-orb', 'entering-maps'),
 				noteHighlights: [
 					'Use Brine King, Steelskin, and a bleed-removal life flask while the character is still life-based.',
 					'Start with Alira if resistance is tight, and generate early frenzy charges with Herald of Ice plus Ice Bite.'
@@ -405,6 +421,7 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Stabilize',
 				description: 'Consolidate the early upgrades and keep the next purchase visible.',
 				uniques: uniques('hybrid-crit-winter-orb', 'early-game'),
+				gems: gems('hybrid-crit-winter-orb', 'early-game'),
 				noteHighlights: [
 					'Stay Elementalist while golems are carrying damage, defense, and mana regeneration.',
 					'Use the affordable weapon tier that keeps mapping comfortable; a rare wand does not win until it reaches double +1 gem levels.'
@@ -422,6 +439,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Use a repeatable farm to fund the larger mechanical upgrades in the transition build.',
 				uniques: uniques('hybrid-crit-winter-orb', 'transition-mid-game'),
+				gems: gems('hybrid-crit-winter-orb', 'transition-mid-game'),
 				noteHighlights: [
 					'Progress the amulet from a rare +1 cold option toward Pandemonius or a +3 Winter Orb Replica Dragonfang when prices allow.',
 					'Secure corrupted-blood immunity on a jewel before replacing the bleed-removal life flask.'
@@ -439,6 +457,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Evaluate optional endgame pieces by impact, cost, and how much you enjoy the content that funds them.',
 				uniques: uniques('hybrid-crit-winter-orb', 'endgame-optional'),
+				gems: gems('hybrid-crit-winter-orb', 'endgame-optional'),
 				noteHighlights: [
 					'Prioritize rare jewels with two useful critical-multiplier modifiers before adding Energy Shield.',
 					'Verify Focused Channeling behavior in the current league before valuing it as permanent snapshot damage.'
@@ -456,6 +475,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Treat the power-charge setup as a project: price it, stage it, and avoid a half-finished swap.',
 				uniques: uniques('hybrid-crit-winter-orb', 'pcharge-stack'),
+				gems: gems('hybrid-crit-winter-orb', 'pcharge-stack'),
 				noteHighlights: [
 					'Do not switch to Occultist until the full Energy Shield and power-charge package is ready.',
 					'Badge of the Brotherhood, Power Charge on Critical, and a reliable frenzy-charge source need to come online together.'
@@ -473,6 +493,7 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'The aspirational endpoint. Pick a challenge worth testing and stop upgrading only when the goal—not the checklist—is finished.',
 				uniques: uniques('hybrid-crit-winter-orb', 'uber-pcharge'),
+				gems: gems('hybrid-crit-winter-orb', 'uber-pcharge'),
 				noteHighlights: [
 					'Switch from Brine King to Lunaris or Solaris after Occultist supplies its own stun, freeze, and chill protection.',
 					'Use Immortal Call with the larger Energy Shield pool and finish the Elegant Hubris and ailment-immunity projects.'

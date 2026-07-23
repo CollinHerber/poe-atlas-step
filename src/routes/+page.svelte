@@ -13,6 +13,7 @@
 	} from 'flowbite-svelte-icons';
 	import BuildLibrary from '$lib/components/BuildLibrary.svelte';
 	import BuildNotesSection from '$lib/components/BuildNotesSection.svelte';
+	import GemGroupsSection from '$lib/components/GemGroupsSection.svelte';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
 	import StepInsights from '$lib/components/StepInsights.svelte';
 	import TodoSection from '$lib/components/TodoSection.svelte';
@@ -60,6 +61,7 @@
 
 	let activeIndex = $derived(guide.steps.findIndex((step) => step.id === activeStepId));
 	let activeStep = $derived(guide.steps[Math.max(activeIndex, 0)]);
+	let previousStep = $derived(activeIndex > 0 ? guide.steps[activeIndex - 1] : null);
 	let pathOfBuildingUrl = $derived(buildPathOfBuildingUrl(guide.sourceUrl));
 	let allTodos = $derived(guide.steps.flatMap((step) => step.todos));
 	let completedCount = $derived(allTodos.filter((todo) => todo.done).length);
@@ -550,6 +552,12 @@
 					items={activeStep.uniques}
 					snapshot={priceSnapshot}
 					status={priceStatus}
+				/>
+
+				<GemGroupsSection
+					currentGroups={activeStep.gems ?? []}
+					previousGroups={previousStep ? (previousStep.gems ?? []) : null}
+					previousStepTitle={previousStep?.title}
 				/>
 
 				<TodoSection

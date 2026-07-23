@@ -9,6 +9,13 @@ const apiRoot = 'https://poe.ninja/poe1/api/economy';
 const source = 'https://poe.ninja/';
 const repository = process.env.GITHUB_REPOSITORY ?? 'local development';
 const userAgent = `AtlasStep/0.1 (${repository}; static GitHub Pages price snapshot)`;
+const uniqueCategories = [
+	'UniqueWeapon',
+	'UniqueArmour',
+	'UniqueAccessory',
+	'UniqueFlask',
+	'UniqueJewel'
+];
 
 const uniquePriceKey = (name, baseType) => `${name}|${baseType}`;
 const normalize = (value) =>
@@ -66,6 +73,32 @@ function selectPriceLine(lines, target) {
 	)[0];
 }
 
+function preferPriceLine(current, candidate) {
+	if (!current) return candidate;
+	if (Boolean(current.corrupted) !== Boolean(candidate.corrupted)) {
+		return candidate.corrupted ? current : candidate;
+	}
+
+	return Number(candidate.listingCount ?? candidate.count ?? 0) >
+		Number(current.listingCount ?? current.count ?? 0)
+		? candidate
+		: current;
+}
+
+function serializePrice(line, name, baseType, category) {
+	return {
+		name,
+		baseType,
+		category,
+		chaosValue: Number(line.chaosValue ?? 0),
+		divineValue: Number(line.divineValue ?? 0),
+		listingCount: Number(line.listingCount ?? line.count ?? 0),
+		...(line.icon ? { icon: line.icon } : {}),
+		...(line.variant ? { variant: line.variant } : {}),
+		...(line.detailsId ? { detailsId: line.detailsId } : {})
+	};
+}
+
 async function updatePrices() {
 	const guides = JSON.parse(await readFile(itemsPath, 'utf8'));
 	const targets = collectTargets(guides);
@@ -75,7 +108,7 @@ async function updatePrices() {
 	if (!league) throw new Error('poe.ninja did not return an active Path of Exile league.');
 
 	const linesByCategory = new Map();
-	for (const category of [...new Set(targets.map((item) => item.category))]) {
+	for (const category of uniqueCategories) {
 		const url = new URL(`${apiRoot}/stash/current/item/overview`);
 		url.searchParams.set('league', league);
 		url.searchParams.set('type', category);
@@ -86,6 +119,20 @@ async function updatePrices() {
 	const prices = {};
 	const missing = [];
 
+	for (const [category, lines] of linesByCategory) {
+		const selectedLines = new Map();
+		for (const line of lines) {
+			if (!line.name || !line.baseType) continue;
+			const key = uniquePriceKey(line.name, line.baseType);
+			selectedLines.set(key, preferPriceLine(selectedLines.get(key), line));
+		}
+
+		for (const [key, line] of selectedLines) {
+			prices[key] = serializePrice(line, line.name, line.baseType, category);
+		}
+	}
+
+	// Preserve hand-authored names and aliases used by imported builds.
 	for (const target of targets) {
 		const line = selectPriceLine(linesByCategory.get(target.category) ?? [], target);
 		const key = uniquePriceKey(target.name, target.baseType);
@@ -95,17 +142,7 @@ async function updatePrices() {
 			continue;
 		}
 
-		prices[key] = {
-			name: target.name,
-			baseType: target.baseType,
-			category: target.category,
-			chaosValue: Number(line.chaosValue ?? 0),
-			divineValue: Number(line.divineValue ?? 0),
-			listingCount: Number(line.listingCount ?? line.count ?? 0),
-			...(line.icon ? { icon: line.icon } : {}),
-			...(line.variant ? { variant: line.variant } : {}),
-			...(line.detailsId ? { detailsId: line.detailsId } : {})
-		};
+		prices[key] = serializePrice(line, target.name, target.baseType, target.category);
 	}
 
 	await mkdir(dirname(outputPath), { recursive: true });
@@ -126,7 +163,7 @@ async function updatePrices() {
 	);
 
 	console.log(
-		`Updated ${Object.keys(prices).length}/${targets.length} unique prices for ${league}.`
+		`Updated ${Object.keys(prices).length} unique prices for ${league}; ${targets.length - missing.length}/${targets.length} bundled items matched.`
 	);
 	if (missing.length) console.warn(`No price was found for: ${missing.join(', ')}`);
 }

@@ -4,6 +4,7 @@ import type {
 	GuideEquipmentItem,
 	GuideGem,
 	GuideGemGroup,
+	GuideOptionalUnique,
 	GuideStep,
 	GuideTodo,
 	GuideUnique
@@ -71,6 +72,16 @@ const isUnique = (value: unknown): value is GuideUnique =>
 	typeof value.category === 'string' &&
 	uniqueCategories.has(value.category) &&
 	(value.wikiTitle === undefined || isString(value.wikiTitle, 300));
+
+const isOptionalUnique = (value: unknown): value is GuideOptionalUnique => {
+	if (!isObject(value) || !isUnique(value)) return false;
+	const optional = value as GuideUnique & Record<string, unknown>;
+	return (
+		isString(optional.id, 200) &&
+		isString(optional.stepId, 200) &&
+		(optional.note === undefined || isString(optional.note, 2_000))
+	);
+};
 
 const isGem = (value: unknown): value is GuideGem =>
 	isObject(value) &&
@@ -192,7 +203,7 @@ const isStep = (value: unknown): value is GuideStep => {
 };
 
 export function isBuildGuide(value: unknown): value is BuildGuide {
-	return (
+	if (!(
 		isObject(value) &&
 		isString(value.id, 200) &&
 		isString(value.name, 300) &&
@@ -212,7 +223,23 @@ export function isBuildGuide(value: unknown): value is BuildGuide {
 		value.steps.length > 0 &&
 		value.steps.length <= 50 &&
 		value.steps.every(isStep)
-	);
+	)) {
+		return false;
+	}
+
+	if (
+		value.optionalUniques !== undefined &&
+		(!Array.isArray(value.optionalUniques) ||
+			value.optionalUniques.length > 200 ||
+			!value.optionalUniques.every(isOptionalUnique) ||
+			!value.optionalUniques.every((item) =>
+				(value.steps as GuideStep[]).some((step) => step.id === item.stepId)
+			))
+	) {
+		return false;
+	}
+
+	return true;
 }
 
 const isSavedBuildRecord = (value: unknown): value is SavedBuildRecord =>

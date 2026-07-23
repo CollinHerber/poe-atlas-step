@@ -1,6 +1,6 @@
 import { sampleGuides } from '$lib/data/sample-guides';
 import { clonePlainGuide, isBuildGuide } from '$lib/persistence/build-library';
-import type { BuildGuide, GuideInsight, GuideTodo } from '$lib/types/guide';
+import type { BuildGuide, GuideInsight, GuideOptionalUnique, GuideTodo } from '$lib/types/guide';
 
 export type SharedBuildPayload = {
 	version: 1;
@@ -24,6 +24,7 @@ type CompactSharedBuildPayload = {
 	b: string;
 	a: string;
 	s: CompactStepOverrides[];
+	o?: GuideOptionalUnique[];
 };
 
 const MAX_SHARE_TOKEN_LENGTH = 150_000;
@@ -97,7 +98,8 @@ const createCompactPayload = (
 		n: payload.name,
 		b: template.id,
 		a: payload.activeStepId,
-		s: stepOverrides
+		s: stepOverrides,
+		...(payload.guide.optionalUniques?.length ? { o: payload.guide.optionalUniques } : {})
 	};
 };
 
@@ -151,6 +153,11 @@ const decodeCompactPayload = (value: unknown): SharedBuildPayload | undefined =>
 		if (hasOwn(rawOverrides, 'c')) {
 			step.todos = rawOverrides.c as GuideTodo[];
 		}
+	}
+
+	if (hasOwn(value, 'o')) {
+		if (!Array.isArray(value.o) || value.o.length > 200) return undefined;
+		guide.optionalUniques = value.o as GuideOptionalUnique[];
 	}
 
 	if (!isBuildGuide(guide) || !guide.steps.some((step) => step.id === value.a)) {

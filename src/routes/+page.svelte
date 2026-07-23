@@ -60,6 +60,7 @@
 	import type {
 		BuildGuide,
 		GuideInsight,
+		GuideOptionalUnique,
 		GuideStep,
 		PoeNinjaPriceSnapshot,
 		TodoPhase,
@@ -125,7 +126,11 @@
 	const storageKey = (guideId: string) => `atlas-step:guide:${guideId}`;
 	const cloneStep = (step: GuideStep): GuideStep => JSON.parse(JSON.stringify(step)) as GuideStep;
 
-	function mergeGuideProgress(baseGuide: BuildGuide, savedSteps: BuildGuide['steps']): BuildGuide {
+	function mergeGuideProgress(
+		baseGuide: BuildGuide,
+		savedSteps: BuildGuide['steps'],
+		optionalUniques: GuideOptionalUnique[] = []
+	): BuildGuide {
 		const baseById = new Map(baseGuide.steps.map((step) => [step.id, step]));
 		const savedIds = new Set(savedSteps.map((step) => step.id));
 		const nextGuide = cloneGuide(baseGuide);
@@ -144,6 +149,9 @@
 		});
 		const newBundledSteps = nextGuide.steps.filter((step) => !savedIds.has(step.id));
 		nextGuide.steps = [...orderedSavedSteps, ...newBundledSteps];
+		nextGuide.optionalUniques = optionalUniques
+			.filter((item) => nextGuide.steps.some((step) => step.id === item.stepId))
+			.map((item) => ({ ...item }));
 		return nextGuide;
 	}
 
@@ -152,7 +160,7 @@
 			(candidate) => candidate.id === savedGuide.id && candidate.sourceUrl === savedGuide.sourceUrl
 		);
 		return baseGuide
-			? mergeGuideProgress(baseGuide, savedGuide.steps)
+			? mergeGuideProgress(baseGuide, savedGuide.steps, savedGuide.optionalUniques)
 			: clonePlainGuide(savedGuide);
 	}
 
@@ -161,8 +169,15 @@
 		const saved = localStorage.getItem(storageKey(baseGuide.id));
 		if (!saved) return cloneGuide(baseGuide);
 		try {
-			const savedSteps = JSON.parse(saved) as BuildGuide['steps'];
-			return mergeGuideProgress(baseGuide, savedSteps);
+			const parsed = JSON.parse(saved) as
+				| BuildGuide['steps']
+				| {
+						steps: BuildGuide['steps'];
+						optionalUniques?: GuideOptionalUnique[];
+				  };
+			const savedSteps = Array.isArray(parsed) ? parsed : parsed.steps;
+			const optionalUniques = Array.isArray(parsed) ? [] : (parsed.optionalUniques ?? []);
+			return mergeGuideProgress(baseGuide, savedSteps, optionalUniques);
 		} catch {
 			return cloneGuide(baseGuide);
 		}
@@ -267,7 +282,13 @@
 		const workspace = JSON.stringify({ guide, activeStepId });
 
 		if (workspaceSource === 'template') {
-			localStorage.setItem(storageKey(guide.id), JSON.stringify(guide.steps));
+			localStorage.setItem(
+				storageKey(guide.id),
+				JSON.stringify({
+					steps: guide.steps,
+					optionalUniques: guide.optionalUniques ?? []
+				})
+			);
 			return;
 		}
 
@@ -589,6 +610,25 @@
 
 		const [step] = guide.steps.splice(activeIndex, 1);
 		guide.steps.splice(targetIndex, 0, step);
+	}
+
+	function addOptionalUnique(item: GuideOptionalUnique) {
+		if (!guide.optionalUniques) guide.optionalUniques = [];
+		guide.optionalUniques.push(item);
+	}
+
+	function updateOptionalUnique(
+		itemId: string,
+		updates: Pick<GuideOptionalUnique, 'stepId' | 'note'>
+	) {
+		const item = guide.optionalUniques?.find((candidate) => candidate.id === itemId);
+		if (!item || !guide.steps.some((step) => step.id === updates.stepId)) return;
+		item.stepId = updates.stepId;
+		item.note = updates.note;
+	}
+
+	function deleteOptionalUnique(itemId: string) {
+		guide.optionalUniques = (guide.optionalUniques ?? []).filter((item) => item.id !== itemId);
 	}
 
 	async function openBuildLibrary() {
@@ -1250,7 +1290,11 @@
 					status={priceStatus}
 					{tierSnapshot}
 					{tierStatus}
+					{activeStepId}
 					onSelectStep={(stepId) => void openUniqueStep(stepId)}
+					onAddOptional={addOptionalUnique}
+					onUpdateOptional={updateOptionalUnique}
+					onDeleteOptional={deleteOptionalUnique}
 				/>
 			</div>
 		{/if}

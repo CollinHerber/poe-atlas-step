@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { SvelteMap } from 'svelte/reactivity';
 	import { ArrowUpRightFromSquareOutline, StarOutline } from 'flowbite-svelte-icons';
+	import OptionalUniquesSection from '$lib/components/OptionalUniquesSection.svelte';
 	import { buildTradeUrl, buildWikiUrl, uniquePriceKey } from '$lib/poe/items';
 	import {
 		findUniqueTier,
@@ -10,6 +11,7 @@
 	} from '$lib/poe/unique-tiers';
 	import type {
 		BuildGuide,
+		GuideOptionalUnique,
 		GuideUnique,
 		PoeNinjaPriceSnapshot,
 		PoeNinjaUniquePrice,
@@ -34,14 +36,25 @@
 		status,
 		tierSnapshot,
 		tierStatus,
-		onSelectStep
+		activeStepId,
+		onSelectStep,
+		onAddOptional,
+		onUpdateOptional,
+		onDeleteOptional
 	}: {
 		guide: BuildGuide;
 		snapshot: PoeNinjaPriceSnapshot | null;
 		status: 'loading' | 'ready' | 'unavailable';
 		tierSnapshot: UniqueTierSnapshot | null;
 		tierStatus: 'loading' | 'ready' | 'unavailable';
+		activeStepId: string;
 		onSelectStep: (stepId: string) => void;
+		onAddOptional: (item: GuideOptionalUnique) => void;
+		onUpdateOptional: (
+			itemId: string,
+			updates: Pick<GuideOptionalUnique, 'stepId' | 'note'>
+		) => void;
+		onDeleteOptional: (itemId: string) => void;
 	} = $props();
 
 	function aggregateUniques(currentGuide: BuildGuide): BuildUnique[] {
@@ -309,6 +322,19 @@
 			</p>
 		</div>
 	{/if}
+
+	<OptionalUniquesSection
+		{guide}
+		items={guide.optionalUniques ?? []}
+		{activeStepId}
+		{snapshot}
+		{status}
+		{tierSnapshot}
+		{onSelectStep}
+		onAdd={onAddOptional}
+		onUpdate={onUpdateOptional}
+		onDelete={onDeleteOptional}
+	/>
 
 	<footer
 		class="border-t border-slate-800 bg-slate-950/25 px-5 py-3 text-xs text-slate-700 sm:px-6"

@@ -18,6 +18,12 @@ export type GuideUnique = {
 	wikiTitle?: string;
 };
 
+export type GuideOptionalUnique = GuideUnique & {
+	id: string;
+	stepId: string;
+	note?: string;
+};
+
 export type GuideInsight = {
 	title: string;
 	body: string;
@@ -86,6 +92,7 @@ export type BuildGuide = {
 	sourceUrl: string;
 	notes: GuideNoteSection[];
 	steps: GuideStep[];
+	optionalUniques?: GuideOptionalUnique[];
 };
 
 export type PoeNinjaUniquePrice = {

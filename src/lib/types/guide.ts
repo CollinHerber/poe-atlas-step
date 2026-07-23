@@ -15,6 +15,7 @@ export type GuideUnique = {
 	baseType: string;
 	slot: string;
 	category: PoeNinjaUniqueCategory;
+	wikiTitle?: string;
 };
 
 export type GuideStep = {

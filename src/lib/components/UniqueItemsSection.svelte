@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { GuideUnique, PoeNinjaPriceSnapshot, PoeNinjaUniquePrice } from '$lib/types/guide';
-	import { buildTradeUrl, uniquePriceKey } from '$lib/poe/items';
+	import { buildTradeUrl, buildWikiUrl, uniquePriceKey } from '$lib/poe/items';
 
 	let {
 		items,
@@ -70,6 +70,7 @@
 			{#each items as item (`${item.slot}-${item.name}`)}
 				{@const price = getPrice(item)}
 				{@const tradeUrl = buildTradeUrl(item, league)}
+				{@const wikiUrl = buildWikiUrl(item)}
 				<article class="flex min-w-0 gap-4 bg-slate-900/95 p-5 sm:p-6">
 					<div
 						class="grid size-14 shrink-0 place-items-center overflow-hidden rounded-xl border border-amber-300/20 bg-amber-300/5"
@@ -111,15 +112,26 @@
 							</div>
 							<!-- External trade URLs must not use SvelteKit's internal route resolver. -->
 							<!-- eslint-disable svelte/no-navigation-without-resolve -->
-							<a
-								href={tradeUrl}
-								target="_blank"
-								rel="noreferrer"
-								class="inline-flex items-center gap-1.5 rounded-lg border border-cyan-400/25 bg-cyan-400/10 px-3 py-2 text-xs font-semibold text-cyan-300 transition hover:border-cyan-300/50 hover:bg-cyan-400/15"
-								aria-label={`Search for ${item.name} on the Path of Exile trade site`}
-							>
-								Trade search <span aria-hidden="true">↗</span>
-							</a>
+							<div class="flex flex-wrap items-center gap-2">
+								<a
+									href={wikiUrl}
+									target="_blank"
+									rel="noreferrer"
+									class="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/70 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-amber-300/40 hover:text-amber-200"
+									aria-label={`Read about ${item.name} on PoE Wiki`}
+								>
+									Wiki <span aria-hidden="true">↗</span>
+								</a>
+								<a
+									href={tradeUrl}
+									target="_blank"
+									rel="noreferrer"
+									class="inline-flex items-center gap-1.5 rounded-lg border border-cyan-400/25 bg-cyan-400/10 px-3 py-2 text-xs font-semibold text-cyan-300 transition hover:border-cyan-300/50 hover:bg-cyan-400/15"
+									aria-label={`Search for ${item.name} on the Path of Exile trade site`}
+								>
+									Trade search <span aria-hidden="true">↗</span>
+								</a>
+							</div>
 							<!-- eslint-enable svelte/no-navigation-without-resolve -->
 						</div>
 					</div>

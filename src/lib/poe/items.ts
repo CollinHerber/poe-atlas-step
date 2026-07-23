@@ -2,6 +2,11 @@ import type { GuideUnique } from '$lib/types/guide';
 
 export const uniquePriceKey = (name: string, baseType: string) => `${name}|${baseType}`;
 
+export const buildWikiUrl = (item: GuideUnique) => {
+	const title = (item.wikiTitle ?? item.name).replaceAll(' ', '_');
+	return `https://www.poewiki.net/wiki/${encodeURIComponent(title)}`;
+};
+
 export const buildTradeUrl = (item: GuideUnique, league: string) => {
 	const query = {
 		query: {

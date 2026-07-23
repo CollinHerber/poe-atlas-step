@@ -34,7 +34,8 @@
 				"name": "Foulborn The Pandemonius",
 				"baseType": "Jade Amulet",
 				"slot": "Amulet",
-				"category": "UniqueAccessory"
+				"category": "UniqueAccessory",
+				"wikiTitle": "The Pandemonius"
 			},
 			{
 				"name": "Death Rush",

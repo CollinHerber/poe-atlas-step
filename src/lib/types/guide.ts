@@ -70,6 +70,16 @@ export type GuideEquipmentItem = {
 	stats: string[];
 };
 
+export type GuideCharacterStat = {
+	name: string;
+	value: number;
+};
+
+export type GuideConfigurationValue = {
+	name: string;
+	value: string | number | boolean;
+};
+
 export type GuideStep = {
 	id: string;
 	title: string;
@@ -80,6 +90,8 @@ export type GuideStep = {
 	uniques: GuideUnique[];
 	equipment?: GuideEquipmentItem[];
 	gems?: GuideGemGroup[];
+	characterStats?: GuideCharacterStat[];
+	configuration?: GuideConfigurationValue[];
 	insights?: GuideInsight[];
 	noteHighlights?: string[];
 	todos: GuideTodo[];

@@ -1,5 +1,7 @@
 import type {
 	BuildGuide,
+	GuideCharacterStat,
+	GuideConfigurationValue,
 	GuideEquipmentImplicit,
 	GuideEquipmentItem,
 	GuideGem,
@@ -141,6 +143,19 @@ const isEquipmentItem = (value: unknown): value is GuideEquipmentItem =>
 	value.stats.length <= 50 &&
 	value.stats.every((stat) => isString(stat, 1_000));
 
+const isCharacterStat = (value: unknown): value is GuideCharacterStat =>
+	isObject(value) &&
+	isString(value.name, 300) &&
+	typeof value.value === 'number' &&
+	Number.isFinite(value.value);
+
+const isConfigurationValue = (value: unknown): value is GuideConfigurationValue =>
+	isObject(value) &&
+	isString(value.name, 300) &&
+	(typeof value.value === 'boolean' ||
+		(typeof value.value === 'number' && Number.isFinite(value.value)) ||
+		isString(value.value, 4_000));
+
 const isStep = (value: unknown): value is GuideStep => {
 	if (
 		!isObject(value) ||
@@ -180,6 +195,24 @@ const isStep = (value: unknown): value is GuideStep => {
 	if (
 		value.gems !== undefined &&
 		(!Array.isArray(value.gems) || value.gems.length > 50 || !value.gems.every(isGemGroup))
+	) {
+		return false;
+	}
+
+	if (
+		value.characterStats !== undefined &&
+		(!Array.isArray(value.characterStats) ||
+			value.characterStats.length > 250 ||
+			!value.characterStats.every(isCharacterStat))
+	) {
+		return false;
+	}
+
+	if (
+		value.configuration !== undefined &&
+		(!Array.isArray(value.configuration) ||
+			value.configuration.length > 250 ||
+			!value.configuration.every(isConfigurationValue))
 	) {
 		return false;
 	}

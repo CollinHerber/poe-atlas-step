@@ -23,6 +23,7 @@
 	} from 'flowbite-svelte-icons';
 	import BuildLibrary from '$lib/components/BuildLibrary.svelte';
 	import BuildNotesSection from '$lib/components/BuildNotesSection.svelte';
+	import BuildCompare from '$lib/components/BuildCompare.svelte';
 	import BuildUniquesDashboard from '$lib/components/BuildUniquesDashboard.svelte';
 	import ChecklistSection from '$lib/components/ChecklistSection.svelte';
 	import EquipmentSection from '$lib/components/EquipmentSection.svelte';
@@ -100,7 +101,7 @@
 	let libraryMessage = $state('');
 	let shareUrl = $state('');
 	let sharing = $state(false);
-	let activeToolTab = $state<'build-steps' | 'uniques'>('build-steps');
+	let activeToolTab = $state<'build-steps' | 'uniques' | 'compare'>('build-steps');
 	let showBuildLibrary = $state(false);
 	let buildLibraryButton = $state<HTMLButtonElement>();
 	let buildLibraryCloseButton = $state<HTMLButtonElement>();
@@ -883,6 +884,18 @@
 			>
 				<StarOutline class="size-4" /> Uniques
 			</button>
+			<button
+				type="button"
+				aria-pressed={activeToolTab === 'compare'}
+				onclick={() => (activeToolTab = 'compare')}
+				class={`inline-flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
+					activeToolTab === 'compare'
+						? 'bg-violet-300 text-slate-950 shadow-lg shadow-violet-950/20'
+						: 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+				}`}
+			>
+				<ArrowRightOutline class="size-4" /> Compare
+			</button>
 		</div>
 
 		<section
@@ -1411,6 +1424,9 @@
 				/>
 			</div>
 		{/if}
+		<div class:hidden={activeToolTab !== 'compare'}>
+			<BuildCompare {guide} {activeStepId} />
+		</div>
 	</main>
 
 	<footer

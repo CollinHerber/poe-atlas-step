@@ -2,6 +2,8 @@ import { gemColorForId } from '$lib/poe/gem-colors';
 import { isBuildGuide } from '$lib/persistence/build-library';
 import type {
 	BuildGuide,
+	GuideCharacterStat,
+	GuideConfigurationValue,
 	GuideEquipmentItem,
 	GuideGemGroup,
 	GuideInsight,
@@ -229,7 +231,11 @@ const parseTreeProgress = (
 	return { level, allocatedPassivePoints };
 };
 
-const findMatchingSet = (loadout: TitledBlock, sets: TitledBlock[], kind: 'items' | 'skills') => {
+const findMatchingSet = (
+	loadout: TitledBlock,
+	sets: TitledBlock[],
+	kind: 'items' | 'skills' | 'config'
+) => {
 	const loadoutTitle = normalizedTitle(loadout.title);
 	const loadoutReferences = titleReferences(loadout.title);
 	const loadoutLevel = levelFromTitle(loadout.title);
@@ -427,6 +433,61 @@ const parseGemGroups = (skillSet: TitledBlock | undefined): GuideGemGroup[] => {
 	return groups.slice(0, 50);
 };
 
+const parseCharacterStats = (buildBlock: string): GuideCharacterStat[] => {
+	const stats = new Map<string, GuideCharacterStat>();
+
+	for (const match of buildBlock.matchAll(/<PlayerStat\b[^>]*\/?>/gu)) {
+		const name = readAttribute(match[0], 'stat').slice(0, 300);
+		const value = Number(readAttribute(match[0], 'value'));
+		if (name && Number.isFinite(value)) stats.set(name, { name, value });
+	}
+
+	return [...stats.values()].slice(0, 250);
+};
+
+const parseConfiguration = (configSet: TitledBlock | undefined): GuideConfigurationValue[] => {
+	if (!configSet) return [];
+	const values = new Map<string, GuideConfigurationValue>();
+
+	for (const match of configSet.block.matchAll(/<Input\b[^>]*\/?>/gu)) {
+		const name = readAttribute(match[0], 'name').slice(0, 300);
+		if (!name) continue;
+
+		const booleanValue = readAttribute(match[0], 'boolean');
+		const numberValue = readAttribute(match[0], 'number');
+		const stringValue = readAttribute(match[0], 'string');
+		let value: GuideConfigurationValue['value'];
+
+		if (booleanValue) {
+			value = booleanValue === 'true';
+		} else if (numberValue) {
+			const parsed = Number(numberValue);
+			if (!Number.isFinite(parsed)) continue;
+			value = parsed;
+		} else {
+			value = stringValue.slice(0, 4_000);
+		}
+
+		values.set(name, { name, value });
+	}
+
+	return [...values.values()].slice(0, 250);
+};
+
+const activeLoadoutIndex = (
+	xml: string,
+	allTreeSpecs: TitledBlock[],
+	availableLoadouts: TitledBlock[]
+) => {
+	const treeTag = openingTag(extractBlocks(xml, 'Tree')[0] ?? '', 'Tree');
+	const activeSpec = Number(readAttribute(treeTag, 'activeSpec'));
+	if (!Number.isInteger(activeSpec)) return -1;
+	const activeTreeSpec =
+		(activeSpec >= 1 ? allTreeSpecs[activeSpec - 1] : undefined) ?? allTreeSpecs[activeSpec];
+	if (!activeTreeSpec) return -1;
+	return availableLoadouts.findIndex((loadout) => loadout === activeTreeSpec);
+};
+
 const normalizeUniqueName = (name: string, baseType: string) =>
 	baseType === 'Timeless Jewel' ? name.replace(/\s+\[[^\]]+\]$/u, '') : name;
 
@@ -524,7 +585,9 @@ const createStep = (
 	index: number,
 	itemSets: TitledBlock[],
 	skillSets: TitledBlock[],
+	configSets: TitledBlock[],
 	items: Map<string, ParsedItem>,
+	characterStats: GuideCharacterStat[],
 	sourceUrl: string,
 	buildLevel: number,
 	bandit: string
@@ -532,8 +595,10 @@ const createStep = (
 	const title = (stripPobFormatting(loadout.title) || `Loadout ${index + 1}`).slice(0, 300);
 	const itemSet = findMatchingSet(loadout, itemSets, 'items');
 	const skillSet = findMatchingSet(loadout, skillSets, 'skills');
+	const configSet = findMatchingSet(loadout, configSets, 'config');
 	const equipment = parseEquipment(itemSet, items);
 	const gems = parseGemGroups(skillSet);
+	const configuration = parseConfiguration(configSet);
 	const uniques = parseUniques(equipment, loadout.block ? loadout : undefined, items);
 	const progress = parseTreeProgress(loadout, buildLevel, bandit);
 	const todos: GuideTodo[] = [
@@ -591,6 +656,8 @@ const createStep = (
 		uniques,
 		...(equipment.length ? { equipment } : {}),
 		...(gems.length ? { gems } : {}),
+		...(characterStats.length ? { characterStats } : {}),
+		...(configuration.length ? { configuration } : {}),
 		insights: [insight],
 		todos
 	};
@@ -673,12 +740,15 @@ export async function buildGuideFromPobCode(
 		throw new Error('The imported data is not a supported Path of Building document.');
 	}
 
-	const buildTag = xml.match(/<Build\b[^>]*>/u)?.[0] ?? '';
+	const buildBlock = extractBlocks(xml, 'Build')[0] ?? '';
+	const buildTag = openingTag(buildBlock, 'Build') || xml.match(/<Build\b[^>]*>/u)?.[0] || '';
 	const level = Math.min(Math.max(readNumberAttribute(buildTag, 'level') || 1, 1), 100);
 	const bandit = readAttribute(buildTag, 'bandit');
-	const treeSpecs = titledBlocks(xml, 'Spec').filter((block) => !isSeparatorTitle(block.title));
+	const allTreeSpecs = titledBlocks(xml, 'Spec');
+	const treeSpecs = allTreeSpecs.filter((block) => !isSeparatorTitle(block.title));
 	let itemSets = titledBlocks(xml, 'ItemSet');
 	let skillSets = titledBlocks(xml, 'SkillSet');
+	const configSets = titledBlocks(xml, 'ConfigSet');
 
 	if (!itemSets.length) {
 		const itemsBlock = extractBlocks(xml, 'Items')[0];
@@ -697,8 +767,21 @@ export async function buildGuideFromPobCode(
 	}
 
 	const items = parseItems(xml);
+	const stats = parseCharacterStats(buildBlock);
+	const statsLoadoutIndex = activeLoadoutIndex(xml, allTreeSpecs, availableLoadouts);
 	const steps = availableLoadouts.map((loadout, index) =>
-		createStep(loadout, index, itemSets, skillSets, items, source.url, level, bandit)
+		createStep(
+			loadout,
+			index,
+			itemSets,
+			skillSets,
+			configSets,
+			items,
+			index === statsLoadoutIndex ? stats : [],
+			source.url,
+			level,
+			bandit
+		)
 	);
 	const className = (
 		readAttribute(buildTag, 'ascendClassName') ||

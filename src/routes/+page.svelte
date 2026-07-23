@@ -21,6 +21,8 @@
 	import GemGroupsSection from '$lib/components/GemGroupsSection.svelte';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
 	import StepInsights from '$lib/components/StepInsights.svelte';
+	import StepSwapOverview from '$lib/components/StepSwapOverview.svelte';
+	import StepTableOfContents from '$lib/components/StepTableOfContents.svelte';
 	import UniqueItemsSection from '$lib/components/UniqueItemsSection.svelte';
 	import {
 		FUBGUN_GUIDE_URL,
@@ -57,6 +59,16 @@
 	const SITE_TITLE = 'Atlas Step — Path of Exile Build Progression Planner';
 	const SITE_DESCRIPTION =
 		'Turn Path of Building loadouts into an editable, step-by-step league progression checklist for gear, gems, upgrades, and build transitions.';
+	const STEP_CONTENTS = [
+		{ id: 'swap-overview', label: 'Swap overview' },
+		{ id: 'step-references', label: 'References' },
+		{ id: 'during-step', label: 'During this step' },
+		{ id: 'handoff-checks', label: 'Handoff checks' },
+		{ id: 'equipment', label: 'Equipment' },
+		{ id: 'unique-items', label: 'Unique items' },
+		{ id: 'skill-gems', label: 'Skill gems' },
+		{ id: 'build-notes', label: 'Build notes' }
+	];
 
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
 	let activeStepId = $state(sampleGuides[0].steps[0].id);
@@ -442,6 +454,10 @@
 		activeStepId = stepId;
 	}
 
+	function scrollToSection(sectionId: string) {
+		document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
+
 	function resetGuide() {
 		const original = sampleGuides.find((item) => item.id === guide.id);
 		if (!original) return;
@@ -727,67 +743,99 @@
 					</div>
 				</section>
 
+				<StepTableOfContents sections={STEP_CONTENTS} onNavigate={scrollToSection} />
+
+				<div id="swap-overview" class="scroll-mt-6">
+					<StepSwapOverview
+						stepTitle={activeStep.title}
+						previousStepTitle={previousStep?.title}
+						prerequisites={previousStep
+							? previousStep.todos.filter((item) => item.phase === 'before-next')
+							: activeStep.todos.filter((item) => item.phase === 'during')}
+						currentItems={activeStep.equipment ?? []}
+						previousItems={previousStep ? (previousStep.equipment ?? []) : null}
+						currentUniques={activeStep.uniques}
+						previousUniques={previousStep?.uniques ?? null}
+						currentGemGroups={activeStep.gems ?? []}
+						previousGemGroups={previousStep ? (previousStep.gems ?? []) : null}
+					/>
+				</div>
+
 				{#key activeStep.id}
-					<StepInsights
-						insights={activeStep.insights ?? []}
-						onAdd={addInsight}
-						onEdit={editInsight}
-						onDelete={deleteInsight}
-					/>
+					<div id="step-references" class="scroll-mt-6">
+						<StepInsights
+							insights={activeStep.insights ?? []}
+							onAdd={addInsight}
+							onEdit={editInsight}
+							onDelete={deleteInsight}
+						/>
+					</div>
 
-					<ChecklistSection
-						title="Do during this step"
-						description="Complete these actions while this loadout is your active setup."
-						phase="during"
-						items={activeStep.todos.filter((item) => item.phase === 'during')}
-						onToggle={toggleTodo}
-						onDelete={deleteTodo}
-						onEdit={editTodo}
-						onAdd={addTodo}
-					/>
+					<div id="during-step" class="scroll-mt-6">
+						<ChecklistSection
+							title="Do during this step"
+							description="Complete these actions while this loadout is your active setup."
+							phase="during"
+							items={activeStep.todos.filter((item) => item.phase === 'during')}
+							onToggle={toggleTodo}
+							onDelete={deleteTodo}
+							onEdit={editTodo}
+							onAdd={addTodo}
+						/>
+					</div>
 
-					<ChecklistSection
-						title={activeIndex >= guide.steps.length - 1
-							? 'Final verification'
-							: 'Before moving on'}
-						description={activeIndex >= guide.steps.length - 1
-							? 'Run these checks before treating the imported progression as complete.'
-							: 'Verify this handoff before selecting the next Path of Building loadout.'}
-						phase="before-next"
-						items={activeStep.todos.filter((item) => item.phase === 'before-next')}
-						onToggle={toggleTodo}
-						onDelete={deleteTodo}
-						onEdit={editTodo}
-						onAdd={addTodo}
-					/>
+					<div id="handoff-checks" class="scroll-mt-6">
+						<ChecklistSection
+							title={activeIndex >= guide.steps.length - 1
+								? 'Final verification'
+								: 'Before moving on'}
+							description={activeIndex >= guide.steps.length - 1
+								? 'Run these checks before treating the imported progression as complete.'
+								: 'Verify this handoff before selecting the next Path of Building loadout.'}
+							phase="before-next"
+							items={activeStep.todos.filter((item) => item.phase === 'before-next')}
+							onToggle={toggleTodo}
+							onDelete={deleteTodo}
+							onEdit={editTodo}
+							onAdd={addTodo}
+						/>
+					</div>
 				{/key}
 
-				<EquipmentSection
-					items={activeStep.equipment ?? []}
-					previousItems={previousStep ? (previousStep.equipment ?? []) : null}
-					previousStepTitle={previousStep?.title}
-					stepId={activeStep.id}
-					snapshot={priceSnapshot}
-					prioritySourceUrl={MAXROLL_URL}
-				/>
+				<div id="equipment" class="scroll-mt-6">
+					<EquipmentSection
+						items={activeStep.equipment ?? []}
+						previousItems={previousStep ? (previousStep.equipment ?? []) : null}
+						previousStepTitle={previousStep?.title}
+						stepId={activeStep.id}
+						snapshot={priceSnapshot}
+						prioritySourceUrl={MAXROLL_URL}
+					/>
+				</div>
 
-				<UniqueItemsSection
-					items={activeStep.uniques}
-					snapshot={priceSnapshot}
-					status={priceStatus}
-				/>
+				<div id="unique-items" class="scroll-mt-6">
+					<UniqueItemsSection
+						items={activeStep.uniques}
+						snapshot={priceSnapshot}
+						status={priceStatus}
+					/>
+				</div>
 
-				<GemGroupsSection
-					currentGroups={activeStep.gems ?? []}
-					previousGroups={previousStep ? (previousStep.gems ?? []) : null}
-					previousStepTitle={previousStep?.title}
-				/>
+				<div id="skill-gems" class="scroll-mt-6">
+					<GemGroupsSection
+						currentGroups={activeStep.gems ?? []}
+						previousGroups={previousStep ? (previousStep.gems ?? []) : null}
+						previousStepTitle={previousStep?.title}
+					/>
+				</div>
 
-				<BuildNotesSection
-					sections={guide.notes}
-					highlights={activeStep.noteHighlights ?? []}
-					sourceUrl={guide.sourceUrl}
-				/>
+				<div id="build-notes" class="scroll-mt-6">
+					<BuildNotesSection
+						sections={guide.notes}
+						highlights={activeStep.noteHighlights ?? []}
+						sourceUrl={guide.sourceUrl}
+					/>
+				</div>
 
 				<div class="flex items-center justify-between gap-3 pt-1">
 					<Button
@@ -811,7 +859,13 @@
 			</div>
 
 			<aside class="hidden xl:block">
-				<div class="sticky top-6 space-y-4">
+				<div class="sticky top-6 max-h-[calc(100vh-3rem)] space-y-4 overflow-y-auto pr-1">
+					<StepTableOfContents
+						sections={STEP_CONTENTS}
+						onNavigate={scrollToSection}
+						variant="sidebar"
+					/>
+
 					<section class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
 						<p class="text-[0.65rem] font-semibold tracking-[0.2em] text-slate-500 uppercase">
 							How to use this step

@@ -1001,9 +1001,9 @@
 					id="step-details"
 					class="scroll-mt-6 rounded-2xl border border-slate-800 bg-slate-900/45 p-5 sm:p-7"
 				>
-					<div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+					<div class="grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
 						{#if editingStepDetails}
-							<form onsubmit={saveStepDetails} class="min-w-0 flex-1">
+							<form onsubmit={saveStepDetails} class="min-w-0 xl:col-span-2">
 								{#if creatingStep}
 									<p class="mb-4 text-xs font-semibold tracking-[0.16em] text-cyan-400 uppercase">
 										Add after {activeStep.title}
@@ -1083,7 +1083,7 @@
 								</div>
 							</form>
 						{:else}
-							<div class="min-w-0 flex-1">
+							<div class="min-w-0">
 								<p class="text-xs font-semibold tracking-[0.2em] text-cyan-400 uppercase">
 									Step {activeIndex + 1} of {guide.steps.length} · {activeStep.eyebrow}
 								</p>
@@ -1117,12 +1117,13 @@
 										{/if}
 									</div>
 								{/if}
-								<p class="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
-									{activeStep.description}
-								</p>
 							</div>
 						{/if}
-						<div class="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
+						<div
+							class={`flex shrink-0 flex-wrap items-center gap-2 ${
+								editingStepDetails ? 'xl:col-span-2' : 'xl:justify-end'
+							}`}
+						>
 							{#if !editingStepDetails}
 								<div
 									class="inline-flex overflow-hidden rounded-lg border border-slate-700 bg-slate-900"
@@ -1180,6 +1181,11 @@
 								Open source PoB <ArrowUpRightFromSquareOutline class="size-3.5" />
 							</a>
 						</div>
+						{#if !editingStepDetails}
+							<p class="w-full text-sm leading-7 text-slate-400 xl:col-span-2">
+								{activeStep.description}
+							</p>
+						{/if}
 					</div>
 				</section>
 

@@ -142,7 +142,8 @@
 				{/if}
 			</div>
 			<p class="mt-2 text-xs text-slate-600">
-				The recipient does not need an account or your browser storage.
+				Spoo.me shortens the portable link anonymously. If it is unavailable, the full link is used
+				instead.
 			</p>
 		</div>
 	</div>

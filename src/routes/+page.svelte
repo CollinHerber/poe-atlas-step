@@ -46,6 +46,7 @@
 		encodeSharedBuild,
 		readSharedBuildToken
 	} from '$lib/sharing/build-share';
+	import { shortenShareUrl } from '$lib/sharing/url-shortener';
 	import type { SavedBuildRecord } from '$lib/persistence/build-library';
 	import type {
 		BuildGuide,
@@ -334,13 +335,15 @@
 		libraryMessage = `Deleted “${savedBuild.name}” from this device.`;
 	}
 
-	async function copyShareUrl() {
-		if (!shareUrl) return;
+	async function copyShareUrl(successMessage = 'Share link copied to your clipboard.') {
+		if (!shareUrl) return false;
 		try {
 			await navigator.clipboard.writeText(shareUrl);
-			libraryMessage = 'Share link copied to your clipboard.';
+			libraryMessage = successMessage;
+			return true;
 		} catch {
 			libraryMessage = 'The share link is ready. Select it and copy it manually.';
+			return false;
 		}
 	}
 
@@ -357,8 +360,14 @@
 				guide: clonePlainGuide(guide),
 				activeStepId
 			});
-			shareUrl = createShareUrl(token, window.location.href);
-			await copyShareUrl();
+			const fullShareUrl = createShareUrl(token, window.location.href);
+			try {
+				shareUrl = await shortenShareUrl(fullShareUrl);
+				await copyShareUrl('Short share link copied to your clipboard.');
+			} catch {
+				shareUrl = fullShareUrl;
+				await copyShareUrl('Spoo.me was unavailable, so the full share link was copied instead.');
+			}
 		} catch {
 			libraryMessage = 'Could not generate a share link for this build.';
 		} finally {
@@ -610,7 +619,7 @@
 			onLoad={loadSavedBuild}
 			onDelete={deleteSavedBuild}
 			onShare={shareCurrentBuild}
-			onCopy={copyShareUrl}
+			onCopy={() => void copyShareUrl()}
 		/>
 
 		<div class="mb-5 flex items-center gap-2 overflow-x-auto pb-1 lg:hidden">

@@ -18,12 +18,20 @@ export type GuideUnique = {
 	wikiTitle?: string;
 };
 
+export type GuideInsight = {
+	title: string;
+	body: string;
+	sourceLabel: string;
+	sourceUrl: string;
+};
+
 export type GuideStep = {
 	id: string;
 	title: string;
 	eyebrow: string;
 	description: string;
 	uniques: GuideUnique[];
+	insights?: GuideInsight[];
 	todos: GuideTodo[];
 };
 

@@ -12,12 +12,15 @@
 		RefreshOutline
 	} from 'flowbite-svelte-icons';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
+	import StepInsights from '$lib/components/StepInsights.svelte';
 	import TodoSection from '$lib/components/TodoSection.svelte';
 	import UniqueItemsSection from '$lib/components/UniqueItemsSection.svelte';
 	import {
+		FUBGUN_GUIDE_URL,
 		MAXROLL_URL,
 		PRIMARY_POB_URL,
 		TRANSITION_POB_URL,
+		ZIZARAN_GUIDE_URL,
 		cloneGuide,
 		findGuideByUrl,
 		sampleGuides
@@ -52,12 +55,28 @@
 			const nextGuide = cloneGuide(baseGuide);
 			nextGuide.steps = nextGuide.steps.map((step) => ({
 				...step,
-				todos: savedById.get(step.id)?.todos ?? step.todos
+				todos: mergeSavedTodos(step.todos, savedById.get(step.id)?.todos ?? [])
 			}));
 			return nextGuide;
 		} catch {
 			return cloneGuide(baseGuide);
 		}
+	}
+
+	function mergeSavedTodos(
+		defaultTodos: BuildGuide['steps'][number]['todos'],
+		savedTodos: BuildGuide['steps'][number]['todos']
+	) {
+		const defaultIds = new Set(defaultTodos.map((todo) => todo.id));
+		const savedById = new Map(savedTodos.map((todo) => [todo.id, todo]));
+		const mergedDefaults = defaultTodos.map((todo) => ({
+			...todo,
+			done: savedById.get(todo.id)?.done ?? todo.done
+		}));
+		const customTodos = savedTodos.filter(
+			(todo) => todo.id.startsWith('custom-') && !defaultIds.has(todo.id)
+		);
+		return [...mergedDefaults, ...customTodos];
 	}
 
 	async function loadPriceSnapshot() {
@@ -297,6 +316,8 @@
 					</div>
 				</section>
 
+				<StepInsights insights={activeStep.insights ?? []} />
+
 				<UniqueItemsSection
 					items={activeStep.uniques}
 					snapshot={priceSnapshot}
@@ -392,6 +413,22 @@
 								class="flex items-center gap-2 text-xs text-slate-400 transition hover:text-cyan-300"
 							>
 								<BookOpenOutline class="size-3.5" /> Maxroll guide
+							</a>
+							<a
+								href={ZIZARAN_GUIDE_URL}
+								target="_blank"
+								rel="noreferrer"
+								class="flex items-center gap-2 text-xs text-slate-400 transition hover:text-cyan-300"
+							>
+								<BookOpenOutline class="size-3.5" /> Zizaran video guide
+							</a>
+							<a
+								href={FUBGUN_GUIDE_URL}
+								target="_blank"
+								rel="noreferrer"
+								class="flex items-center gap-2 text-xs text-slate-400 transition hover:text-cyan-300"
+							>
+								<BookOpenOutline class="size-3.5" /> Fubgun video guide
 							</a>
 						</div>
 					</section>

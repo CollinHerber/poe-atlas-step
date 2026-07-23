@@ -15,8 +15,12 @@ const uniques = (guideId: string, stepId: string): GuideUnique[] =>
 
 export const PRIMARY_POB_URL = 'https://pobb.in/221_ZcVSEO7G';
 export const TRANSITION_POB_URL = 'https://pobb.in/cd6A9tg8QjrJ';
+export const FUBGUN_GUIDE_URL = 'https://www.youtube.com/watch?v=--XDhqSlwPA';
+export const ZIZARAN_GUIDE_URL = 'https://www.youtube.com/watch?v=OZypCJ-5Bog';
 export const MAXROLL_URL =
 	'https://maxroll.gg/poe/build-guides/winter-orb-elementalist-league-starter';
+
+const atTime = (url: string, seconds: number) => `${url}&t=${seconds}s`;
 
 export const sampleGuides: BuildGuide[] = [
 	{
@@ -34,20 +38,80 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Use this checkpoint to stabilize the character, finish the campaign-to-map handoff, and make the fourth ascendancy feel earned instead of rushed.',
 				uniques: uniques('mom-crit-winter-orb', 'level-80-uber-lab'),
+				insights: [
+					{
+						title: 'Channel differently for clearing and bosses',
+						body: 'Build stages, then move while Winter Orb clears around you. Re-channel before the buff expires. For single target, keep channeling: the skill gains 80% more projectile frequency while you hold it.',
+						sourceLabel: 'Zizaran — mechanics, 1:32',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 92)
+					},
+					{
+						title: 'Cast speed is what makes the build feel good',
+						body: 'Cast speed shortens the time spent standing still and ramps Winter Orb faster. Start with a Profane Wand and at least one Moonstone Ring; Faster Casting can bridge the gap until Lightning Golem feels sufficient.',
+						sourceLabel: 'Zizaran — notes and FAQ, 4:11',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
+					},
+					{
+						title: 'Energy Shield is part of your mana and defense',
+						body: 'Eldritch Battery plus Mind Over Matter turns Energy Shield into a reliable casting buffer and another effective-health layer. Life, Energy Shield, capped resistances, and sustainable Winter Orb cost all matter together.',
+						sourceLabel: 'Zizaran — solving mana, 7:42',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 462)
+					},
+					{
+						title: 'Choose the fourth ascendancy for your situation',
+						body: 'Bastion of Elements is the safer default while gear is weak. Softcore players can take Shaper of Storms earlier for damage; the guide later wants it to activate Stormrider in the cluster setup.',
+						sourceLabel: 'Zizaran — ascendancy, 3:42',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 222)
+					},
+					{
+						title: 'Projectiles are real damage, not just clear',
+						body: 'Winter Orb projectiles can overlap. Until Mystic Refractor, Dying Sun, or another projectile breakpoint is online, test Multiple Projectiles or Greater Multiple Projectiles instead of trusting the tooltip.',
+						sourceLabel: 'Fubgun — entering maps, 4:20',
+						sourceUrl: atTime(FUBGUN_GUIDE_URL, 260)
+					}
+				],
 				todos: [
 					todo(
 						'80-open-loadout',
-						'Open the Level 80 loadout and compare the passive tree',
+						'Match the Level 80 passive tree and record every respec you still need',
 						'during'
 					),
 					todo(
 						'80-uber-lab',
-						'Complete Uber Lab and confirm the final ascendancy choice',
+						'Complete Uber Lab; choose Bastion of Elements or Shaper of Storms intentionally',
 						'during'
 					),
-					todo('80-gear-review', 'Review every gear slot and name the weakest one', 'during'),
-					todo('80-map-plan', 'Write down the next ten Atlas objectives', 'before-next'),
-					todo('80-upgrade', 'Finish one meaningful gear or gem upgrade', 'before-next')
+					todo(
+						'80-cast-speed',
+						'Equip a cast-speed foundation: Profane Wand plus at least one Moonstone Ring',
+						'during'
+					),
+					todo(
+						'80-defences',
+						'Cap elemental resistances and fill life, Energy Shield, and attribute gaps',
+						'during'
+					),
+					todo(
+						'80-golems',
+						'Run Flame, Lightning, and Stone Golems; choose the fourth for crit or defense',
+						'during'
+					),
+					todo(
+						'80-quality',
+						'Prioritize Winter Orb socket quality and confirm your maximum stage count',
+						'before-next'
+					),
+					todo(
+						'80-play-test',
+						'Clear ten maps while maintaining stages, then practice sustained boss channeling',
+						'before-next'
+					),
+					todo(
+						'80-projectiles',
+						'Test the available projectile supports and keep the setup that feels best in maps',
+						'before-next'
+					),
+					todo('80-map-plan', 'Write down the next ten Atlas objectives', 'before-next')
 				]
 			},
 			{
@@ -57,12 +121,75 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Turn Atlas completion into a repeatable routine. Keep upgrades concrete and small enough that every session can move at least one checkbox.',
 				uniques: uniques('mom-crit-winter-orb', 'midgame'),
+				insights: [
+					{
+						title: 'Mystic Refractor is powerful, not mandatory',
+						body: 'Its three additional projectiles and projectile speed are excellent for Winter Orb overlap and clear. Keep using a rare cast-speed wand until the price is sensible; the build does not need the unique to enter maps.',
+						sourceLabel: 'Fubgun — midgame setup, 14:24',
+						sourceUrl: atTime(FUBGUN_GUIDE_URL, 864)
+					},
+					{
+						title: 'The tooltip undervalues AoE and projectiles',
+						body: 'More projectiles and Area of Effect create more overlaps, so real damage can improve without the tooltip showing it. Compare GMP, Multiple Projectiles, and a damage support in actual maps and bosses.',
+						sourceLabel: 'Zizaran — notes and FAQ, 4:11',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
+					},
+					{
+						title: 'Cold Exposure is the first glove implicit',
+						body: 'Get “Inflict Cold Exposure on Hit” from Eater of Worlds currency as soon as practical. Freeze proliferation is the next quality-of-life implicit because it improves Herald of Ice clearing.',
+						sourceLabel: 'Fubgun — gear modifiers, 11:11',
+						sourceUrl: atTime(FUBGUN_GUIDE_URL, 671)
+					},
+					{
+						title: 'Frostbite and exposure work together',
+						body: 'Mastermind of Discord strengthens your exposure, then Frostbite pushes cold resistance down further. This is the intended curse package; do not replace it only because another mark looks better in a tooltip.',
+						sourceLabel: 'Fubgun — Frostbite, 7:58',
+						sourceUrl: atTime(FUBGUN_GUIDE_URL, 478)
+					},
+					{
+						title: 'Judge the build as a mapper',
+						body: 'This version is designed to earn currency and reach four watchstones. Pinnacle bosses may take time and Ubers are not the target; upgrade the farming loop before chasing boss-only damage.',
+						sourceLabel: 'Zizaran — build expectations, 4:11',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
+					}
+				],
 				todos: [
-					todo('mid-tree', 'Compare the Midgame tree and note every respec', 'during'),
+					todo(
+						'mid-tree',
+						'Complete the Midgame crit-tree respec and compare every mastery',
+						'during'
+					),
+					todo(
+						'mid-refractor',
+						'Price Mystic Refractor; buy it only after core defenses and cast speed are stable',
+						'during'
+					),
+					todo(
+						'mid-gloves',
+						'Add Cold Exposure on Hit to gloves, then target freeze proliferation',
+						'during'
+					),
+					todo(
+						'mid-gear',
+						'Use a Moonstone cast-speed ring and repair life, ES, resist, and Dexterity gaps',
+						'during'
+					),
 					todo('mid-atlas', 'Choose a first Atlas strategy and save the tree link', 'during'),
-					todo('mid-budget', 'Set a currency target for the next upgrade', 'during'),
-					todo('mid-complete', 'Finish the current Atlas completion milestone', 'before-next'),
-					todo('mid-purchase', 'Buy or craft the upgrade you were saving for', 'before-next')
+					todo(
+						'mid-support-test',
+						'Compare projectile-support setups in maps and on one pinnacle boss',
+						'before-next'
+					),
+					todo(
+						'mid-complete',
+						'Finish four watchstones or write down the exact encounter blocking you',
+						'before-next'
+					),
+					todo(
+						'mid-purchase',
+						'Fund one endgame rare instead of making several small sideways upgrades',
+						'before-next'
+					)
 				]
 			},
 			{
@@ -72,11 +199,71 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Build a dependable endgame baseline before paying for cluster jewels. This is the spot to prove the farming loop and eliminate unclear upgrade goals.',
 				uniques: uniques('mom-crit-winter-orb', 'endgame-no-cluster'),
+				insights: [
+					{
+						title: 'Dying Sun changes the support-gem decision',
+						body: 'Dying Sun supplies projectiles and Area of Effect, so this is the point to retest GMP or Multiple Projectiles against a pure damage support. Keep the projectile support if real clearing and overlap are still better.',
+						sourceLabel: 'Zizaran — notes and FAQ, 4:11',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 251)
+					},
+					{
+						title: 'The endgame rare package is specific',
+						body: 'The PoB targets a +2 Profane Wand with cast speed, a +1 cold shield with life and block, Cold Exposure plus Unnerve gloves, and high Armour/ES bases. Treat those as separate projects, not one giant shopping list.',
+						sourceLabel: 'Open the Endgame PoB gear',
+						sourceUrl: PRIMARY_POB_URL
+					},
+					{
+						title: 'Layer defenses instead of reading only Life',
+						body: 'Mind Over Matter, Eldritch Battery, Energy Shield, armour, and block all contribute. The build is sturdier than its Life number suggests, but it is not meant to face-tank major pinnacle slams.',
+						sourceLabel: 'Zizaran — solving mana, 7:42',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 462)
+					},
+					{
+						title: 'Cast speed still outranks decorative damage',
+						body: 'The endgame PoB keeps a Profane Wand, cast speed on the wand and ring, and a cast-speed helmet implicit. If the character feels clumsy, fix ramp speed before buying more critical multiplier.',
+						sourceLabel: 'Zizaran — gear priorities, 2:27',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 147)
+					},
+					{
+						title: 'Know the ceiling before spending',
+						body: 'This setup should comfortably map and obtain watchstones, but it is not an Uber farmer. If single target is the frustration, save toward the cluster or power-charge transition instead of endlessly polishing this version.',
+						sourceLabel: 'Fubgun — optional endgame, 16:14',
+						sourceUrl: atTime(FUBGUN_GUIDE_URL, 974)
+					}
+				],
 				todos: [
-					todo('end-no-tree', 'Match the no-cluster passive tree', 'during'),
-					todo('end-no-pob', 'Compare your character in PoB against this loadout', 'during'),
+					todo(
+						'end-no-tree',
+						'Match the no-cluster passive tree, masteries, and gem setup',
+						'during'
+					),
+					todo(
+						'end-no-dying-sun',
+						'Equip Dying Sun and retest whether a projectile support still earns its socket',
+						'during'
+					),
+					todo(
+						'end-no-wand',
+						'Plan or acquire the +2 Profane Wand with cast speed shown in the PoB',
+						'during'
+					),
+					todo(
+						'end-no-defences',
+						'Build the +1 cold life/block shield and high Armour/ES defensive bases',
+						'during'
+					),
+					todo('end-no-gloves', 'Finish Cold Exposure and Unnerve on the endgame gloves', 'during'),
+					todo(
+						'end-no-pob',
+						'Import your character and compare effective hit pool and DPS',
+						'during'
+					),
 					todo('end-no-farm', 'Run the farming strategy for a complete tracked set', 'during'),
-					todo('end-no-list', 'List the exact cluster jewels and passives needed', 'before-next'),
+					todo(
+						'end-no-list',
+						'Price the Stormrider large cluster and Enduring Composure small cluster',
+						'before-next'
+					),
 					todo('end-no-budget', 'Reach the cluster transition budget', 'before-next')
 				]
 			},
@@ -87,26 +274,72 @@ export const sampleGuides: BuildGuide[] = [
 				description:
 					'Complete the first build’s intended destination, then decide whether the power-charge transition is exciting enough to become the next project.',
 				uniques: uniques('mom-crit-winter-orb', 'endgame-cluster'),
+				insights: [
+					{
+						title: 'Shaper of Storms enables Stormrider',
+						body: 'The cluster destination is where the ascendancy swap matters: reliable shocks from Shaper of Storms enable Stormrider. Confirm both pieces together instead of copying only the passive points.',
+						sourceLabel: 'Read the PoB ascendancy notes',
+						sourceUrl: PRIMARY_POB_URL
+					},
+					{
+						title: 'Forbidden Rite is an endurance-charge trigger',
+						body: 'With Enduring Composure equipped, a level 1 Forbidden Rite self-hit starts endurance-charge generation before a boss hits you. Its job is utility, so do not level it for damage.',
+						sourceLabel: 'Zizaran — Forbidden Rite tech, 6:09',
+						sourceUrl: atTime(ZIZARAN_GUIDE_URL, 369)
+					},
+					{
+						title: 'Focused Channeling is optional tech',
+						body: 'The support may preserve its damage ramp while any Winter Orb stages remain, but the behavior could change. The selected PoB intentionally does not depend on it; test it rather than planning the build around a snapshot.',
+						sourceLabel: 'Fubgun — snapshot explanation, 6:34',
+						sourceUrl: atTime(FUBGUN_GUIDE_URL, 394)
+					},
+					{
+						title: 'Spend socket quality in priority order',
+						body: 'Winter Orb comes first, followed by Increased Critical Damage, golems, movement skills, Immortal Call, Frostblink, and Herald of Ice. Winter Orb quality directly supports stages and uptime.',
+						sourceLabel: 'Read the PoB socket-quality notes',
+						sourceUrl: PRIMARY_POB_URL
+					},
+					{
+						title: 'Elementalist is the affordable destination',
+						body: 'Occultist and power-charge stacking can scale much higher, but the expensive version has different gear and mana demands. Finish and test this mapper before treating that transition as mandatory.',
+						sourceLabel: 'Fubgun — power-charge setup, 17:44',
+						sourceUrl: atTime(FUBGUN_GUIDE_URL, 1064)
+					}
+				],
 				todos: [
 					todo(
 						'end-cluster-swap',
-						'Install the cluster setup and finish the required respec',
+						'Install the Stormrider cluster setup and finish the required respec',
 						'during'
 					),
-					todo('end-cluster-gems', 'Review the final skill and support setup', 'during'),
+					todo(
+						'end-cluster-ascendancy',
+						'Confirm Shaper of Storms is active and actually enabling Stormrider',
+						'during'
+					),
+					todo(
+						'end-cluster-composure',
+						'Add Enduring Composure and verify level 1 Forbidden Rite starts charge generation',
+						'during'
+					),
+					todo(
+						'end-cluster-gems',
+						'Finish the socket-quality priorities and retest the final support setup',
+						'during'
+					),
 					todo(
 						'end-cluster-test',
-						'Test the build in the content you actually want to farm',
+						'Run a complete farming set and one pinnacle boss with the finished setup',
 						'during'
 					),
 					todo(
 						'end-cluster-review',
-						'Write a short keep / change / transition review',
+						'Record clear speed, boss time, deaths, and currency per hour',
 						'before-next'
 					),
 					todo(
 						'end-cluster-next',
-						'Choose the next goal instead of stopping at Atlas completion',
+						'Choose: keep farming, add Creeping Frost, or price the power-charge transition',
 						'before-next'
 					)
 				]

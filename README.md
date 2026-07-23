@@ -5,7 +5,7 @@ Atlas Step turns Path of Building loadouts into a clickable league-progression g
 - **During this step** for active upgrades and progression work.
 - **Before next step** for the conditions that make a transition complete.
 
-The MVP ships with the two Winter Orb Elementalist PoBs used to shape the project. Progress and custom goals are saved locally in the browser. Every loadout also lists its equipped uniques, links directly to a pre-filled Path of Exile trade search, and displays a cached poe.ninja market estimate.
+The MVP ships with the two Winter Orb Elementalist PoBs used to shape the project. Progress and custom goals are saved locally in the browser. Every loadout also lists its equipped uniques, links directly to a pre-filled Path of Exile trade search, and displays a cached poe.ninja market estimate. The primary build includes timestamped checkpoint briefings distilled from the supplied Zizaran and Fubgun video guides.
 
 ## Stack
 

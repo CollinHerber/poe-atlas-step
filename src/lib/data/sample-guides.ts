@@ -41,7 +41,7 @@ export const MAXROLL_URL =
 const pobInsight = (title: string, body: string, loadout: string): GuideInsight => ({
 	title,
 	body,
-	sourceLabel: `Source PoB â€” ${loadout}`,
+	sourceLabel: `Source PoB — ${loadout}`,
 	sourceUrl: TRANSITION_POB_URL
 });
 
@@ -52,7 +52,7 @@ export const sampleGuides: BuildGuide[] = [
 		id: guideId,
 		name: 'Winter Orb Transition',
 		buildVersion: '3.28',
-		className: 'Elementalist â†’ Occultist',
+		className: 'Elementalist → Occultist',
 		level: 95,
 		sourceUrl: TRANSITION_POB_URL,
 		notes: transitionBuildNotes,
@@ -240,7 +240,7 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'early-price-mid',
-						'Price Mystic Refractor, Pandemonius, Death Rush, and Rumiâ€™s Concoction before buying the Mid game package',
+						'Price Mystic Refractor, Pandemonius, Death Rush, and Rumi’s Concoction before buying the Mid game package',
 						'before-next'
 					)
 				]
@@ -255,14 +255,14 @@ export const sampleGuides: BuildGuide[] = [
 				equipment: equipment(guideId, 'transition-mid-game'),
 				gems: gems(guideId, 'transition-mid-game'),
 				noteHighlights: [
-					'Mystic Refractor, Pandemonius, Death Rush, and Rumiâ€™s Concoction are bridge items, not the final charge-stacking shell.',
+					'Mystic Refractor, Pandemonius, Death Rush, and Rumi’s Concoction are bridge items, not the final charge-stacking shell.',
 					'The Winter Orb link replaces Multiple Projectiles with Infused Channelling at this checkpoint.',
 					'Stay Elementalist and life-based while collecting the complete Energy Shield, passive-tree, aura, and jewel package for the next step.'
 				],
 				insights: [
 					pobInsight(
 						'Buy the bridge as a package',
-						'Mystic Refractor adds projectile coverage, Pandemonius improves cold damage, Death Rush rewards mapping, and Rumiâ€™s supports block. Check that the combined swap preserves defenses.',
+						'Mystic Refractor adds projectile coverage, Pandemonius improves cold damage, Death Rush rewards mapping, and Rumi’s supports block. Check that the combined swap preserves defenses.',
 						'Mid game'
 					),
 					pobInsight(
@@ -294,7 +294,7 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'mid-rumi',
-						'Equip Rumiâ€™s Concoction and verify block values while the flask is active',
+						'Equip Rumi’s Concoction and verify block values while the flask is active',
 						'during'
 					),
 					checklistItem(
@@ -329,7 +329,7 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'mid-bridge-ready',
-						'Complete a map with Mystic Refractor, Pandemonius, Death Rush, and Rumiâ€™s all functioning',
+						'Complete a map with Mystic Refractor, Pandemonius, Death Rush, and Rumi’s all functioning',
 						'before-next'
 					),
 					checklistItem(
@@ -360,7 +360,7 @@ export const sampleGuides: BuildGuide[] = [
 				gems: gems(guideId, 'endgame-optional'),
 				noteHighlights: [
 					'This is the first Occultist and Chaos Inoculation checkpoint; do the ascendancy, passive tree, gear, aura, and flask changes together.',
-					'Replica Dragonfangâ€™s Flight, Light of Lunaris, Dying Sun, Watcherâ€™s Eye, and The Light of Meaning form the premium pre-charge setup.',
+					'Replica Dragonfang’s Flight, Light of Lunaris, Dying Sun, Watcher’s Eye, and The Light of Meaning form the premium pre-charge setup.',
 					'Focused Channelling is still experimental snapshot tech. Test its current behavior before valuing it as guaranteed damage.'
 				],
 				insights: [
@@ -393,17 +393,17 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'optional-core-gear',
-						'Equip the Profane Wand, Light of Lunaris, Replica Dragonfangâ€™s Flight, Moonstone Ring, and Stygian Vise shown in PoB',
+						'Equip the Profane Wand, Light of Lunaris, Replica Dragonfang’s Flight, Moonstone Ring, and Stygian Vise shown in PoB',
 						'during'
 					),
 					checklistItem(
 						'optional-flasks',
-						'Replace the Life Flask with Rumiâ€™s Concoction and equip Dying Sun in the final flask slot',
+						'Replace the Life Flask with Rumi’s Concoction and equip Dying Sun in the final flask slot',
 						'during'
 					),
 					checklistItem(
 						'optional-jewels',
-						'Equip the Watcherâ€™s Eye and The Light of Meaning shown in the Endgame Optional passive tree',
+						'Equip the Watcher’s Eye and The Light of Meaning shown in the Endgame Optional passive tree',
 						'during'
 					),
 					checklistItem(
@@ -473,9 +473,9 @@ export const sampleGuides: BuildGuide[] = [
 				equipment: equipment(guideId, 'pcharge-stack'),
 				gems: gems(guideId, 'pcharge-stack'),
 				noteHighlights: [
-					'Equip Tulfall, Malachaiâ€™s Loop, Willclash, Ralakeshâ€™s Impatience, Badge of the Brotherhood, two Romiraâ€™s Banquets, and Gravenâ€™s Secret together.',
+					'Equip Tulfall, Malachai’s Loop, Willclash, Ralakesh’s Impatience, Badge of the Brotherhood, two Romira’s Banquets, and Graven’s Secret together.',
 					'Badge, Power Charge on Critical, Herald of Ice plus Ice Bite, and the selected Elegant Hubris must provide a coherent charge cycle.',
-					'Malachaiâ€™s Loop can shock the character. Verify the shock solution before treating the transition as complete.'
+					'Malachai’s Loop can shock the character. Verify the shock solution before treating the transition as complete.'
 				],
 				insights: [
 					pobInsight(
@@ -492,7 +492,7 @@ export const sampleGuides: BuildGuide[] = [
 				todos: [
 					checklistItem(
 						'pc-package',
-						'Acquire Tulfall, Malachaiâ€™s Loop, Willclash, Ralakeshâ€™s Impatience, Badge of the Brotherhood, two Romiraâ€™s Banquets, and Gravenâ€™s Secret',
+						'Acquire Tulfall, Malachai’s Loop, Willclash, Ralakesh’s Impatience, Badge of the Brotherhood, two Romira’s Banquets, and Graven’s Secret',
 						'during'
 					),
 					checklistItem(
@@ -522,7 +522,7 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'pc-boots',
-						'Set up Sniperâ€™s Mark, Cast when Damage Taken, and Immortal Call in the boots',
+						'Set up Sniper’s Mark, Cast when Damage Taken, and Immortal Call in the boots',
 						'during'
 					),
 					checklistItem(
@@ -542,7 +542,7 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'pc-shock',
-						'Trigger the Malachaiâ€™s Loop interaction and verify the intended shock mitigation or immunity works',
+						'Trigger the Malachai’s Loop interaction and verify the intended shock mitigation or immunity works',
 						'during'
 					),
 					checklistItem(
@@ -593,13 +593,13 @@ export const sampleGuides: BuildGuide[] = [
 				gems: gems(guideId, 'uber-pcharge'),
 				noteHighlights: [
 					'The core equipment does not change; the meaningful upgrades are rolls, corruptions, unique jewels, and the final passive tree.',
-					'Both Romiraâ€™s Banquets gain +1 maximum power charge corruptions in the Uber loadout.',
+					'Both Romira’s Banquets gain +1 maximum power charge corruptions in the Uber loadout.',
 					'The final gem setup removes Flesh and Stone plus Enlighten and replaces the boot Arcane Surge with More Duration.'
 				],
 				insights: [
 					pobInsight(
 						'This step refines instead of rebuilding',
-						'The Pcharge and Uber Pcharge equipment names are the same. Use the equipment comparison to target the Tulfall, Malachaiâ€™s Loop, and double-Romira roll or corruption changes.',
+						'The Pcharge and Uber Pcharge equipment names are the same. Use the equipment comparison to target the Tulfall, Malachai’s Loop, and double-Romira roll or corruption changes.',
 						'Uber Pcharge'
 					),
 					pobInsight(
@@ -616,7 +616,7 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'uber-romiras',
-						'Acquire +1 maximum power charge corruptions on both Romiraâ€™s Banquets',
+						'Acquire +1 maximum power charge corruptions on both Romira’s Banquets',
 						'during'
 					),
 					checklistItem(
@@ -626,7 +626,7 @@ export const sampleGuides: BuildGuide[] = [
 					),
 					checklistItem(
 						'uber-malachai',
-						'Upgrade Malachaiâ€™s Loop to the target spell damage per power charge roll',
+						'Upgrade Malachai’s Loop to the target spell damage per power charge roll',
 						'during'
 					),
 					checklistItem(

@@ -43,7 +43,7 @@ export const transitionBuildNotes: GuideNoteSection[] = [
 	},
 	{
 		title: 'Ailment defense',
-		body: 'Brine King covers freeze and helps with stuns before Occultist. After the Occultist swap, use Lunaris or Solaris for the major Pantheon, keep Abberath when ignite is the relevant minor threat, and explicitly solve shock before relying on Malachaiâ€™s Loop.'
+		body: 'Brine King covers freeze and helps with stuns before Occultist. After the Occultist swap, use Lunaris or Solaris for the major Pantheon, keep Abberath when ignite is the relevant minor threat, and explicitly solve shock before relying on Malachai’s Loop.'
 	},
 	{
 		title: 'Bleed and corrupted blood',

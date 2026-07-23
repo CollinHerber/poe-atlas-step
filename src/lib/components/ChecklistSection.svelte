@@ -85,7 +85,7 @@
 					checked={item.done}
 					onchange={() => onToggle(item.id)}
 					class="mt-0.5 size-5 rounded border-slate-600 bg-slate-950 text-cyan-400 focus:ring-2 focus:ring-cyan-400/40"
-					aria-label={`Mark â€œ${item.text}â€ as ${item.done ? 'incomplete' : 'complete'}`}
+					aria-label={`Mark “${item.text}” as ${item.done ? 'incomplete' : 'complete'}`}
 				/>
 				{#if editingId === item.id}
 					<form
@@ -161,7 +161,7 @@
 			id={`checklist-${phase}`}
 			bind:value={draft}
 			maxlength="2000"
-			placeholder="Add a checklist actionâ€¦"
+			placeholder="Add a checklist action…"
 			class="min-w-0 flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
 		/>
 		<Button

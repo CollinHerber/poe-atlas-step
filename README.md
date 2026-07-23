@@ -5,7 +5,18 @@ Atlas Step turns Path of Building loadouts into a clickable league-progression g
 - **During this step** for active upgrades and progression work.
 - **Before next step** for the conditions that make a transition complete.
 
-The MVP ships with the two Winter Orb Elementalist PoBs used to shape the project. Progress and custom goals are saved locally in the browser. Every loadout also lists its equipped uniques, links directly to a pre-filled Path of Exile trade search, and displays a cached poe.ninja market estimate. The primary build includes timestamped checkpoint briefings distilled from the supplied Zizaran and Fubgun video guides.
+The MVP ships with the two Winter Orb Elementalist PoBs used to shape the project. Progress and custom goals are saved locally in the browser. Named build copies can be kept in a device-local library, and compressed share links carry a complete portable snapshot in the URL fragment without requiring a backend or account.
+
+Every loadout also lists its equipped uniques, links directly to a pre-filled Path of Exile trade search, and displays a cached poe.ninja market estimate. The primary build includes timestamped checkpoint briefings distilled from the supplied Zizaran and Fubgun video guides.
+
+## Saved and shared builds
+
+- **Save copy** creates a named build in the browser's local storage.
+- Opening a saved build makes it the active copy; checklist changes and the active step then save automatically.
+- **Generate link** creates and copies a self-contained link for the current build.
+- Opening a share link loads the shared snapshot without changing the recipient's existing saved builds. They can use **Save copy** to keep it.
+
+Clearing browser storage removes saved builds from that device. Share links should be regenerated after making changes that another person needs to receive.
 
 ## Stack
 

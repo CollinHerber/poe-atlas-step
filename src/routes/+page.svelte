@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { Badge, Button, Progressbar } from 'flowbite-svelte';
 	import {
 		ArrowLeftOutline,
@@ -11,6 +11,7 @@
 		LinkOutline,
 		RefreshOutline
 	} from 'flowbite-svelte-icons';
+	import BuildLibrary from '$lib/components/BuildLibrary.svelte';
 	import BuildNotesSection from '$lib/components/BuildNotesSection.svelte';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
 	import StepInsights from '$lib/components/StepInsights.svelte';
@@ -26,7 +27,20 @@
 		findGuideByUrl,
 		sampleGuides
 	} from '$lib/data/sample-guides';
+	import {
+		clonePlainGuide,
+		createSavedBuildId,
+		readSavedBuilds,
+		writeSavedBuilds
+	} from '$lib/persistence/build-library';
 	import { buildPathOfBuildingUrl } from '$lib/poe/path-of-building';
+	import {
+		createShareUrl,
+		decodeSharedBuild,
+		encodeSharedBuild,
+		readSharedBuildToken
+	} from '$lib/sharing/build-share';
+	import type { SavedBuildRecord } from '$lib/persistence/build-library';
 	import type { BuildGuide, PoeNinjaPriceSnapshot, TodoPhase } from '$lib/types/guide';
 
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
@@ -36,6 +50,13 @@
 	let ready = $state(false);
 	let priceSnapshot = $state<PoeNinjaPriceSnapshot | null>(null);
 	let priceStatus = $state<'loading' | 'ready' | 'unavailable'>('loading');
+	let savedBuilds = $state<SavedBuildRecord[]>([]);
+	let activeSavedBuildId = $state<string | null>(null);
+	let workspaceSource = $state<'template' | 'saved' | 'shared'>('template');
+	let savedBuildName = $state(sampleGuides[0].name);
+	let libraryMessage = $state('');
+	let shareUrl = $state('');
+	let sharing = $state(false);
 
 	let activeIndex = $derived(guide.steps.findIndex((step) => step.id === activeStepId));
 	let activeStep = $derived(guide.steps[Math.max(activeIndex, 0)]);
@@ -97,23 +118,178 @@
 		}
 	}
 
-	onMount(() => {
-		guide = loadSavedGuide(sampleGuides[0]);
-		activeStepId = guide.steps[0].id;
+	async function initializeWorkspace() {
+		savedBuilds = readSavedBuilds();
+		const shareToken = readSharedBuildToken(window.location.hash);
+
+		if (shareToken) {
+			try {
+				const shared = await decodeSharedBuild(shareToken);
+				guide = clonePlainGuide(shared.guide);
+				activeStepId = shared.activeStepId;
+				importUrl = guide.sourceUrl;
+				savedBuildName = `${shared.name} copy`;
+				workspaceSource = 'shared';
+				libraryMessage = `Loaded “${shared.name}” from a share link. Save a local copy to keep your changes.`;
+			} catch {
+				guide = loadSavedGuide(sampleGuides[0]);
+				activeStepId = guide.steps[0].id;
+				libraryMessage =
+					'That shared build link could not be read. Loaded the default build instead.';
+			}
+
+			window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+		} else {
+			guide = loadSavedGuide(sampleGuides[0]);
+			activeStepId = guide.steps[0].id;
+		}
+
 		ready = true;
 		void loadPriceSnapshot();
+	}
+
+	onMount(() => {
+		void initializeWorkspace();
 	});
 
 	$effect(() => {
 		if (!ready || typeof localStorage === 'undefined') return;
-		localStorage.setItem(storageKey(guide.id), JSON.stringify(guide.steps));
+		const workspace = JSON.stringify({ guide, activeStepId });
+
+		if (workspaceSource === 'template') {
+			localStorage.setItem(storageKey(guide.id), JSON.stringify(guide.steps));
+			return;
+		}
+
+		if (workspaceSource === 'saved' && activeSavedBuildId) {
+			const snapshot = JSON.parse(workspace) as {
+				guide: BuildGuide;
+				activeStepId: string;
+			};
+			const currentBuilds = untrack(() => savedBuilds);
+			const now = new Date().toISOString();
+			const nextBuilds = currentBuilds.map((build) =>
+				build.id === activeSavedBuildId
+					? {
+							...build,
+							guide: snapshot.guide,
+							activeStepId: snapshot.activeStepId,
+							updatedAt: now
+						}
+					: build
+			);
+			if (writeSavedBuilds(nextBuilds)) {
+				savedBuilds = nextBuilds;
+			}
+		}
 	});
 
 	function selectGuide(nextGuide: BuildGuide) {
 		guide = loadSavedGuide(nextGuide);
 		activeStepId = guide.steps[0].id;
+		activeSavedBuildId = null;
+		workspaceSource = 'template';
+		savedBuildName = guide.name;
+		shareUrl = '';
 		importUrl = guide.sourceUrl;
 		importMessage = `Loaded ${guide.steps.length} loadouts from the saved MVP profile.`;
+	}
+
+	function saveCurrentBuild(name: string) {
+		const trimmedName = name.trim();
+		if (!trimmedName) {
+			libraryMessage = 'Give this build a name before saving it.';
+			return;
+		}
+
+		const now = new Date().toISOString();
+		const savedBuild: SavedBuildRecord = {
+			id: createSavedBuildId(),
+			name: trimmedName,
+			guide: clonePlainGuide(guide),
+			activeStepId,
+			createdAt: now,
+			updatedAt: now
+		};
+
+		const nextBuilds = [savedBuild, ...savedBuilds];
+		if (!writeSavedBuilds(nextBuilds)) {
+			libraryMessage = 'This build could not be saved. Browser storage may be full or unavailable.';
+			return;
+		}
+
+		savedBuilds = nextBuilds;
+		activeSavedBuildId = savedBuild.id;
+		workspaceSource = 'saved';
+		savedBuildName = savedBuild.name;
+		shareUrl = '';
+		libraryMessage = `Saved “${savedBuild.name}”. Future changes to this copy save automatically.`;
+	}
+
+	function loadSavedBuild(savedBuild: SavedBuildRecord) {
+		guide = clonePlainGuide(savedBuild.guide);
+		activeStepId = guide.steps.some((step) => step.id === savedBuild.activeStepId)
+			? savedBuild.activeStepId
+			: guide.steps[0].id;
+		activeSavedBuildId = savedBuild.id;
+		workspaceSource = 'saved';
+		savedBuildName = savedBuild.name;
+		importUrl = guide.sourceUrl;
+		importMessage = '';
+		shareUrl = '';
+		libraryMessage = `Loaded “${savedBuild.name}”. Changes save automatically on this device.`;
+	}
+
+	function deleteSavedBuild(savedBuild: SavedBuildRecord) {
+		if (!window.confirm(`Delete “${savedBuild.name}” from this device?`)) return;
+
+		const nextBuilds = savedBuilds.filter((build) => build.id !== savedBuild.id);
+		if (!writeSavedBuilds(nextBuilds)) {
+			libraryMessage = `Could not delete “${savedBuild.name}” from browser storage.`;
+			return;
+		}
+		savedBuilds = nextBuilds;
+
+		if (activeSavedBuildId === savedBuild.id) {
+			activeSavedBuildId = null;
+			workspaceSource = 'shared';
+			libraryMessage = `Deleted “${savedBuild.name}”. The open copy remains available until you leave or save it again.`;
+			return;
+		}
+
+		libraryMessage = `Deleted “${savedBuild.name}” from this device.`;
+	}
+
+	async function copyShareUrl() {
+		if (!shareUrl) return;
+		try {
+			await navigator.clipboard.writeText(shareUrl);
+			libraryMessage = 'Share link copied to your clipboard.';
+		} catch {
+			libraryMessage = 'The share link is ready. Select it and copy it manually.';
+		}
+	}
+
+	async function shareCurrentBuild() {
+		sharing = true;
+		try {
+			const activeName =
+				savedBuilds.find((build) => build.id === activeSavedBuildId)?.name ??
+				savedBuildName.trim() ??
+				guide.name;
+			const token = await encodeSharedBuild({
+				version: 1,
+				name: activeName || guide.name,
+				guide: clonePlainGuide(guide),
+				activeStepId
+			});
+			shareUrl = createShareUrl(token, window.location.href);
+			await copyShareUrl();
+		} catch {
+			libraryMessage = 'Could not generate a share link for this build.';
+		} finally {
+			sharing = false;
+		}
 	}
 
 	function importBuild(event: SubmitEvent) {
@@ -264,6 +440,20 @@
 				{/if}
 			</form>
 		</section>
+
+		<BuildLibrary
+			builds={savedBuilds}
+			activeBuildId={activeSavedBuildId}
+			bind:buildName={savedBuildName}
+			{shareUrl}
+			message={libraryMessage}
+			{sharing}
+			onSave={saveCurrentBuild}
+			onLoad={loadSavedBuild}
+			onDelete={deleteSavedBuild}
+			onShare={shareCurrentBuild}
+			onCopy={copyShareUrl}
+		/>
 
 		<div class="mb-5 flex items-center gap-2 overflow-x-auto pb-1 lg:hidden">
 			<span class="shrink-0 text-xs font-semibold tracking-wider text-slate-600 uppercase"

@@ -5,6 +5,7 @@
 		LinkOutline,
 		RefreshOutline
 	} from 'flowbite-svelte-icons';
+	import ComparisonStatSnapshot from '$lib/components/ComparisonStatSnapshot.svelte';
 	import {
 		compareCharacterStats,
 		compareConfiguration,
@@ -284,6 +285,7 @@
 						{/each}
 					</select>
 				</label>
+				<ComparisonStatSnapshot step={currentStep} accent="cyan" />
 			</article>
 
 			<article class="rounded-2xl border border-violet-400/20 bg-violet-400/5 p-5">
@@ -319,6 +321,7 @@
 						{/each}
 					</select>
 				</label>
+				<ComparisonStatSnapshot step={comparisonStep} accent="violet" />
 			</article>
 		</section>
 

@@ -25,6 +25,7 @@
 		findGuideByUrl,
 		sampleGuides
 	} from '$lib/data/sample-guides';
+	import { buildPathOfBuildingUrl } from '$lib/poe/path-of-building';
 	import type { BuildGuide, PoeNinjaPriceSnapshot, TodoPhase } from '$lib/types/guide';
 
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
@@ -37,6 +38,7 @@
 
 	let activeIndex = $derived(guide.steps.findIndex((step) => step.id === activeStepId));
 	let activeStep = $derived(guide.steps[Math.max(activeIndex, 0)]);
+	let pathOfBuildingUrl = $derived(buildPathOfBuildingUrl(guide.sourceUrl));
 	let allTodos = $derived(guide.steps.flatMap((step) => step.todos));
 	let completedCount = $derived(allTodos.filter((todo) => todo.done).length);
 	let overallProgress = $derived(
@@ -305,14 +307,28 @@
 								{activeStep.description}
 							</p>
 						</div>
-						<a
-							href={guide.sourceUrl}
-							target="_blank"
-							rel="noreferrer"
-							class="inline-flex shrink-0 items-center gap-2 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/50 hover:text-cyan-300"
-						>
-							Open source PoB <ArrowUpRightFromSquareOutline class="size-3.5" />
-						</a>
+						<div class="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
+							{#if pathOfBuildingUrl}
+								<!-- Custom protocol URLs must not use SvelteKit's internal route resolver. -->
+								<!-- eslint-disable svelte/no-navigation-without-resolve -->
+								<a
+									href={pathOfBuildingUrl}
+									aria-label={`Open ${guide.name} in Path of Building`}
+									class="inline-flex items-center gap-2 rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-3 py-2 text-xs font-semibold text-cyan-300 transition hover:border-cyan-300 hover:bg-cyan-400/15 hover:text-cyan-200"
+								>
+									Open in Path of Building <ArrowUpRightFromSquareOutline class="size-3.5" />
+								</a>
+								<!-- eslint-enable svelte/no-navigation-without-resolve -->
+							{/if}
+							<a
+								href={guide.sourceUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/50 hover:text-cyan-300"
+							>
+								Open source PoB <ArrowUpRightFromSquareOutline class="size-3.5" />
+							</a>
+						</div>
 					</div>
 				</section>
 

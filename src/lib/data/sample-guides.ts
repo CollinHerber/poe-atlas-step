@@ -63,6 +63,8 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Life-based baseline',
 				description:
 					'Assemble the life-based Elementalist exactly enough to enter maps with working defenses, recovery, charges, and movement.',
+				level: 70,
+				allocatedPassivePoints: 93,
 				uniques: uniques(guideId, 'entering-maps'),
 				equipment: equipment(guideId, 'entering-maps'),
 				gems: gems(guideId, 'entering-maps'),
@@ -162,6 +164,8 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Critical foundation',
 				description:
 					'Upgrade the rare defensive shell, move Winter Orb into its early critical setup, and remove the Mana Flask only after sustain is solved.',
+				level: 92,
+				allocatedPassivePoints: 115,
 				uniques: uniques(guideId, 'early-game'),
 				equipment: equipment(guideId, 'early-game'),
 				gems: gems(guideId, 'early-game'),
@@ -251,6 +255,8 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Bridge uniques',
 				description:
 					'Install the projectile, amulet, mapping, and block upgrades while preparing the Chaos Inoculation swap entirely off-character.',
+				level: 95,
+				allocatedPassivePoints: 118,
 				uniques: uniques(guideId, 'transition-mid-game'),
 				equipment: equipment(guideId, 'transition-mid-game'),
 				gems: gems(guideId, 'transition-mid-game'),
@@ -355,6 +361,8 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Occultist and CI',
 				description:
 					'Perform the first major transition: move to Occultist and Chaos Inoculation, replace Life recovery with Energy Shield systems, and install the premium non-charge gear.',
+				level: 97,
+				allocatedPassivePoints: 120,
 				uniques: uniques(guideId, 'endgame-optional'),
 				equipment: equipment(guideId, 'endgame-optional'),
 				gems: gems(guideId, 'endgame-optional'),
@@ -469,6 +477,8 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Charge package',
 				description:
 					'Install the power- and frenzy-charge package as one coordinated rebuild, then verify every charge, ailment, gem, and defensive interaction.',
+				level: 97,
+				allocatedPassivePoints: 120,
 				uniques: uniques(guideId, 'pcharge-stack'),
 				equipment: equipment(guideId, 'pcharge-stack'),
 				gems: gems(guideId, 'pcharge-stack'),
@@ -588,6 +598,8 @@ export const sampleGuides: BuildGuide[] = [
 				eyebrow: 'Final refinement',
 				description:
 					'Keep the working charge shell and finish its corruptions, jewel package, rolls, passive tree, and streamlined reservation setup.',
+				level: 98,
+				allocatedPassivePoints: 121,
 				uniques: uniques(guideId, 'uber-pcharge'),
 				equipment: equipment(guideId, 'uber-pcharge'),
 				gems: gems(guideId, 'uber-pcharge'),

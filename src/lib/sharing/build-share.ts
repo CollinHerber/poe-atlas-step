@@ -14,6 +14,8 @@ type CompactStepOverrides = {
 	t?: string;
 	e?: string;
 	d?: string;
+	l?: number;
+	p?: number;
 	r?: GuideInsight[] | null;
 	c?: GuideTodo[];
 };
@@ -85,6 +87,13 @@ const createCompactPayload = (
 		if (step.title !== templateStep.title) overrides.t = step.title;
 		if (step.eyebrow !== templateStep.eyebrow) overrides.e = step.eyebrow;
 		if (step.description !== templateStep.description) overrides.d = step.description;
+		if (step.level !== templateStep.level && step.level !== undefined) overrides.l = step.level;
+		if (
+			step.allocatedPassivePoints !== templateStep.allocatedPassivePoints &&
+			step.allocatedPassivePoints !== undefined
+		) {
+			overrides.p = step.allocatedPassivePoints;
+		}
 		if (!isSameJson(step.insights, templateStep.insights)) {
 			overrides.r = step.insights ?? null;
 		}
@@ -142,6 +151,28 @@ const decodeCompactPayload = (value: unknown): SharedBuildPayload | undefined =>
 		if (hasOwn(rawOverrides, 'd')) {
 			if (!isString(rawOverrides.d, 4_000)) return undefined;
 			step.description = rawOverrides.d;
+		}
+		if (hasOwn(rawOverrides, 'l')) {
+			if (
+				typeof rawOverrides.l !== 'number' ||
+				!Number.isInteger(rawOverrides.l) ||
+				rawOverrides.l < 1 ||
+				rawOverrides.l > 100
+			) {
+				return undefined;
+			}
+			step.level = rawOverrides.l;
+		}
+		if (hasOwn(rawOverrides, 'p')) {
+			if (
+				typeof rawOverrides.p !== 'number' ||
+				!Number.isInteger(rawOverrides.p) ||
+				rawOverrides.p < 0 ||
+				rawOverrides.p > 200
+			) {
+				return undefined;
+			}
+			step.allocatedPassivePoints = rawOverrides.p;
 		}
 		if (hasOwn(rawOverrides, 'r')) {
 			if (rawOverrides.r === null) {

@@ -110,7 +110,9 @@
 	let stepDraft = $state({
 		title: '',
 		eyebrow: '',
-		description: ''
+		description: '',
+		level: 1,
+		allocatedPassivePoints: 0
 	});
 
 	let activeIndex = $derived(guide.steps.findIndex((step) => step.id === activeStepId));
@@ -143,6 +145,10 @@
 				title: savedStep.title,
 				eyebrow: savedStep.eyebrow,
 				description: savedStep.description,
+				...(savedStep.level !== undefined ? { level: savedStep.level } : {}),
+				...(savedStep.allocatedPassivePoints !== undefined
+					? { allocatedPassivePoints: savedStep.allocatedPassivePoints }
+					: {}),
 				...(savedStep.insights !== undefined ? { insights: savedStep.insights } : {}),
 				todos: mergeSavedTodos(baseStep.todos, savedStep.todos)
 			};
@@ -512,7 +518,9 @@
 		stepDraft = {
 			title: activeStep.title,
 			eyebrow: activeStep.eyebrow,
-			description: activeStep.description
+			description: activeStep.description,
+			level: activeStep.level ?? guide.level,
+			allocatedPassivePoints: activeStep.allocatedPassivePoints ?? 0
 		};
 		creatingStep = false;
 		editingStepDetails = true;
@@ -525,7 +533,9 @@
 		stepDraft = {
 			title: 'New section',
 			eyebrow: 'Custom step',
-			description: 'Describe what needs to happen during this part of the progression.'
+			description: 'Describe what needs to happen during this part of the progression.',
+			level: activeStep.level ?? guide.level,
+			allocatedPassivePoints: activeStep.allocatedPassivePoints ?? 0
 		};
 		creatingStep = true;
 		editingStepDetails = true;
@@ -545,7 +555,21 @@
 		const title = stepDraft.title.trim();
 		const eyebrow = stepDraft.eyebrow.trim();
 		const description = stepDraft.description.trim();
-		if (!title || !eyebrow || !description) return;
+		const level = Math.round(stepDraft.level);
+		const allocatedPassivePoints = Math.round(stepDraft.allocatedPassivePoints);
+		if (
+			!title ||
+			!eyebrow ||
+			!description ||
+			!Number.isInteger(level) ||
+			level < 1 ||
+			level > 100 ||
+			!Number.isInteger(allocatedPassivePoints) ||
+			allocatedPassivePoints < 0 ||
+			allocatedPassivePoints > 200
+		) {
+			return;
+		}
 
 		if (creatingStep) {
 			const id =
@@ -557,6 +581,8 @@
 				title,
 				eyebrow,
 				description,
+				level,
+				allocatedPassivePoints,
 				uniques: [],
 				equipment: [],
 				gems: [],
@@ -571,6 +597,8 @@
 			activeStep.title = title;
 			activeStep.eyebrow = eyebrow;
 			activeStep.description = description;
+			activeStep.level = level;
+			activeStep.allocatedPassivePoints = allocatedPassivePoints;
 		}
 
 		editingStepDetails = false;
@@ -986,6 +1014,30 @@
 											class="resize-y rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm leading-6 font-normal text-slate-100 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
 										></textarea>
 									</label>
+									<div class="grid gap-4 sm:grid-cols-2">
+										<label class="grid gap-1.5 text-xs font-semibold text-slate-400">
+											Approximate character level
+											<input
+												type="number"
+												bind:value={stepDraft.level}
+												required
+												min="1"
+												max="100"
+												class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm font-normal text-slate-100 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
+											/>
+										</label>
+										<label class="grid gap-1.5 text-xs font-semibold text-slate-400">
+											Allocated passive points
+											<input
+												type="number"
+												bind:value={stepDraft.allocatedPassivePoints}
+												required
+												min="0"
+												max="200"
+												class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm font-normal text-slate-100 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:outline-none"
+											/>
+										</label>
+									</div>
 								</div>
 								<div class="mt-4 flex flex-wrap gap-2">
 									<button
@@ -1012,6 +1064,33 @@
 								<h2 class="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
 									{activeStep.title}
 								</h2>
+								{#if activeStep.level !== undefined || activeStep.allocatedPassivePoints !== undefined}
+									<div class="mt-3 flex flex-wrap items-center gap-2">
+										{#if activeStep.level !== undefined}
+											<span
+												class="inline-flex items-center rounded-lg border border-slate-700 bg-slate-950/55 px-2.5 py-1.5 text-xs font-semibold text-slate-300"
+												title="Approximate character level calculated from this loadout's passive tree"
+											>
+												Around level {activeStep.level}
+											</span>
+										{/if}
+										{#if activeStep.allocatedPassivePoints !== undefined}
+											<!-- External PoB URLs must not use SvelteKit's internal route resolver. -->
+											<!-- eslint-disable svelte/no-navigation-without-resolve -->
+											<a
+												href={guide.sourceUrl}
+												target="_blank"
+												rel="noreferrer"
+												class="inline-flex items-center gap-1.5 rounded-lg border border-cyan-400/25 bg-cyan-400/10 px-2.5 py-1.5 text-xs font-semibold text-cyan-300 transition hover:border-cyan-300/50 hover:bg-cyan-400/15"
+												title="Open the source Path of Building passive tree"
+											>
+												{activeStep.allocatedPassivePoints} allocated passives
+												<ArrowUpRightFromSquareOutline class="size-3.5" />
+											</a>
+											<!-- eslint-enable svelte/no-navigation-without-resolve -->
+										{/if}
+									</div>
+								{/if}
 								<p class="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
 									{activeStep.description}
 								</p>
@@ -1049,7 +1128,7 @@
 									type="button"
 									onclick={openStepEditor}
 									class="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:border-cyan-400/50 hover:text-cyan-300"
-									aria-label={`Edit ${activeStep.title} section title and description`}
+									aria-label={`Edit ${activeStep.title} section details`}
 								>
 									<EditOutline class="size-3.5" /> Edit section
 								</button>

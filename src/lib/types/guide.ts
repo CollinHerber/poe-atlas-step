@@ -75,6 +75,8 @@ export type GuideStep = {
 	title: string;
 	eyebrow: string;
 	description: string;
+	level?: number;
+	allocatedPassivePoints?: number;
 	uniques: GuideUnique[];
 	equipment?: GuideEquipmentItem[];
 	gems?: GuideGemGroup[];

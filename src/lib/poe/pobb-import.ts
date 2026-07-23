@@ -161,6 +161,74 @@ const levelRangeFromTitle = (value: string) => {
 	};
 };
 
+const hasAscendancy = (value: string) => Boolean(value && value !== 'nil' && value !== '0');
+
+const ascendancyAllocations = (allocatedWithoutStart: number) => {
+	if (allocatedWithoutStart <= 38) return 0;
+	if (allocatedWithoutStart <= 69) return 3;
+	if (allocatedWithoutStart <= 90) return 5;
+	if (allocatedWithoutStart <= 98) return 7;
+	return 9;
+};
+
+const campaignQuestPoints = (allocatedAfterAscendancyAndBandit: number) => {
+	if (allocatedAfterAscendancyAndBandit <= 11) return 0;
+	if (allocatedAfterAscendancyAndBandit <= 23) return 2;
+	if (allocatedAfterAscendancyAndBandit <= 34) return 3;
+	if (allocatedAfterAscendancyAndBandit <= 44) return 5;
+	if (allocatedAfterAscendancyAndBandit <= 49) return 6;
+	if (allocatedAfterAscendancyAndBandit <= 57) return 8;
+	if (allocatedAfterAscendancyAndBandit <= 64) return 11;
+	if (allocatedAfterAscendancyAndBandit <= 73) return 14;
+	if (allocatedAfterAscendancyAndBandit <= 80) return 17;
+	if (allocatedAfterAscendancyAndBandit <= 85) return 19;
+	return 22;
+};
+
+const parseTreeProgress = (
+	loadout: TitledBlock,
+	buildLevel: number,
+	bandit: string
+): Pick<GuideStep, 'level' | 'allocatedPassivePoints'> => {
+	const treeTag = openingTag(loadout.block, 'Spec');
+	const nodes = readAttribute(treeTag, 'nodes')
+		.split(',')
+		.map((node) => node.trim())
+		.filter(Boolean);
+
+	if (!treeTag || !nodes.length) {
+		return { level: levelFromTitle(loadout.title) ?? buildLevel };
+	}
+
+	const allocatedWithoutStart = Math.max(nodes.length - 1, 0);
+	const ascendancyPoints = hasAscendancy(readAttribute(treeTag, 'ascendClassId'))
+		? ascendancyAllocations(allocatedWithoutStart)
+		: 0;
+	const secondaryAscendancyPoints = hasAscendancy(readAttribute(treeTag, 'secondaryAscendClassId'))
+		? ascendancyAllocations(allocatedWithoutStart)
+		: 0;
+	const allocatedPassivePoints = Math.max(
+		allocatedWithoutStart - ascendancyPoints - secondaryAscendancyPoints,
+		0
+	);
+	const banditPoints = bandit && bandit !== 'None' ? 0 : allocatedWithoutStart > 21 ? 2 : 0;
+	const questPoints = campaignQuestPoints(allocatedWithoutStart - ascendancyPoints - banditPoints);
+	const level = Math.min(
+		Math.max(
+			1 +
+				allocatedWithoutStart -
+				ascendancyPoints -
+				secondaryAscendancyPoints -
+				banditPoints -
+				questPoints,
+			1
+		),
+		100
+	);
+
+	return { level, allocatedPassivePoints };
+};
+
 const findMatchingSet = (loadout: TitledBlock, sets: TitledBlock[], kind: 'items' | 'skills') => {
 	const loadoutTitle = normalizedTitle(loadout.title);
 	const loadoutReferences = titleReferences(loadout.title);
@@ -457,7 +525,9 @@ const createStep = (
 	itemSets: TitledBlock[],
 	skillSets: TitledBlock[],
 	items: Map<string, ParsedItem>,
-	sourceUrl: string
+	sourceUrl: string,
+	buildLevel: number,
+	bandit: string
 ): GuideStep => {
 	const title = (stripPobFormatting(loadout.title) || `Loadout ${index + 1}`).slice(0, 300);
 	const itemSet = findMatchingSet(loadout, itemSets, 'items');
@@ -465,6 +535,7 @@ const createStep = (
 	const equipment = parseEquipment(itemSet, items);
 	const gems = parseGemGroups(skillSet);
 	const uniques = parseUniques(equipment, loadout.block ? loadout : undefined, items);
+	const progress = parseTreeProgress(loadout, buildLevel, bandit);
 	const todos: GuideTodo[] = [
 		todo(
 			`imported-${index + 1}-tree`,
@@ -516,6 +587,7 @@ const createStep = (
 		title,
 		eyebrow: `Loadout ${index + 1}`,
 		description: `Build an editable baseline for the ${title} checkpoint using the data available in the imported Path of Building.`,
+		...progress,
 		uniques,
 		...(equipment.length ? { equipment } : {}),
 		...(gems.length ? { gems } : {}),
@@ -602,6 +674,8 @@ export async function buildGuideFromPobCode(
 	}
 
 	const buildTag = xml.match(/<Build\b[^>]*>/u)?.[0] ?? '';
+	const level = Math.min(Math.max(readNumberAttribute(buildTag, 'level') || 1, 1), 100);
+	const bandit = readAttribute(buildTag, 'bandit');
 	const treeSpecs = titledBlocks(xml, 'Spec').filter((block) => !isSeparatorTitle(block.title));
 	let itemSets = titledBlocks(xml, 'ItemSet');
 	let skillSets = titledBlocks(xml, 'SkillSet');
@@ -624,14 +698,13 @@ export async function buildGuideFromPobCode(
 
 	const items = parseItems(xml);
 	const steps = availableLoadouts.map((loadout, index) =>
-		createStep(loadout, index, itemSets, skillSets, items, source.url)
+		createStep(loadout, index, itemSets, skillSets, items, source.url, level, bandit)
 	);
 	const className = (
 		readAttribute(buildTag, 'ascendClassName') ||
 		readAttribute(buildTag, 'className') ||
 		'Path of Building'
 	).slice(0, 200);
-	const level = Math.min(Math.max(readNumberAttribute(buildTag, 'level') || 1, 1), 100);
 	const treeVersion =
 		readAttribute(openingTag(treeSpecs[0]?.block ?? '', 'Spec'), 'treeVersion') ||
 		readAttribute(buildTag, 'targetVersion') ||

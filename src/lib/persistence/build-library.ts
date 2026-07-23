@@ -148,6 +148,16 @@ const isStep = (value: unknown): value is GuideStep => {
 		!isString(value.title, 300) ||
 		!isString(value.eyebrow, 300) ||
 		!isString(value.description, 4_000) ||
+		(value.level !== undefined &&
+			(typeof value.level !== 'number' ||
+				!Number.isInteger(value.level) ||
+				value.level < 1 ||
+				value.level > 100)) ||
+		(value.allocatedPassivePoints !== undefined &&
+			(typeof value.allocatedPassivePoints !== 'number' ||
+				!Number.isInteger(value.allocatedPassivePoints) ||
+				value.allocatedPassivePoints < 0 ||
+				value.allocatedPassivePoints > 200)) ||
 		!Array.isArray(value.uniques) ||
 		value.uniques.length > 100 ||
 		!value.uniques.every(isUnique) ||

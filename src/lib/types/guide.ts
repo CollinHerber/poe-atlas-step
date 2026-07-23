@@ -46,12 +46,22 @@ export type GuideGemGroup = {
 	gems: GuideGem[];
 };
 
+export type GuideEquipmentItem = {
+	slot: string;
+	name: string;
+	baseType: string;
+	rarity: 'NORMAL' | 'MAGIC' | 'RARE' | 'UNIQUE';
+	levelRequirement?: number;
+	stats: string[];
+};
+
 export type GuideStep = {
 	id: string;
 	title: string;
 	eyebrow: string;
 	description: string;
 	uniques: GuideUnique[];
+	equipment?: GuideEquipmentItem[];
 	gems?: GuideGemGroup[];
 	insights?: GuideInsight[];
 	noteHighlights?: string[];

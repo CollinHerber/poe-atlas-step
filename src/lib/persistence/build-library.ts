@@ -1,5 +1,6 @@
 import type {
 	BuildGuide,
+	GuideEquipmentItem,
 	GuideGem,
 	GuideGemGroup,
 	GuideStep,
@@ -95,6 +96,24 @@ const isGemGroup = (value: unknown): value is GuideGemGroup =>
 	value.gems.length <= 20 &&
 	value.gems.every(isGem);
 
+const equipmentRarities = new Set(['NORMAL', 'MAGIC', 'RARE', 'UNIQUE']);
+
+const isEquipmentItem = (value: unknown): value is GuideEquipmentItem =>
+	isObject(value) &&
+	isString(value.slot, 200) &&
+	isString(value.name, 300) &&
+	isString(value.baseType, 300) &&
+	typeof value.rarity === 'string' &&
+	equipmentRarities.has(value.rarity) &&
+	(value.levelRequirement === undefined ||
+		(typeof value.levelRequirement === 'number' &&
+			Number.isFinite(value.levelRequirement) &&
+			value.levelRequirement >= 0 &&
+			value.levelRequirement <= 100)) &&
+	Array.isArray(value.stats) &&
+	value.stats.length <= 50 &&
+	value.stats.every((stat) => isString(stat, 1_000));
+
 const isStep = (value: unknown): value is GuideStep => {
 	if (
 		!isObject(value) ||
@@ -108,6 +127,15 @@ const isStep = (value: unknown): value is GuideStep => {
 		!Array.isArray(value.todos) ||
 		value.todos.length > 250 ||
 		!value.todos.every(isTodo)
+	) {
+		return false;
+	}
+
+	if (
+		value.equipment !== undefined &&
+		(!Array.isArray(value.equipment) ||
+			value.equipment.length > 30 ||
+			!value.equipment.every(isEquipmentItem))
 	) {
 		return false;
 	}

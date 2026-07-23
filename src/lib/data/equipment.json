@@ -1,0 +1,1952 @@
+{
+	"mom-crit-winter-orb": {
+		"level-80-uber-lab": [
+			{
+				"slot": "Weapon 1",
+				"name": "Early Game Wand",
+				"baseType": "Profane Wand",
+				"rarity": "RARE",
+				"levelRequirement": 70,
+				"stats": [
+					"14% increased Cast Speed",
+					"46% increased Spell Damage",
+					"15% increased Cast Speed",
+					"+1 to Level of all Cold Spell Skill Gems"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "Early Game Shield",
+				"baseType": "Titanium Spirit Shield",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": ["+133 to maximum Life", "+40% to Fire Resistance", "+29% to Cold Resistance"]
+			},
+			{
+				"slot": "Helmet",
+				"name": "Early Game Helmet",
+				"baseType": "Praetor Crown",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": ["+109 to maximum Life", "+29% to Fire Resistance", "+39% to Lightning Resistance"]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "Early Game Chest",
+				"baseType": "Saintly Chainmail",
+				"rarity": "RARE",
+				"levelRequirement": 70,
+				"stats": [
+					"97% increased Armour and Energy Shield",
+					"+29% to Cold Resistance",
+					"+20% to Chaos Resistance"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "Early Game Gloves",
+				"baseType": "Crusader Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 66,
+				"stats": [
+					"+104 to maximum Life",
+					"+39% to Fire Resistance",
+					"(10-12)% increased Area of Effect",
+					"(14-16)% increased Area Damage"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "Early Game Boots",
+				"baseType": "Crusader Boots",
+				"rarity": "RARE",
+				"levelRequirement": 64,
+				"stats": [
+					"+94 to maximum Life",
+					"+42% to Lightning Resistance",
+					"30% increased Movement Speed"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Early Game Amulet",
+				"baseType": "Jade Amulet",
+				"rarity": "RARE",
+				"levelRequirement": 52,
+				"stats": [
+					"Allocates Ash, Frost and Storm",
+					"+(20-30) to Dexterity",
+					"+40 to Dexterity",
+					"+99 to maximum Life"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "Early Game Ring",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 38,
+				"stats": [
+					"+(17-23)% to Chaos Resistance",
+					"+87 to maximum Life",
+					"+14% to all Elemental Resistances",
+					"+(21-25) to Strength and Intelligence"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Early Game Ring",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 38,
+				"stats": [
+					"+(17-23)% to Chaos Resistance",
+					"+87 to maximum Life",
+					"+14% to all Elemental Resistances",
+					"+(21-25) to Strength and Intelligence"
+				]
+			},
+			{
+				"slot": "Belt",
+				"name": "Early Game Belt",
+				"baseType": "Leather Belt",
+				"rarity": "RARE",
+				"levelRequirement": 66,
+				"stats": [
+					"+(25-40) to maximum Life",
+					"+404 to Armour",
+					"+43 to maximum Energy Shield",
+					"+118 to maximum Life"
+				]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Seething Divine Life Flask of Alleviation",
+				"baseType": "Divine Life Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 60,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Instant Recovery",
+					"Grants Immunity to Bleeding for 11 seconds if used while Bleeding",
+					"Grants Immunity to Corrupted Blood for 11 seconds if used while affected by Corrupted Blood"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Surgeon's Diamond Flask of Penetrating",
+				"baseType": "Diamond Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 64,
+				"stats": [
+					"35% chance to gain a Flask Charge when you deal a Critical Strike",
+					"48% increased Critical Strike Chance during Effect"
+				]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Flagellant's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"14% increased Movement Speed during Effect"
+				]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Flagellant's Granite Flask of the Armadillo",
+				"baseType": "Granite Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"58% increased Armour during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Flagellant's Quartz Flask of the Owl",
+				"baseType": "Quartz Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"64% reduced Effect of Curses on you during Effect"
+				]
+			}
+		],
+		"midgame": [
+			{
+				"slot": "Weapon 1",
+				"name": "Mystic Refractor",
+				"baseType": "Pagan Wand",
+				"rarity": "UNIQUE",
+				"levelRequirement": 34,
+				"stats": [
+					"10% increased Cast Speed",
+					"Skills fire (2-3) additional Projectiles",
+					"(10-20)% increased Projectile Speed",
+					"(30-50)% increased Projectile Damage",
+					"Projectiles cannot continue after colliding with targets"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "Midgame Shield",
+				"baseType": "Titanium Spirit Shield",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"72% increased Chance to Block",
+					"91% increased Spell Critical Strike Chance",
+					"+140 to maximum Life",
+					"+(17-20)% to Fire and Lightning Resistances"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "Midgame Helmet",
+				"baseType": "Divine Crown",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"74% increased Armour and Energy Shield",
+					"+126 to maximum Life",
+					"+43% to Fire Resistance",
+					"+(17-20)% to Cold and Lightning Resistances"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "Midgame Chest",
+				"baseType": "Sacred Chainmail",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"+319 to Armour",
+					"99% increased Armour and Energy Shield",
+					"+75 to maximum Energy Shield",
+					"+39% to Fire Resistance",
+					"6% additional Physical Damage Reduction",
+					"+(17-20)% to Cold and Lightning Resistances"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "Midgame Gloves",
+				"baseType": "Paladin Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"74% increased Armour and Energy Shield",
+					"+106 to maximum Life",
+					"+36% to Cold Resistance",
+					"+35% to Lightning Resistance",
+					"(10-12)% increased Area of Effect",
+					"(14-16)% increased Area Damage"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "Midgame Boots",
+				"baseType": "Paladin Boots",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"+92 to maximum Life",
+					"+33% to Fire Resistance",
+					"(18-20)% increased Movement Speed",
+					"(8-12)% chance to gain Onslaught for 4 seconds on Kill"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Midgame Amulet",
+				"baseType": "Citrine Amulet",
+				"rarity": "RARE",
+				"levelRequirement": 52,
+				"stats": [
+					"Allocates As The Mountain",
+					"+(16-24) to Strength and Dexterity",
+					"+40 to Dexterity",
+					"+33% to Global Critical Strike Multiplier",
+					"+100 to maximum Life"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "Midgame Ring",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 52,
+				"stats": [
+					"+(17-23)% to Chaos Resistance",
+					"+94 to maximum Life",
+					"+29% to Chaos Resistance"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Midgame Ring",
+				"baseType": "Moonstone Ring",
+				"rarity": "RARE",
+				"levelRequirement": 28,
+				"stats": ["(7-10)% increased Cast Speed", "11% increased Cast Speed", "+98 to maximum Life"]
+			},
+			{
+				"slot": "Belt",
+				"name": "Midgame Belt",
+				"baseType": "Heavy Belt",
+				"rarity": "RARE",
+				"levelRequirement": 52,
+				"stats": [
+					"+(25-35) to Strength",
+					"+127 to maximum Life",
+					"+29% to Chaos Resistance",
+					"+(214-285) to Armour",
+					"+(21-25) to maximum Energy Shield"
+				]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Seething Divine Life Flask of Alleviation",
+				"baseType": "Divine Life Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 60,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Instant Recovery",
+					"Grants Immunity to Bleeding for 11 seconds if used while Bleeding",
+					"Grants Immunity to Corrupted Blood for 11 seconds if used while affected by Corrupted Blood"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Surgeon's Diamond Flask of Penetrating",
+				"baseType": "Diamond Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 64,
+				"stats": [
+					"35% chance to gain a Flask Charge when you deal a Critical Strike",
+					"48% increased Critical Strike Chance during Effect"
+				]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Flagellant's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"14% increased Movement Speed during Effect"
+				]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Flagellant's Granite Flask of the Armadillo",
+				"baseType": "Granite Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"58% increased Armour during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Flagellant's Quartz Flask of the Owl",
+				"baseType": "Quartz Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"64% reduced Effect of Curses on you during Effect"
+				]
+			}
+		],
+		"endgame-no-cluster": [
+			{
+				"slot": "Weapon 1",
+				"name": "Endgame Wand",
+				"baseType": "Profane Wand",
+				"rarity": "RARE",
+				"levelRequirement": 70,
+				"stats": [
+					"Quality does not increase Physical Damage",
+					"Grants 1% increased Area of Effect per 4% Quality",
+					"14% increased Cast Speed",
+					"68% increased Spell Critical Strike Chance",
+					"+1 to Level of all Spell Skill Gems",
+					"+1 to Level of all Cold Spell Skill Gems",
+					"Can have up to 3 Crafted Modifiers",
+					"(18-21)% increased Cast Speed",
+					"(51-60)% increased Cold Damage",
+					"(18-20)% chance to Freeze"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "Endgame Shield",
+				"baseType": "Titanium Spirit Shield",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"73% increased Chance to Block",
+					"88% increased Spell Critical Strike Chance",
+					"+138 to maximum Life",
+					"+1 to Level of all Cold Spell Skill Gems",
+					"(4-5)% chance to deal Double Damage"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "Endgame Helmet",
+				"baseType": "Divine Crown",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"8% increased Cast Speed",
+					"6% of Physical Damage from Hits taken as Fire Damage",
+					"84% increased Armour and Energy Shield",
+					"+121 to maximum Life",
+					"+42% to Fire Resistance",
+					"+39% to Lightning Resistance",
+					"+27% to Chaos Resistance",
+					"+1 to Level of Socketed AoE Gems",
+					"(8-10)% increased Area of Effect"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "Endgame Chest",
+				"baseType": "Sacred Chainmail",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"10% of Physical Damage from Hits taken as Fire Damage",
+					"Tempest Shield has (15-17)% increased Buff Effect",
+					"+335 to Armour",
+					"98% increased Armour and Energy Shield",
+					"+76 to maximum Energy Shield",
+					"+43% to Fire Resistance",
+					"8% additional Physical Damage Reduction",
+					"(5-7)% Chance to Block Attack Damage"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "Endgame Gloves",
+				"baseType": "Paladin Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"Inflict Cold Exposure on Hit, applying -11% to Cold Resistance",
+					"15% chance to Unnerve Enemies for 4 seconds on Hit",
+					"89% increased Armour and Energy Shield",
+					"+111 to maximum Life",
+					"+37% to Fire Resistance",
+					"+44% to Cold Resistance",
+					"+44% to Lightning Resistance",
+					"(10-12)% increased Area of Effect",
+					"(14-16)% increased Area Damage"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "Endgame Boots",
+				"baseType": "Paladin Boots",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"4% increased Action Speed",
+					"(33-35)% increased Armour from Equipped Helmet and Gloves",
+					"+112 to maximum Life",
+					"(25-30)% increased Movement Speed",
+					"(13-16)% chance to gain Onslaught for 4 seconds on Kill",
+					"(23-30)% increased Effect of Non-Damaging Ailments"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Endgame Amulet",
+				"baseType": "Citrine Amulet",
+				"rarity": "RARE",
+				"levelRequirement": 60,
+				"stats": [
+					"Allocates As The Mountain",
+					"+(16-24) to Strength and Dexterity",
+					"+33% to Global Critical Strike Multiplier",
+					"+101 to maximum Life",
+					"+27% to Chaos Resistance",
+					"+1 to Level of all Cold Skill Gems",
+					"+(13-15)% to Fire and Chaos Resistances"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "Endgame Ring",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 59,
+				"stats": [
+					"+(17-23)% to Chaos Resistance",
+					"+46 to Dexterity",
+					"+35 to maximum Energy Shield",
+					"+93 to maximum Life",
+					"+27% to Chaos Resistance",
+					"+(13-15)% to Cold and Chaos Resistances"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Endgame Ring",
+				"baseType": "Moonstone Ring",
+				"rarity": "RARE",
+				"levelRequirement": 35,
+				"stats": [
+					"(7-12)% increased Cast Speed",
+					"+30 to Dexterity",
+					"19% increased Cast Speed",
+					"+97 to maximum Life",
+					"+(13-16)% to Cold and Lightning Resistances"
+				]
+			},
+			{
+				"slot": "Belt",
+				"name": "Endgame Belt",
+				"baseType": "Stygian Vise",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"Has 1 Abyssal Socket",
+					"+57 to Strength",
+					"+125 to maximum Life",
+					"+33% to Cold Resistance",
+					"+(17-20)% to Fire and Lightning Resistances",
+					"+(365-400) to Armour",
+					"+(31-35) to maximum Energy Shield"
+				]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Seething Divine Life Flask of Alleviation",
+				"baseType": "Divine Life Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 60,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Instant Recovery",
+					"Grants Immunity to Bleeding for 11 seconds if used while Bleeding",
+					"Grants Immunity to Corrupted Blood for 11 seconds if used while affected by Corrupted Blood"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"(125-150)% increased Charges per use",
+					"(40-60)% less Duration",
+					"(10-20)% increased Area of Effect during Effect",
+					"Skills fire 2 additional Projectiles during Effect"
+				]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Flagellant's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"14% increased Movement Speed during Effect"
+				]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Flagellant's Granite Flask of the Armadillo",
+				"baseType": "Granite Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"58% increased Armour during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Flagellant's Quartz Flask of the Owl",
+				"baseType": "Quartz Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"64% reduced Effect of Curses on you during Effect"
+				]
+			}
+		],
+		"endgame-cluster": [
+			{
+				"slot": "Weapon 1",
+				"name": "Endgame Wand",
+				"baseType": "Profane Wand",
+				"rarity": "RARE",
+				"levelRequirement": 70,
+				"stats": [
+					"Quality does not increase Physical Damage",
+					"Grants 1% increased Area of Effect per 4% Quality",
+					"14% increased Cast Speed",
+					"68% increased Spell Critical Strike Chance",
+					"+1 to Level of all Spell Skill Gems",
+					"+1 to Level of all Cold Spell Skill Gems",
+					"Can have up to 3 Crafted Modifiers",
+					"(18-21)% increased Cast Speed",
+					"(51-60)% increased Cold Damage",
+					"(18-20)% chance to Freeze"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "Endgame Shield",
+				"baseType": "Titanium Spirit Shield",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"73% increased Chance to Block",
+					"88% increased Spell Critical Strike Chance",
+					"+138 to maximum Life",
+					"+1 to Level of all Cold Spell Skill Gems",
+					"(4-5)% chance to deal Double Damage"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "Endgame Helmet",
+				"baseType": "Divine Crown",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"8% increased Cast Speed",
+					"6% of Physical Damage from Hits taken as Fire Damage",
+					"84% increased Armour and Energy Shield",
+					"+121 to maximum Life",
+					"+42% to Fire Resistance",
+					"+39% to Lightning Resistance",
+					"+27% to Chaos Resistance",
+					"+1 to Level of Socketed AoE Gems",
+					"(8-10)% increased Area of Effect"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "Endgame Chest",
+				"baseType": "Sacred Chainmail",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"10% of Physical Damage from Hits taken as Fire Damage",
+					"Tempest Shield has (15-17)% increased Buff Effect",
+					"+335 to Armour",
+					"98% increased Armour and Energy Shield",
+					"+76 to maximum Energy Shield",
+					"+43% to Fire Resistance",
+					"8% additional Physical Damage Reduction",
+					"(5-7)% Chance to Block Attack Damage"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "Endgame Gloves",
+				"baseType": "Paladin Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"Inflict Cold Exposure on Hit, applying -11% to Cold Resistance",
+					"15% chance to Unnerve Enemies for 4 seconds on Hit",
+					"89% increased Armour and Energy Shield",
+					"+111 to maximum Life",
+					"+37% to Fire Resistance",
+					"+44% to Cold Resistance",
+					"+44% to Lightning Resistance",
+					"(10-12)% increased Area of Effect",
+					"(14-16)% increased Area Damage"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "Endgame Boots",
+				"baseType": "Paladin Boots",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"4% increased Action Speed",
+					"(33-35)% increased Armour from Equipped Helmet and Gloves",
+					"+112 to maximum Life",
+					"(25-30)% increased Movement Speed",
+					"(13-16)% chance to gain Onslaught for 4 seconds on Kill",
+					"(23-30)% increased Effect of Non-Damaging Ailments"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Endgame Amulet",
+				"baseType": "Citrine Amulet",
+				"rarity": "RARE",
+				"levelRequirement": 60,
+				"stats": [
+					"Allocates As The Mountain",
+					"+(16-24) to Strength and Dexterity",
+					"+33% to Global Critical Strike Multiplier",
+					"+101 to maximum Life",
+					"+27% to Chaos Resistance",
+					"+1 to Level of all Cold Skill Gems",
+					"+(13-15)% to Fire and Chaos Resistances"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "Endgame Ring",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 59,
+				"stats": [
+					"+(17-23)% to Chaos Resistance",
+					"+46 to Dexterity",
+					"+35 to maximum Energy Shield",
+					"+93 to maximum Life",
+					"+27% to Chaos Resistance",
+					"+(13-15)% to Cold and Chaos Resistances"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Endgame Ring",
+				"baseType": "Moonstone Ring",
+				"rarity": "RARE",
+				"levelRequirement": 35,
+				"stats": [
+					"(7-12)% increased Cast Speed",
+					"+30 to Dexterity",
+					"19% increased Cast Speed",
+					"+97 to maximum Life",
+					"+(13-16)% to Cold and Lightning Resistances"
+				]
+			},
+			{
+				"slot": "Belt",
+				"name": "Endgame Belt",
+				"baseType": "Stygian Vise",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"Has 1 Abyssal Socket",
+					"+57 to Strength",
+					"+125 to maximum Life",
+					"+33% to Cold Resistance",
+					"+(17-20)% to Fire and Lightning Resistances",
+					"+(365-400) to Armour",
+					"+(31-35) to maximum Energy Shield"
+				]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Seething Divine Life Flask of Alleviation",
+				"baseType": "Divine Life Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 60,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Instant Recovery",
+					"Grants Immunity to Bleeding for 11 seconds if used while Bleeding",
+					"Grants Immunity to Corrupted Blood for 11 seconds if used while affected by Corrupted Blood"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"(125-150)% increased Charges per use",
+					"(40-60)% less Duration",
+					"(10-20)% increased Area of Effect during Effect",
+					"Skills fire 2 additional Projectiles during Effect"
+				]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Flagellant's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"14% increased Movement Speed during Effect"
+				]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Flagellant's Granite Flask of the Armadillo",
+				"baseType": "Granite Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"58% increased Armour during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Flagellant's Quartz Flask of the Owl",
+				"baseType": "Quartz Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"Gain 3 Charges when you are Hit by an Enemy",
+					"64% reduced Effect of Curses on you during Effect"
+				]
+			}
+		]
+	},
+	"hybrid-crit-winter-orb": {
+		"entering-maps": [
+			{
+				"slot": "Weapon 1",
+				"name": "New Item",
+				"baseType": "Prophecy Wand",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"(36-40)% increased Spell Damage",
+					"Adds 23 to 43 Cold Damage to Spells",
+					"19% increased Cast Speed",
+					"(51-60)% increased Cold Damage",
+					"(18-20)% chance to Freeze"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "New Item",
+				"baseType": "Harmonic Spirit Shield",
+				"rarity": "RARE",
+				"levelRequirement": 65,
+				"stats": [
+					"(10-15)% increased Spell Damage",
+					"+111 to maximum Life",
+					"+1 to Level of all Cold Spell Skill Gems"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "New Item",
+				"baseType": "Hubris Circlet",
+				"rarity": "RARE",
+				"levelRequirement": 69,
+				"stats": ["+117 to maximum Life", "(56-74)% increased Energy Shield"]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "New Item",
+				"baseType": "Vaal Regalia",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"+37 to maximum Energy Shield",
+					"71% increased Energy Shield",
+					"Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "New Item",
+				"baseType": "Sorcerer Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 69,
+				"stats": ["+32 to Dexterity", "+62 to maximum Life", "(56-74)% increased Energy Shield"]
+			},
+			{
+				"slot": "Boots",
+				"name": "New Item",
+				"baseType": "Sorcerer Boots",
+				"rarity": "RARE",
+				"levelRequirement": 67,
+				"stats": [
+					"+107 to maximum Life",
+					"30% increased Movement Speed",
+					"(56-74)% increased Energy Shield"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "New Item",
+				"baseType": "Turquoise Amulet",
+				"rarity": "RARE",
+				"levelRequirement": 60,
+				"stats": [
+					"Allocates Ash, Frost and Storm",
+					"+(16-24) to Dexterity and Intelligence",
+					"+76 to maximum Life",
+					"+1 to Level of all Cold Skill Gems",
+					"(23-30)% increased Effect of Non-Damaging Ailments"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "New Item",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 35,
+				"stats": ["+(17-23)% to Chaos Resistance", "+30 to Dexterity", "+94 to maximum Life"]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "New Item",
+				"baseType": "Moonstone Ring",
+				"rarity": "RARE",
+				"levelRequirement": 28,
+				"stats": ["10% increased cast speed", "15% increased Cast Speed", "+97 to maximum Life"]
+			},
+			{
+				"slot": "Belt",
+				"name": "New Item",
+				"baseType": "Heavy Belt",
+				"rarity": "RARE",
+				"levelRequirement": 43,
+				"stats": ["+(25-35) to Strength", "+121 to maximum Life"]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Seething Divine Life Flask of Allaying",
+				"baseType": "Divine Life Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 60,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Instant Recovery",
+					"Grants Immunity to Bleeding for 13 seconds if used while Bleeding",
+					"Grants Immunity to Corrupted Blood for 13 seconds if used while affected by Corrupted Blood"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Experimenter's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": ["40% increased Duration", "14% increased Movement Speed during Effect"]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Brewer's Silver Flask of the Owl",
+				"baseType": "Silver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"24% reduced Charges per use",
+					"63% reduced Effect of Curses on you during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Enduring Eternal Mana Flask",
+				"baseType": "Eternal Mana Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 65,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Effect is not removed when Unreserved Mana is Filled",
+					"Effect does not Queue"
+				]
+			}
+		],
+		"early-game": [
+			{
+				"slot": "Weapon 1",
+				"name": "New Item",
+				"baseType": "Prophecy Wand",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"(36-40)% increased Spell Damage",
+					"23% increased Cast Speed",
+					"+1 to Level of all Cold Spell Skill Gems",
+					"(51-60)% increased Cold Damage",
+					"(18-20)% chance to Freeze"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "New Item",
+				"baseType": "Titanium Spirit Shield",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"72% increased Chance to Block",
+					"+137 to maximum Life",
+					"+1 to Level of all Cold Spell Skill Gems"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "New Item",
+				"baseType": "Lich's Circlet",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"8% increased Cast Speed",
+					"6% of Physical Damage from Hits taken as Cold Damage",
+					"+35 to maximum Energy Shield",
+					"(56-74)% increased Energy Shield"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "New Item",
+				"baseType": "Twilight Regalia",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"+(20-21)% to Critical Strike Multiplier for Spell Damage",
+					"10% of Physical Damage from Hits taken as Cold Damage",
+					"+28 to maximum Energy Shield",
+					"67% increased Energy Shield",
+					"Regenerate 150 Energy Shield per second while a Rare or Unique Enemy is Nearby"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "New Item",
+				"baseType": "Warlock Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"Freezes you inflict spread to other Enemies within 1.2 metres",
+					"Inflict Cold Exposure on Hit, applying -11% to Cold Resistance",
+					"+47 to Dexterity",
+					"+109 to maximum Life",
+					"(56-74)% increased Energy Shield"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "New Item",
+				"baseType": "Warlock Boots",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"4% increased Action Speed",
+					"+108 to maximum Life",
+					"30% increased Movement Speed",
+					"(56-74)% increased Energy Shield"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "New Item",
+				"baseType": "Turquoise Amulet",
+				"rarity": "RARE",
+				"levelRequirement": 60,
+				"stats": [
+					"Allocates Ash, Frost and Storm",
+					"+(16-24) to Dexterity and Intelligence",
+					"+76 to maximum Life",
+					"+1 to Level of all Cold Skill Gems",
+					"(23-30)% increased Effect of Non-Damaging Ailments"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "New Item",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 59,
+				"stats": [
+					"+(17-23)% to Chaos Resistance",
+					"+47 to Dexterity",
+					"+92 to maximum Life",
+					"Channelling Skills have -3 to Total Mana Cost"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "New Item",
+				"baseType": "Moonstone Ring",
+				"rarity": "RARE",
+				"levelRequirement": 28,
+				"stats": ["10% increased cast speed", "15% increased Cast Speed", "+97 to maximum Life"]
+			},
+			{
+				"slot": "Belt",
+				"name": "New Item",
+				"baseType": "Heavy Belt",
+				"rarity": "RARE",
+				"levelRequirement": 43,
+				"stats": ["+(25-35) to Strength", "+121 to maximum Life"]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Seething Divine Life Flask of Allaying",
+				"baseType": "Divine Life Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 60,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Instant Recovery",
+					"Grants Immunity to Bleeding for 13 seconds if used while Bleeding",
+					"Grants Immunity to Corrupted Blood for 13 seconds if used while affected by Corrupted Blood"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Experimenter's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": ["40% increased Duration", "14% increased Movement Speed during Effect"]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Clinician's Diamond Flask of Penetrating",
+				"baseType": "Diamond Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 54,
+				"stats": ["33% increased Duration", "47% increased Critical Strike Chance during Effect"]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Brewer's Silver Flask of the Owl",
+				"baseType": "Silver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"24% reduced Charges per use",
+					"63% reduced Effect of Curses on you during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Jade Flask of the Impala",
+				"baseType": "Jade Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": ["58% increased Evasion Rating during Effect"]
+			}
+		],
+		"transition-mid-game": [
+			{
+				"slot": "Weapon 1",
+				"name": "Mystic Refractor",
+				"baseType": "Pagan Wand",
+				"rarity": "UNIQUE",
+				"levelRequirement": 34,
+				"stats": [
+					"10% increased Cast Speed",
+					"Skills fire 3 additional Projectiles",
+					"20% increased Projectile Speed",
+					"48% increased Projectile Damage",
+					"Projectiles cannot continue after colliding with targets"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "New Item",
+				"baseType": "Titanium Spirit Shield",
+				"rarity": "RARE",
+				"levelRequirement": 68,
+				"stats": [
+					"72% increased Chance to Block",
+					"+137 to maximum Life",
+					"+1 to Level of all Cold Spell Skill Gems"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "New Item",
+				"baseType": "Lich's Circlet",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"8% increased Cast Speed",
+					"6% of Physical Damage from Hits taken as Cold Damage",
+					"+35 to maximum Energy Shield",
+					"(56-74)% increased Energy Shield"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "New Item",
+				"baseType": "Twilight Regalia",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"+(20-21)% to Critical Strike Multiplier for Spell Damage",
+					"10% of Physical Damage from Hits taken as Cold Damage",
+					"+28 to maximum Energy Shield",
+					"67% increased Energy Shield",
+					"Regenerate 150 Energy Shield per second while a Rare or Unique Enemy is Nearby"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "New Item",
+				"baseType": "Warlock Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"Freezes you inflict spread to other Enemies within 1.2 metres",
+					"Inflict Cold Exposure on Hit, applying -11% to Cold Resistance",
+					"+47 to Dexterity",
+					"+109 to maximum Life",
+					"(56-74)% increased Energy Shield"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "New Item",
+				"baseType": "Warlock Boots",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"4% increased Action Speed",
+					"+108 to maximum Life",
+					"30% increased Movement Speed",
+					"(56-74)% increased Energy Shield"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Foulborn The Pandemonius",
+				"baseType": "Jade Amulet",
+				"rarity": "UNIQUE",
+				"levelRequirement": 64,
+				"stats": [
+					"Allocates Ash, Frost and Storm",
+					"+27 to Dexterity",
+					"26% increased Cold Damage",
+					"Chill Enemy for 1 second when Hit, reducing their Action Speed by 30%",
+					"Blind Chilled Enemies on Hit",
+					"Damage Penetrates 20% Cold Resistance against Chilled Enemies",
+					"12% of Physical Damage from Hits taken as Cold Damage"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "New Item",
+				"baseType": "Amethyst Ring",
+				"rarity": "RARE",
+				"levelRequirement": 59,
+				"stats": [
+					"+(17-23)% to Chaos Resistance",
+					"+47 to Dexterity",
+					"+92 to maximum Life",
+					"Channelling Skills have -3 to Total Mana Cost"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Death Rush",
+				"baseType": "Amethyst Ring",
+				"rarity": "UNIQUE",
+				"levelRequirement": 30,
+				"stats": [
+					"+23% to Chaos Resistance",
+					"Recover 4% of Life on Kill",
+					"Gain Adrenaline for 3 seconds on Kill"
+				]
+			},
+			{
+				"slot": "Belt",
+				"name": "New Item",
+				"baseType": "Heavy Belt",
+				"rarity": "RARE",
+				"levelRequirement": 43,
+				"stats": ["+(25-35) to Strength", "+121 to maximum Life"]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Seething Divine Life Flask of Allaying",
+				"baseType": "Divine Life Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 60,
+				"stats": [
+					"66% reduced Amount Recovered",
+					"Instant Recovery",
+					"Grants Immunity to Bleeding for 13 seconds if used while Bleeding",
+					"Grants Immunity to Corrupted Blood for 13 seconds if used while affected by Corrupted Blood"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Experimenter's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": ["40% increased Duration", "14% increased Movement Speed during Effect"]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Clinician's Diamond Flask of Penetrating",
+				"baseType": "Diamond Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 54,
+				"stats": ["33% increased Duration", "47% increased Critical Strike Chance during Effect"]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Brewer's Silver Flask of the Owl",
+				"baseType": "Silver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"24% reduced Charges per use",
+					"63% reduced Effect of Curses on you during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"+(8-12)% Chance to Block Attack Damage during Effect",
+					"+(4-6)% Chance to Block Spell Damage during Effect"
+				]
+			}
+		],
+		"endgame-optional": [
+			{
+				"slot": "Weapon 1",
+				"name": "New Item",
+				"baseType": "Profane Wand",
+				"rarity": "RARE",
+				"levelRequirement": 70,
+				"stats": [
+					"Quality does not increase Physical Damage",
+					"Grants 1% increased Area of Effect per 4% Quality",
+					"14% increased Cast Speed",
+					"106% increased Spell Critical Strike Chance",
+					"+1 to Level of all Spell Skill Gems",
+					"+1 to Level of all Cold Spell Skill Gems",
+					"Can have up to 3 Crafted Modifiers",
+					"(18-21)% increased Cast Speed",
+					"(51-60)% increased Cold Damage",
+					"(18-20)% chance to Freeze"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "Light of Lunaris",
+				"baseType": "Jingling Spirit Shield",
+				"rarity": "UNIQUE",
+				"levelRequirement": 28,
+				"stats": [
+					"(10-15)% increased Spell Damage",
+					"Adds (35-39) to (54-60) Cold Damage to Spells",
+					"(60-80)% increased Spell Critical Strike Chance",
+					"(475-600)% increased Energy Shield",
+					"+(6-10)% Chance to Block",
+					"+1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage",
+					"+25% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "New Item",
+				"baseType": "Lich's Circlet",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"11% increased Cast Speed",
+					"7% of Physical Damage from Hits taken as Chaos Damage",
+					"+61 to maximum Energy Shield",
+					"132% increased Energy Shield",
+					"14% increased Stun and Block Recovery"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "New Item",
+				"baseType": "Twilight Regalia",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"+(26-27)% to Critical Strike Multiplier for Spell Damage",
+					"11% of Physical Damage from Hits taken as Chaos Damage",
+					"+96 to maximum Energy Shield",
+					"143% increased Energy Shield",
+					"14% increased Stun and Block Recovery"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "New Item",
+				"baseType": "Warlock Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"20% chance to Unnerve Enemies for 4 seconds on Hit",
+					"Inflict Cold Exposure on Hit, applying -13% to Cold Resistance",
+					"+46 to Dexterity",
+					"+45 to maximum Energy Shield",
+					"99% increased Energy Shield",
+					"(17-20)% increased Projectile Speed",
+					"(14-16)% increased Projectile Damage"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "New Item",
+				"baseType": "Warlock Boots",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"5% increased Action Speed",
+					"+46 to maximum Energy Shield",
+					"97% increased Energy Shield",
+					"35% increased Movement Speed"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Replica Dragonfang's Flight",
+				"baseType": "Onyx Amulet",
+				"rarity": "UNIQUE",
+				"levelRequirement": 56,
+				"stats": [
+					"Allocates Tranquility",
+					"+(10-16) to all Attributes",
+					"+(5-10)% to all Elemental Resistances",
+					"(5-10)% increased Reservation Efficiency of Skills",
+					"Items and Gems have (5-10)% reduced Attribute Requirements"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "New Item",
+				"baseType": "Moonstone Ring",
+				"rarity": "RARE",
+				"levelRequirement": 65,
+				"stats": [
+					"10% increased cast speed",
+					"+53 to Dexterity",
+					"16% increased Cast Speed",
+					"+47 to maximum Energy Shield",
+					"15% increased maximum Energy Shield",
+					"(14-16)% increased Global Critical Strike Chance",
+					"+(21-23)% to Critical Strike Multiplier if you've Shattered an Enemy Recently"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Death Rush",
+				"baseType": "Amethyst Ring",
+				"rarity": "UNIQUE",
+				"levelRequirement": 30,
+				"stats": [
+					"+23% to Chaos Resistance",
+					"Recover 4% of Life on Kill",
+					"Gain Adrenaline for 3 seconds on Kill"
+				]
+			},
+			{
+				"slot": "Belt",
+				"name": "New Item",
+				"baseType": "Stygian Vise",
+				"rarity": "RARE",
+				"levelRequirement": 65,
+				"stats": [
+					"Has 1 Abyssal Socket",
+					"+54 to Strength",
+					"+51 to maximum Energy Shield",
+					"15% increased maximum Energy Shield"
+				]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"+(8-12)% Chance to Block Attack Damage during Effect",
+					"+(4-6)% Chance to Block Spell Damage during Effect"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Experimenter's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": ["40% increased Duration", "14% increased Movement Speed during Effect"]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Clinician's Diamond Flask of Penetrating",
+				"baseType": "Diamond Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 54,
+				"stats": ["33% increased Duration", "47% increased Critical Strike Chance during Effect"]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Brewer's Silver Flask of the Owl",
+				"baseType": "Silver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"24% reduced Charges per use",
+					"63% reduced Effect of Curses on you during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"(125-150)% increased Charges per use",
+					"(40-60)% less Duration",
+					"(10-20)% increased Area of Effect during Effect",
+					"Skills fire 2 additional Projectiles during Effect"
+				]
+			}
+		],
+		"pcharge-stack": [
+			{
+				"slot": "Weapon 1",
+				"name": "Tulfall",
+				"baseType": "Opal Wand",
+				"rarity": "UNIQUE",
+				"levelRequirement": 62,
+				"stats": [
+					"Adds (14-29) to (42-47) Cold Damage to Spells and Attacks",
+					"(10-20)% increased Cast Speed",
+					"Gain a Power Charge on Killing a Frozen Enemy",
+					"Adds 50 to 70 Cold Damage to Spells per Power Charge",
+					"Lose all Power Charges on reaching Maximum Power Charges",
+					"Gain a Frenzy Charge on reaching Maximum Power Charges"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "Malachai's Loop",
+				"baseType": "Harmonic Spirit Shield",
+				"rarity": "UNIQUE",
+				"levelRequirement": 65,
+				"stats": [
+					"(10-15)% increased Spell Damage",
+					"(210-250)% increased Energy Shield",
+					"+2 to Maximum Power Charges",
+					"20% chance to gain a Power Charge on Hit",
+					"(12-16)% increased Spell Damage per Power Charge",
+					"Lose all Power Charges on reaching Maximum Power Charges",
+					"Shocks you when you reach Maximum Power Charges"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "Willclash",
+				"baseType": "Golden Mask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 35,
+				"stats": [
+					"+1 to Maximum Power Charges",
+					"(350-400)% increased Evasion and Energy Shield",
+					"+5% Chance to Block Spell Damage per Power Charge",
+					"(3-5)% increased Elemental Damage per Power charge",
+					"Gain a Power Charge every Second if you haven't lost Power Charges Recently",
+					"Lose all Power Charges when you Block",
+					"Corrupted"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "New Item",
+				"baseType": "Twilight Regalia",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"+(24-25)% to Critical Strike Multiplier for Spell Damage",
+					"11% of Physical Damage from Hits taken as Chaos Damage",
+					"+95 to maximum Energy Shield",
+					"140% increased Energy Shield",
+					"+48% to Fire Resistance",
+					"+44% to Cold Resistance",
+					"+44% to Lightning Resistance",
+					"13% increased Stun and Block Recovery"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "New Item",
+				"baseType": "Warlock Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"25% chance to Unnerve Enemies for 4 seconds on Hit",
+					"Inflict Cold Exposure on Hit, applying -16% to Cold Resistance",
+					"+49 to maximum Energy Shield",
+					"135% increased Energy Shield",
+					"+47% to Fire Resistance",
+					"+47% to Cold Resistance",
+					"50% increased damage with hits against chilled enemies",
+					"15% increased Stun and Block Recovery",
+					"+(17-20)% to Fire and Lightning Resistances"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "Ralakesh's Impatience",
+				"baseType": "Riveted Boots",
+				"rarity": "UNIQUE",
+				"levelRequirement": 36,
+				"stats": [
+					"+(15-25)% to Cold Resistance",
+					"+(15-25)% to Chaos Resistance",
+					"(15-25)% increased Movement Speed",
+					"Corrupted Blood cannot be inflicted on you",
+					"Count as having maximum number of Power Charges"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Badge of the Brotherhood",
+				"baseType": "Turquoise Amulet",
+				"rarity": "UNIQUE",
+				"levelRequirement": 20,
+				"stats": [
+					"Allocates Disciple of the Slaughter",
+					"+(16-24) to Dexterity and Intelligence",
+					"Your Maximum Frenzy Charges is equal to your Maximum Power Charges",
+					"(7-10)% increased Cooldown Recovery Rate of Travel Skills per Frenzy Charge",
+					"(7-10)% increased Effect of Elusive on you per Power Charge",
+					"(20-25)% chance to lose a Frenzy Charge when you use a Travel Skill",
+					"(20-25)% chance to lose a Power Charge when you gain Elusive"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "Romira's Banquet",
+				"baseType": "Diamond Ring",
+				"rarity": "UNIQUE",
+				"levelRequirement": 60,
+				"stats": [
+					"(20-30)% increased Global Critical Strike Chance",
+					"+1 to maximum power charges",
+					"+(15-25)% to Global Critical Strike Multiplier",
+					"+(40-60) to maximum Mana",
+					"0.4% of Physical Attack Damage Leeched as Mana",
+					"Gain a Power Charge on Non-Critical Strike",
+					"Lose all Power Charges on Critical Strike"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Romira's Banquet",
+				"baseType": "Diamond Ring",
+				"rarity": "UNIQUE",
+				"levelRequirement": 60,
+				"stats": [
+					"(20-30)% increased Global Critical Strike Chance",
+					"+1 to maximum power charges",
+					"+(15-25)% to Global Critical Strike Multiplier",
+					"+(40-60) to maximum Mana",
+					"0.4% of Physical Attack Damage Leeched as Mana",
+					"Gain a Power Charge on Non-Critical Strike",
+					"Lose all Power Charges on Critical Strike"
+				]
+			},
+			{
+				"slot": "Belt",
+				"name": "Graven's Secret",
+				"baseType": "Cloth Belt",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"(15-25)% increased Stun and Block Recovery",
+					"+(60-70) to maximum Energy Shield",
+					"(16-20)% increased maximum Mana",
+					"+(40-60)% to Lightning Resistance",
+					"+1 to Maximum Power Charges",
+					"Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges",
+					"Maximum Absorption Charges is equal to Maximum Power Charges",
+					"Gain Absorption Charges instead of Power Charges"
+				]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"+(8-12)% Chance to Block Attack Damage during Effect",
+					"+(4-6)% Chance to Block Spell Damage during Effect"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Experimenter's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": ["40% increased Duration", "14% increased Movement Speed during Effect"]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Clinician's Diamond Flask of Penetrating",
+				"baseType": "Diamond Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 54,
+				"stats": ["33% increased Duration", "47% increased Critical Strike Chance during Effect"]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Brewer's Silver Flask of the Owl",
+				"baseType": "Silver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"24% reduced Charges per use",
+					"63% reduced Effect of Curses on you during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"(125-150)% increased Charges per use",
+					"(40-60)% less Duration",
+					"(10-20)% increased Area of Effect during Effect",
+					"Skills fire 2 additional Projectiles during Effect"
+				]
+			}
+		],
+		"uber-pcharge": [
+			{
+				"slot": "Weapon 1",
+				"name": "Tulfall",
+				"baseType": "Opal Wand",
+				"rarity": "UNIQUE",
+				"levelRequirement": 62,
+				"stats": [
+					"Adds (14-29) to (42-47) Cold Damage to Spells and Attacks",
+					"(10-20)% increased Cast Speed",
+					"Gain a Power Charge on Killing a Frozen Enemy",
+					"Adds 62 to 86 Cold Damage to Spells per Power Charge",
+					"Lose all Power Charges on reaching Maximum Power Charges",
+					"Gain a Frenzy Charge on reaching Maximum Power Charges"
+				]
+			},
+			{
+				"slot": "Weapon 2",
+				"name": "Malachai's Loop",
+				"baseType": "Harmonic Spirit Shield",
+				"rarity": "UNIQUE",
+				"levelRequirement": 65,
+				"stats": [
+					"(10-15)% increased Spell Damage",
+					"(210-250)% increased Energy Shield",
+					"+2 to Maximum Power Charges",
+					"20% chance to gain a Power Charge on Hit",
+					"19% increased Spell Damage per Power Charge",
+					"Lose all Power Charges on reaching Maximum Power Charges",
+					"Shocks you when you reach Maximum Power Charges"
+				]
+			},
+			{
+				"slot": "Helmet",
+				"name": "Willclash",
+				"baseType": "Golden Mask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 35,
+				"stats": [
+					"+1 to Maximum Power Charges",
+					"(350-400)% increased Evasion and Energy Shield",
+					"+5% Chance to Block Spell Damage per Power Charge",
+					"(3-5)% increased Elemental Damage per Power charge",
+					"Gain a Power Charge every Second if you haven't lost Power Charges Recently",
+					"Lose all Power Charges when you Block",
+					"Corrupted"
+				]
+			},
+			{
+				"slot": "Body Armour",
+				"name": "New Item",
+				"baseType": "Twilight Regalia",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"+(24-25)% to Critical Strike Multiplier for Spell Damage",
+					"11% of Physical Damage from Hits taken as Chaos Damage",
+					"+95 to maximum Energy Shield",
+					"140% increased Energy Shield",
+					"+48% to Fire Resistance",
+					"+44% to Cold Resistance",
+					"+44% to Lightning Resistance",
+					"13% increased Stun and Block Recovery"
+				]
+			},
+			{
+				"slot": "Gloves",
+				"name": "New Item",
+				"baseType": "Warlock Gloves",
+				"rarity": "RARE",
+				"levelRequirement": 84,
+				"stats": [
+					"25% chance to Unnerve Enemies for 4 seconds on Hit",
+					"Inflict Cold Exposure on Hit, applying -16% to Cold Resistance",
+					"+49 to maximum Energy Shield",
+					"135% increased Energy Shield",
+					"+47% to Fire Resistance",
+					"+47% to Cold Resistance",
+					"50% increased damage with hits against chilled enemies",
+					"15% increased Stun and Block Recovery",
+					"+(17-20)% to Fire and Lightning Resistances"
+				]
+			},
+			{
+				"slot": "Boots",
+				"name": "Ralakesh's Impatience",
+				"baseType": "Riveted Boots",
+				"rarity": "UNIQUE",
+				"levelRequirement": 36,
+				"stats": [
+					"+(15-25)% to Cold Resistance",
+					"+(15-25)% to Chaos Resistance",
+					"(15-25)% increased Movement Speed",
+					"Corrupted Blood cannot be inflicted on you",
+					"Count as having maximum number of Power Charges"
+				]
+			},
+			{
+				"slot": "Amulet",
+				"name": "Badge of the Brotherhood",
+				"baseType": "Turquoise Amulet",
+				"rarity": "UNIQUE",
+				"levelRequirement": 20,
+				"stats": [
+					"Allocates Disciple of the Slaughter",
+					"+(16-24) to Dexterity and Intelligence",
+					"Your Maximum Frenzy Charges is equal to your Maximum Power Charges",
+					"(7-10)% increased Cooldown Recovery Rate of Travel Skills per Frenzy Charge",
+					"(7-10)% increased Effect of Elusive on you per Power Charge",
+					"(20-25)% chance to lose a Frenzy Charge when you use a Travel Skill",
+					"(20-25)% chance to lose a Power Charge when you gain Elusive"
+				]
+			},
+			{
+				"slot": "Ring 1",
+				"name": "Romira's Banquet",
+				"baseType": "Diamond Ring",
+				"rarity": "RARE",
+				"levelRequirement": 60,
+				"stats": [
+					"+1 to maximum power charges",
+					"+1 to maximum power charges",
+					"+(15-25)% to Global Critical Strike Multiplier",
+					"+(40-60) to maximum Mana",
+					"0.4% of Physical Attack Damage Leeched as Mana",
+					"Gain a Power Charge on Non-Critical Strike",
+					"Lose all Power Charges on Critical Strike"
+				]
+			},
+			{
+				"slot": "Ring 2",
+				"name": "Romira's Banquet",
+				"baseType": "Diamond Ring",
+				"rarity": "RARE",
+				"levelRequirement": 60,
+				"stats": [
+					"+1 to maximum power charges",
+					"+1 to maximum power charges",
+					"+(15-25)% to Global Critical Strike Multiplier",
+					"+(40-60) to maximum Mana",
+					"0.4% of Physical Attack Damage Leeched as Mana",
+					"Gain a Power Charge on Non-Critical Strike",
+					"Lose all Power Charges on Critical Strike"
+				]
+			},
+			{
+				"slot": "Belt",
+				"name": "Graven's Secret",
+				"baseType": "Cloth Belt",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"(15-25)% increased Stun and Block Recovery",
+					"+(60-70) to maximum Energy Shield",
+					"(16-20)% increased maximum Mana",
+					"+(40-60)% to Lightning Resistance",
+					"+1 to Maximum Power Charges",
+					"Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges",
+					"Maximum Absorption Charges is equal to Maximum Power Charges",
+					"Gain Absorption Charges instead of Power Charges"
+				]
+			},
+			{
+				"slot": "Flask 1",
+				"name": "Rumi's Concoction",
+				"baseType": "Granite Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"+(8-12)% Chance to Block Attack Damage during Effect",
+					"+(4-6)% Chance to Block Spell Damage during Effect"
+				]
+			},
+			{
+				"slot": "Flask 2",
+				"name": "Experimenter's Quicksilver Flask of the Cheetah",
+				"baseType": "Quicksilver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 68,
+				"stats": ["40% increased Duration", "14% increased Movement Speed during Effect"]
+			},
+			{
+				"slot": "Flask 3",
+				"name": "Clinician's Diamond Flask of Penetrating",
+				"baseType": "Diamond Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 54,
+				"stats": ["33% increased Duration", "47% increased Critical Strike Chance during Effect"]
+			},
+			{
+				"slot": "Flask 4",
+				"name": "Brewer's Silver Flask of the Owl",
+				"baseType": "Silver Flask",
+				"rarity": "MAGIC",
+				"levelRequirement": 67,
+				"stats": [
+					"24% reduced Charges per use",
+					"63% reduced Effect of Curses on you during Effect"
+				]
+			},
+			{
+				"slot": "Flask 5",
+				"name": "Dying Sun",
+				"baseType": "Ruby Flask",
+				"rarity": "UNIQUE",
+				"levelRequirement": 68,
+				"stats": [
+					"(125-150)% increased Charges per use",
+					"(40-60)% less Duration",
+					"(10-20)% increased Area of Effect during Effect",
+					"Skills fire 2 additional Projectiles during Effect"
+				]
+			}
+		]
+	}
+}

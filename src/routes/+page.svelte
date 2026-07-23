@@ -13,6 +13,7 @@
 	} from 'flowbite-svelte-icons';
 	import BuildLibrary from '$lib/components/BuildLibrary.svelte';
 	import BuildNotesSection from '$lib/components/BuildNotesSection.svelte';
+	import EquipmentSection from '$lib/components/EquipmentSection.svelte';
 	import GemGroupsSection from '$lib/components/GemGroupsSection.svelte';
 	import ProgressRail from '$lib/components/ProgressRail.svelte';
 	import StepInsights from '$lib/components/StepInsights.svelte';
@@ -547,6 +548,15 @@
 				</section>
 
 				<StepInsights insights={activeStep.insights ?? []} />
+
+				<EquipmentSection
+					items={activeStep.equipment ?? []}
+					previousItems={previousStep ? (previousStep.equipment ?? []) : null}
+					previousStepTitle={previousStep?.title}
+					stepId={activeStep.id}
+					snapshot={priceSnapshot}
+					prioritySourceUrl={MAXROLL_URL}
+				/>
 
 				<UniqueItemsSection
 					items={activeStep.uniques}

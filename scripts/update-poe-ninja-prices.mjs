@@ -171,6 +171,10 @@ async function updatePrices() {
 try {
 	await updatePrices();
 } catch (error) {
+	if (process.env.POE_NINJA_REFRESH_REQUIRED === '1') {
+		throw error;
+	}
+
 	try {
 		await readFile(outputPath, 'utf8');
 		console.warn(`Price refresh failed; preserving the existing snapshot. ${error.message}`);

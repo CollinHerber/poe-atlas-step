@@ -1,0 +1,57 @@
+name: Refresh poe.ninja prices
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: poe-ninja-price-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10.32.1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Refresh full unique price catalog
+        env:
+          POE_NINJA_REFRESH_REQUIRED: '1'
+        run: pnpm prices:update
+
+      - name: Validate generated snapshot
+        run: pnpm prices:validate
+
+      - name: Commit refreshed prices
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          git add static/data/poe-ninja-prices.json
+
+          if git diff --cached --quiet; then
+            echo "The price snapshot is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh poe.ninja prices"
+          git push origin "HEAD:${TARGET_BRANCH}"

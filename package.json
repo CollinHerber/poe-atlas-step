@@ -11,6 +11,7 @@
 		"preview": "vite preview",
 		"encoding:check": "node scripts/check-text-encoding.mjs",
 		"prices:update": "node scripts/update-poe-ninja-prices.mjs",
+		"prices:validate": "node scripts/validate-poe-ninja-prices.mjs",
 		"tiers:update": "node scripts/update-poeladder-tiers.mjs",
 		"wiki:validate": "node scripts/validate-poewiki-routes.mjs",
 		"prepare": "svelte-kit sync || echo ''",

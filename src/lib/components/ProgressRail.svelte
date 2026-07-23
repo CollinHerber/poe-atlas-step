@@ -23,7 +23,7 @@
 			<li class="relative lg:pb-3">
 				{#if index < steps.length - 1}
 					<span
-						class="absolute top-11 left-[1.15rem] hidden h-[calc(100%-1.75rem)] w-px bg-slate-700 lg:block"
+						class="absolute top-8 left-[1.875rem] hidden h-[calc(100%+0.25rem)] w-px bg-slate-700 lg:block"
 						aria-hidden="true"
 					></span>
 				{/if}

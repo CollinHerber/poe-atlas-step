@@ -6,6 +6,7 @@
 	} from '$lib/poe/equipment';
 	import { uniquePriceKey } from '$lib/poe/items';
 	import type {
+		GuideEquipmentImplicit,
 		GuideEquipmentItem,
 		PoeNinjaPriceSnapshot,
 		PoeNinjaUniquePrice
@@ -42,6 +43,37 @@
 		MAGIC: 'text-blue-200',
 		RARE: 'text-yellow-100',
 		UNIQUE: 'text-amber-200'
+	};
+
+	const implicitStyles: Record<
+		GuideEquipmentImplicit['source'],
+		{ label: string; container: string; labelText: string }
+	> = {
+		eater: {
+			label: 'Eater of Worlds · Eldritch Ichor',
+			container: 'border-cyan-400/25 bg-cyan-400/8 text-cyan-100',
+			labelText: 'text-cyan-400'
+		},
+		exarch: {
+			label: 'Searing Exarch · Eldritch Ember',
+			container: 'border-orange-400/25 bg-orange-400/8 text-orange-100',
+			labelText: 'text-orange-400'
+		},
+		anointment: {
+			label: 'Anointment',
+			container: 'border-violet-400/25 bg-violet-400/8 text-violet-100',
+			labelText: 'text-violet-400'
+		},
+		enchant: {
+			label: 'Enchant',
+			container: 'border-emerald-400/25 bg-emerald-400/8 text-emerald-100',
+			labelText: 'text-emerald-400'
+		},
+		base: {
+			label: 'Item implicit',
+			container: 'border-slate-500/25 bg-slate-500/8 text-slate-300',
+			labelText: 'text-slate-500'
+		}
 	};
 
 	function getPrice(item: GuideEquipmentItem): PoeNinjaUniquePrice | undefined {
@@ -208,6 +240,30 @@
 							</p>
 						</div>
 					</div>
+
+					{#if item.implicits?.length}
+						<div class="mt-4">
+							<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">
+								Implicits to roll
+							</p>
+							<div class="mt-2 grid gap-2">
+								{#each item.implicits as implicit, implicitIndex (`${implicit.source}-${implicit.text}-${implicitIndex}`)}
+									{@const presentation = implicitStyles[implicit.source]}
+									<div class={['rounded-lg border px-3 py-2', presentation.container]}>
+										<p
+											class={[
+												'text-[0.6rem] font-bold tracking-[0.12em] uppercase',
+												presentation.labelText
+											]}
+										>
+											{presentation.label}
+										</p>
+										<p class="mt-1 text-xs leading-5">{implicit.text}</p>
+									</div>
+								{/each}
+							</div>
+						</div>
+					{/if}
 
 					<div class="mt-4">
 						<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">

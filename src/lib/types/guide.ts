@@ -46,12 +46,18 @@ export type GuideGemGroup = {
 	gems: GuideGem[];
 };
 
+export type GuideEquipmentImplicit = {
+	text: string;
+	source: 'eater' | 'exarch' | 'anointment' | 'enchant' | 'base';
+};
+
 export type GuideEquipmentItem = {
 	slot: string;
 	name: string;
 	baseType: string;
 	rarity: 'NORMAL' | 'MAGIC' | 'RARE' | 'UNIQUE';
 	levelRequirement?: number;
+	implicits?: GuideEquipmentImplicit[];
 	stats: string[];
 };
 

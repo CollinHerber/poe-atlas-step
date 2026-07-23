@@ -1,5 +1,6 @@
 import type {
 	BuildGuide,
+	GuideEquipmentImplicit,
 	GuideEquipmentItem,
 	GuideGem,
 	GuideGemGroup,
@@ -97,6 +98,13 @@ const isGemGroup = (value: unknown): value is GuideGemGroup =>
 	value.gems.every(isGem);
 
 const equipmentRarities = new Set(['NORMAL', 'MAGIC', 'RARE', 'UNIQUE']);
+const equipmentImplicitSources = new Set(['eater', 'exarch', 'anointment', 'enchant', 'base']);
+
+const isEquipmentImplicit = (value: unknown): value is GuideEquipmentImplicit =>
+	isObject(value) &&
+	isString(value.text, 1_000) &&
+	typeof value.source === 'string' &&
+	equipmentImplicitSources.has(value.source);
 
 const isEquipmentItem = (value: unknown): value is GuideEquipmentItem =>
 	isObject(value) &&
@@ -110,6 +118,10 @@ const isEquipmentItem = (value: unknown): value is GuideEquipmentItem =>
 			Number.isFinite(value.levelRequirement) &&
 			value.levelRequirement >= 0 &&
 			value.levelRequirement <= 100)) &&
+	(value.implicits === undefined ||
+		(Array.isArray(value.implicits) &&
+			value.implicits.length <= 10 &&
+			value.implicits.every(isEquipmentImplicit))) &&
 	Array.isArray(value.stats) &&
 	value.stats.length <= 50 &&
 	value.stats.every((stat) => isString(stat, 1_000));

@@ -77,6 +77,14 @@ const findItemSet = (xml, title) => {
 
 const cleanStat = (line) => line.replace(/\{[^}]*\}/gu, '').trim();
 
+const implicitSource = (line, text) => {
+	if (line.includes('{eater}')) return 'eater';
+	if (line.includes('{exarch}')) return 'exarch';
+	if (line.includes('{crafted}') && text.startsWith('Allocates ')) return 'anointment';
+	if (line.includes('{crafted}')) return 'enchant';
+	return 'base';
+};
+
 const appliesToVariant = (line, selectedVariant) => {
 	const match = line.match(/\{variant:([^}]+)\}/u);
 	if (!match) return true;
@@ -111,20 +119,24 @@ const parseItems = (xml) => {
 			lines.find((line) => line.startsWith('LevelReq:'))?.slice('LevelReq:'.length)
 		);
 		const implicitIndex = lines.findIndex((line) => line.startsWith('Implicits:'));
-		const stats =
+		const implicitCount =
+			implicitIndex < 0 ? 0 : Number(lines[implicitIndex].slice('Implicits:'.length));
+		const modifierLines =
 			implicitIndex < 0
 				? []
-				: lines
-						.slice(implicitIndex + 1)
-						.filter((line) => appliesToVariant(line, selectedVariant))
-						.map(cleanStat)
-						.filter(Boolean);
+				: lines.slice(implicitIndex + 1).filter((line) => appliesToVariant(line, selectedVariant));
+		const implicits = modifierLines.slice(0, implicitCount).flatMap((line) => {
+			const text = cleanStat(line);
+			return text ? [{ text, source: implicitSource(line, text) }] : [];
+		});
+		const stats = modifierLines.slice(implicitCount).map(cleanStat).filter(Boolean);
 
 		items.set(match[1], {
 			name,
 			baseType,
 			rarity,
 			...(Number.isFinite(levelRequirement) && levelRequirement > 0 ? { levelRequirement } : {}),
+			...(implicits.length ? { implicits } : {}),
 			stats
 		});
 	}

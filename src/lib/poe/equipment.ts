@@ -164,6 +164,7 @@ const itemSignature = (item: GuideEquipmentItem) =>
 		baseType: item.baseType,
 		rarity: item.rarity,
 		levelRequirement: item.levelRequirement,
+		implicits: item.implicits,
 		stats: item.stats
 	});
 

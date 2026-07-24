@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { goto } from '$app/navigation';
+	import { base, resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import { onMount, tick, untrack } from 'svelte';
 	import { Badge, Button, Progressbar } from 'flowbite-svelte';
 	import {
@@ -68,6 +70,8 @@
 		UniqueTierSnapshot
 	} from '$lib/types/guide';
 
+	let { children } = $props();
+
 	const SITE_URL = 'https://collinherber.github.io/poe-build-tool/';
 	const SOCIAL_IMAGE_URL = `${SITE_URL}og.png`;
 	const SITE_TITLE = 'Atlas Step — Path of Exile Build Progression Planner';
@@ -83,6 +87,7 @@
 		{ id: 'skill-gems', label: 'Skill gems' },
 		{ id: 'build-notes', label: 'Build notes' }
 	];
+	type ToolTab = 'build-steps' | 'uniques' | 'compare';
 
 	let guide = $state<BuildGuide>(cloneGuide(sampleGuides[0]));
 	let activeStepId = $state(sampleGuides[0].steps[0].id);
@@ -101,7 +106,6 @@
 	let libraryMessage = $state('');
 	let shareUrl = $state('');
 	let sharing = $state(false);
-	let activeToolTab = $state<'build-steps' | 'uniques' | 'compare'>('build-steps');
 	let showBuildLibrary = $state(false);
 	let buildLibraryButton = $state<HTMLButtonElement>();
 	let buildLibraryCloseButton = $state<HTMLButtonElement>();
@@ -124,6 +128,13 @@
 	let completedCount = $derived(allTodos.filter((todo) => todo.done).length);
 	let overallProgress = $derived(
 		allTodos.length ? Math.round((completedCount / allTodos.length) * 100) : 0
+	);
+	let activeToolTab = $derived<ToolTab>(
+		page.route.id?.endsWith('/uniques')
+			? 'uniques'
+			: page.route.id?.endsWith('/compare')
+				? 'compare'
+				: 'build-steps'
 	);
 
 	const storageKey = (guideId: string) => `atlas-step:guide:${guideId}`;
@@ -704,7 +715,7 @@
 
 	async function openUniqueStep(stepId: string) {
 		selectStep(stepId);
-		activeToolTab = 'build-steps';
+		await goto(resolve('/build-steps/'));
 		await tick();
 		document.getElementById('step-details')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}
@@ -860,10 +871,9 @@
 			class="mb-6 inline-flex max-w-full gap-1 overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/70 p-1"
 			aria-label="Atlas Step tools"
 		>
-			<button
-				type="button"
-				aria-pressed={activeToolTab === 'build-steps'}
-				onclick={() => (activeToolTab = 'build-steps')}
+			<a
+				href={resolve('/build-steps/')}
+				aria-current={activeToolTab === 'build-steps' ? 'page' : undefined}
 				class={`inline-flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
 					activeToolTab === 'build-steps'
 						? 'bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-950/20'
@@ -871,11 +881,10 @@
 				}`}
 			>
 				<ListOutline class="size-4" /> Build Steps
-			</button>
-			<button
-				type="button"
-				aria-pressed={activeToolTab === 'uniques'}
-				onclick={() => (activeToolTab = 'uniques')}
+			</a>
+			<a
+				href={resolve('/uniques/')}
+				aria-current={activeToolTab === 'uniques' ? 'page' : undefined}
 				class={`inline-flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
 					activeToolTab === 'uniques'
 						? 'bg-amber-300 text-slate-950 shadow-lg shadow-amber-950/20'
@@ -883,11 +892,10 @@
 				}`}
 			>
 				<StarOutline class="size-4" /> Uniques
-			</button>
-			<button
-				type="button"
-				aria-pressed={activeToolTab === 'compare'}
-				onclick={() => (activeToolTab = 'compare')}
+			</a>
+			<a
+				href={resolve('/compare/')}
+				aria-current={activeToolTab === 'compare' ? 'page' : undefined}
 				class={`inline-flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${
 					activeToolTab === 'compare'
 						? 'bg-violet-300 text-slate-950 shadow-lg shadow-violet-950/20'
@@ -895,7 +903,7 @@
 				}`}
 			>
 				<ArrowRightOutline class="size-4" /> Compare
-			</button>
+			</a>
 		</div>
 
 		<section
@@ -1181,6 +1189,8 @@
 								</a>
 								<!-- eslint-enable svelte/no-navigation-without-resolve -->
 							{/if}
+							<!-- External PoB URLs must not use SvelteKit's internal route resolver. -->
+							<!-- eslint-disable svelte/no-navigation-without-resolve -->
 							<a
 								href={guide.sourceUrl}
 								target="_blank"
@@ -1189,6 +1199,7 @@
 							>
 								Open source PoB <ArrowUpRightFromSquareOutline class="size-3.5" />
 							</a>
+							<!-- eslint-enable svelte/no-navigation-without-resolve -->
 						</div>
 						{#if !editingStepDetails}
 							<p class="w-full text-sm leading-7 text-slate-400 xl:col-span-2">
@@ -1359,6 +1370,8 @@
 							References
 						</p>
 						<div class="mt-3 space-y-2">
+							<!-- Reference URLs are external and must be used directly. -->
+							<!-- eslint-disable svelte/no-navigation-without-resolve -->
 							<a
 								href={TRANSITION_POB_URL}
 								target="_blank"
@@ -1391,6 +1404,7 @@
 							>
 								<BookOpenOutline class="size-3.5" /> Fubgun video guide
 							</a>
+							<!-- eslint-enable svelte/no-navigation-without-resolve -->
 						</div>
 					</section>
 
@@ -1432,3 +1446,5 @@
 		Atlas Step is an independent planning tool and is not affiliated with Grinding Gear Games.
 	</footer>
 </div>
+
+{@render children()}

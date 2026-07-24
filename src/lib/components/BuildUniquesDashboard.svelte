@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { SvelteMap } from 'svelte/reactivity';
-	import { ArrowUpRightFromSquareOutline, StarOutline } from 'flowbite-svelte-icons';
+	import { ArrowUpRightFromSquareOutline } from 'flowbite-svelte-icons';
 	import OptionalUniquesSection from '$lib/components/OptionalUniquesSection.svelte';
 	import { buildTradeUrl, buildWikiUrl, uniquePriceKey } from '$lib/poe/items';
 	import {
@@ -131,23 +131,7 @@
 </script>
 
 <section class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60">
-	<header
-		class="grid gap-5 border-b border-slate-800 p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
-	>
-		<div>
-			<div class="flex items-center gap-2 text-amber-300">
-				<StarOutline class="size-5" />
-				<p class="text-[0.65rem] font-semibold tracking-[0.2em] uppercase">Unique price watch</p>
-			</div>
-			<h1 class="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-				Every unique in {guide.name}
-			</h1>
-			<p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-				See when each item enters the build, compare the current market estimate, and jump directly
-				to trade when an upgrade reaches your target price. T0 is the rarest community drop tier.
-			</p>
-		</div>
-
+	<header class="border-b border-slate-800 p-4 sm:px-6">
 		<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
 			<div class="rounded-xl border border-slate-800 bg-slate-950/45 px-4 py-3">
 				<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">Items</p>

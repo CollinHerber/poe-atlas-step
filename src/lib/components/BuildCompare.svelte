@@ -250,22 +250,7 @@
 	<section
 		class="overflow-hidden rounded-2xl border border-violet-400/20 bg-slate-900/60 shadow-2xl shadow-black/20"
 	>
-		<div
-			class="grid gap-5 p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.8fr)] lg:items-end"
-		>
-			<div>
-				<p class="text-xs font-semibold tracking-[0.2em] text-violet-300 uppercase">
-					Build comparison
-				</p>
-				<h1 class="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-					See exactly what changes between two PoB loadouts.
-				</h1>
-				<p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-					Import another pobb.in build, choose a checkpoint on each side, and review the gear,
-					calculated stats, configuration, and gem changes before committing to a swap.
-				</p>
-			</div>
-
+		<div class="p-4 sm:p-6">
 			<form
 				onsubmit={importComparison}
 				class="rounded-xl border border-slate-800 bg-slate-950/60 p-4"

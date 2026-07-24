@@ -902,20 +902,11 @@
 			class:hidden={activeToolTab !== 'build-steps'}
 			class="mb-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 shadow-2xl shadow-black/20"
 		>
-			<div class="grid gap-6 p-5 sm:p-6 lg:grid-cols-[1fr_auto] lg:items-end">
-				<div>
-					<div class="mb-3 flex flex-wrap items-center gap-2">
-						<Badge color="gray" rounded>Winter Orb</Badge>
-						<Badge color="gray" rounded>{guide.className}</Badge>
-						<span class="text-xs text-slate-600">Source PoB {guide.buildVersion}</span>
-					</div>
-					<h1 class="max-w-3xl text-2xl font-bold tracking-tight text-white sm:text-3xl">
-						Follow the transition one concrete action at a time.
-					</h1>
-					<p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base">
-						Each Path of Building loadout is a checklist: make the changes, verify the systems, and
-						finish the handoff checks before moving to the next version.
-					</p>
+			<div class="grid gap-4 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-6">
+				<div class="flex flex-wrap items-center gap-2">
+					<Badge color="gray" rounded>Winter Orb</Badge>
+					<Badge color="gray" rounded>{guide.className}</Badge>
+					<span class="text-xs text-slate-600">Source PoB {guide.buildVersion}</span>
 				</div>
 				<div class="min-w-56 rounded-xl border border-slate-800 bg-slate-950/60 p-4">
 					<div class="flex items-end justify-between">

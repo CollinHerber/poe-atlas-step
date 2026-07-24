@@ -1,10 +1,15 @@
 <script lang="ts">
+	import { ArrowUpRightFromSquareOutline } from 'flowbite-svelte-icons';
 	import {
 		diffEquipment,
 		getCheckpointPriorities,
 		getEquipmentPriorities
 	} from '$lib/poe/equipment';
-	import { uniquePriceKey } from '$lib/poe/items';
+	import {
+		buildEquipmentTradeFilters,
+		buildEquipmentTradeUrl,
+		uniquePriceKey
+	} from '$lib/poe/items';
 	import type {
 		GuideEquipmentImplicit,
 		GuideEquipmentItem,
@@ -30,6 +35,7 @@
 
 	let changes = $derived(diffEquipment(previousItems ?? [], items));
 	let checkpointPriorities = $derived(getCheckpointPriorities(stepId));
+	const league = $derived(snapshot?.league ?? 'Standard');
 
 	const rarityStyles = {
 		NORMAL: 'border-slate-500/30 bg-slate-500/10 text-slate-300',
@@ -197,6 +203,8 @@
 			{#each items as item (item.slot)}
 				{@const priorities = getEquipmentPriorities(item)}
 				{@const price = getPrice(item)}
+				{@const tradeFilters = buildEquipmentTradeFilters(item, priorities)}
+				{@const tradeUrl = buildEquipmentTradeUrl(item, priorities, league)}
 				<article class="min-w-0 bg-slate-900/95 p-5 sm:p-6">
 					<div class="flex items-start gap-3">
 						<div
@@ -317,6 +325,26 @@
 							{/if}
 						{:else}
 							<p class="mt-2 text-xs text-slate-600">No explicit modifiers recorded in the PoB.</p>
+						{/if}
+					</div>
+
+					<div class="mt-5 flex flex-wrap items-center gap-3 border-t border-slate-800/80 pt-4">
+						<!-- External trade URLs must not use SvelteKit's internal route resolver. -->
+						<!-- eslint-disable svelte/no-navigation-without-resolve -->
+						<a
+							href={tradeUrl}
+							target="_blank"
+							rel="noreferrer"
+							aria-label={`Search for ${item.name} upgrades on the Path of Exile trade site`}
+							class="inline-flex items-center gap-2 rounded-lg border border-cyan-400/30 bg-cyan-400/8 px-3 py-2 text-xs font-semibold text-cyan-300 transition hover:border-cyan-300/60 hover:bg-cyan-400/15 hover:text-cyan-200"
+						>
+							Trade search <ArrowUpRightFromSquareOutline class="size-3.5" />
+						</a>
+						<!-- eslint-enable svelte/no-navigation-without-resolve -->
+						{#if item.rarity === 'RARE' && tradeFilters.length}
+							<p class="text-[0.65rem] text-slate-600">
+								Matches any 2 of {tradeFilters.length} PoB and priority stats
+							</p>
 						{/if}
 					</div>
 				</article>

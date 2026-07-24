@@ -236,7 +236,7 @@ export const buildTradeUrl = (item: GuideUnique, league: string) => {
 	const foulborn = item.name.startsWith('Foulborn ');
 	const query = {
 		query: {
-			status: { option: 'online' },
+			status: { option: 'available' },
 			name: foulborn ? item.name.replace(/^Foulborn\s+/u, '') : item.name,
 			type: item.baseType,
 			stats: [{ type: 'and', filters: [] }],
@@ -265,7 +265,7 @@ export const buildEquipmentTradeUrl = (
 		const foulborn = item.name.startsWith('Foulborn ');
 		const query = {
 			query: {
-				status: { option: 'online' },
+				status: { option: 'available' },
 				name: foulborn ? item.name.replace(/^Foulborn\s+/u, '') : item.name,
 				type: item.baseType,
 				stats: [{ type: 'and', filters: [] }],
@@ -287,7 +287,7 @@ export const buildEquipmentTradeUrl = (
 			: { type: 'and', filters: statFilters };
 	const query = {
 		query: {
-			status: { option: 'online' },
+			status: { option: 'available' },
 			type: item.baseType,
 			stats: [statGroup],
 			filters: itemFilters(item.rarity, item)

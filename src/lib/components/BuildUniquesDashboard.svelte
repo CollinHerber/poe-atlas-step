@@ -131,7 +131,12 @@
 </script>
 
 <section class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60">
-	<header class="border-b border-slate-800 p-4 sm:px-6">
+	<header
+		class="grid gap-4 border-b border-slate-800 p-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center"
+	>
+		<h1 class="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+			Every unique in {guide.name}
+		</h1>
 		<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
 			<div class="rounded-xl border border-slate-800 bg-slate-950/45 px-4 py-3">
 				<p class="text-[0.65rem] font-semibold tracking-wider text-slate-600 uppercase">Items</p>

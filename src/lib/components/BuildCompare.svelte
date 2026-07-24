@@ -251,6 +251,9 @@
 		class="overflow-hidden rounded-2xl border border-violet-400/20 bg-slate-900/60 shadow-2xl shadow-black/20"
 	>
 		<div class="p-4 sm:p-6">
+			<h1 class="mb-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+				See exactly what changes between two PoB loadouts.
+			</h1>
 			<form
 				onsubmit={importComparison}
 				class="rounded-xl border border-slate-800 bg-slate-950/60 p-4"
